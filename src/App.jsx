@@ -384,7 +384,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [selectedModule, setSelectedModule] = useState(null);
   const [profile, setProfile] = useState(null);      // null = not onboarded yet
-  const [onboarding, setOnboarding] = useState(true); // show onboarding first visit
+  const [onboarding, setOnboarding] = useState(false); // skip onboarding by default
 
   // Two nav tiers: primary (always visible) + secondary (overflow)
   const primaryTabs = [

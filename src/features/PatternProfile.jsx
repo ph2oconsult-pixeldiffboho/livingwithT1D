@@ -1,33 +1,7 @@
 import { useState, useEffect } from "react";
+import { patternStore } from "./patternStore";
 
 const COLORS = { ocean: "#2E86AB", coral: "#F46036", mint: "#56C596", sunshine: "#FFD166", lavender: "#9B8EC4", deep: "#1A3A4A", muted: "#8A9BB0" };
-
-// ─── Shared in-memory store (singleton across the session) ──────────────────
-// In production this would be persisted to localStorage or a backend.
-// For now it lives in module scope — survives tab navigation within the session.
-export const patternStore = {
-  entries: [],
-
-  add(entry) {
-    this.entries.unshift({
-      id: Date.now(),
-      timestamp: new Date().toISOString(),
-      ...entry,
-    });
-    // Keep last 50
-    if (this.entries.length > 50) this.entries = this.entries.slice(0, 50);
-    // Notify listeners
-    this._listeners.forEach(fn => fn([...this.entries]));
-  },
-
-  getAll() { return [...this.entries]; },
-
-  _listeners: [],
-  subscribe(fn) {
-    this._listeners.push(fn);
-    return () => { this._listeners = this._listeners.filter(l => l !== fn); };
-  },
-};
 
 // ─── Pattern metadata ───────────────────────────────────────────────────────
 const PATTERN_META = {

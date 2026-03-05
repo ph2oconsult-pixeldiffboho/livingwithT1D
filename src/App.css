@@ -2705,3 +2705,16 @@ body {
   .pp-stats { grid-template-columns: repeat(3, 1fr); }
   .pp-bar-track { width: 50px; }
 }
+
+/* ── Founder photo (real image) ── */
+.founder-photo-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 4px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  display: block;
+  margin: 0 auto;
+}

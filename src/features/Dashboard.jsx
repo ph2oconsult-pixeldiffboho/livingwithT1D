@@ -182,9 +182,11 @@ export default function Dashboard({ profile, onNavigate }) {
         <div className="founder-story-inner">
           {/* Left: image */}
           <div className="founder-photo">
-            <div className="founder-photo-placeholder">
-              <span style={{ fontSize: "4.5rem" }}>👨‍👧</span>
-            </div>
+            <img
+              src="/founders-square.jpg"
+              alt="A father and daughter — the family behind Living Brilliantly with T1D"
+              className="founder-photo-img"
+            />
             <div className="founder-photo-caption">A parent & daughter. A journey of resilience.</div>
           </div>
 

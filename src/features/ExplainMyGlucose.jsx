@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { patternStore } from "./PatternProfile";
+import { patternStore } from "./patternStore";
 
 const COLORS = { ocean: "#2E86AB", coral: "#F46036", mint: "#56C596", sunshine: "#FFD166", lavender: "#9B8EC4", deep: "#1A3A4A", muted: "#8A9BB0" };
 
