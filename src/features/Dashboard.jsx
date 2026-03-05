@@ -187,7 +187,7 @@ export default function Dashboard({ profile, onNavigate }) {
               alt="A father and daughter — the family behind Living Brilliantly with T1D"
               className="founder-photo-img"
             />
-            <div className="founder-photo-caption">A parent & daughter. A journey of resilience.</div>
+            <div className="founder-photo-caption">When our daughter was diagnosed with Type 1 Diabetes, we began a journey of learning, resilience, and growth. This project was created to help other families navigate the same path.</div>
           </div>
 
           {/* Right: story */}
