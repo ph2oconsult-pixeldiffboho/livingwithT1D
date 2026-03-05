@@ -3330,3 +3330,26 @@ body {
   font-size: 0.8rem; color: #8A9BB0; line-height: 1.5;
 }
 .upload-trust-row span:first-child { flex-shrink: 0; }
+
+/* Hero CGM footer — quiet, not dominant */
+.hero-cgm-footer {
+  margin: 4px 0 16px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.hero-cgm-label {
+  font-size: 0.78rem; font-weight: 700;
+  color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.hero-cgm-link {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem; font-weight: 800;
+  color: rgba(255,255,255,0.9);
+  text-decoration: underline; text-underline-offset: 3px;
+  padding: 0; transition: color 0.15s;
+}
+.hero-cgm-link:hover { color: #FFD166; }
