@@ -713,7 +713,7 @@ export default function App() {
           <span>·</span>
           <span>Educational only — not medical advice</span>
         </div>
-        <p style={{ fontSize: "0.78rem", marginTop: 8, opacity: 0.6 }}>© 2025 Living Brilliantly with T1D. For educational purposes only. Not a substitute for professional medical advice.</p>
+        <p style={{ fontSize: "0.78rem", marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Living Brilliantly with T1D. For educational purposes only. Not a substitute for professional medical advice.</p>
       </div>
     </div>
   );
