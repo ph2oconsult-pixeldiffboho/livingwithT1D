@@ -91,8 +91,6 @@ function FeedbackWidget() {
 }
 
 export default function Dashboard({ profile, onNavigate }) {
-  const [email, setEmail] = useState("");
-  const [emailDone, setEmailDone] = useState(false);
   const diag     = profile?.timeSince ? greetings[profile.timeSince] : null;
   const treatTip = profile?.treatment ? treatmentTips[profile.treatment] : null;
   const ageTip   = profile?.childAge  ? ageTips[profile.childAge]  : null;
@@ -247,31 +245,20 @@ export default function Dashboard({ profile, onNavigate }) {
         </div>
       </div>
 
-      {/* ── CONVERSION: EMAIL CAPTURE ── */}
+      {/* ── CONVERSION: PDF DOWNLOAD ── */}
       <div className="email-capture">
-        <div className="ec-emoji">📬</div>
-        <h3 className="ec-title">Get the First 90 Days guide</h3>
-        <p className="ec-sub">A free email guide for newly diagnosed families — one insight per week for the first three months. No spam, unsubscribe any time.</p>
-        {emailDone ? (
-          <div className="ec-done">💙 You're on the list — we'll be in touch soon.</div>
-        ) : (
-          <div className="ec-form">
-            <input
-              className="ec-input"
-              type="email"
-              placeholder="Your email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <button
-              className="ec-btn"
-              onClick={() => { if (email.includes("@")) setEmailDone(true); }}
-            >
-              Send me the guide →
-            </button>
-          </div>
-        )}
-        <div className="ec-note">Educational only. We never share your email. Unsubscribe any time.</div>
+        <div className="ec-emoji">📄</div>
+        <h3 className="ec-title">Download the First 90 Days guide</h3>
+        <p className="ec-sub">A free PDF guide for newly diagnosed families — 6 weeks of essential knowledge, 18 topics, print-friendly. Yours instantly, no sign-up needed.</p>
+        <a
+          href="/T1D-First-90-Days-Guide.pdf"
+          download="T1D-First-90-Days-Guide.pdf"
+          className="ec-btn"
+          style={{ display: "inline-block", textDecoration: "none" }}
+        >
+          ⬇️ Download free PDF →
+        </a>
+        <div className="ec-note">Free. No email required. Educational only — not medical advice.</div>
       </div>
 
       {/* ── ALL FEATURES ── */}
