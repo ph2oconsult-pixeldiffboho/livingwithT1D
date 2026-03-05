@@ -2718,3 +2718,25 @@ body {
   display: block;
   margin: 0 auto;
 }
+
+/* ── Download Guide Button ── */
+.download-guide-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #1A3A4A, #2E86AB);
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 16px rgba(46,134,171,0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.download-guide-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46,134,171,0.4);
+}
+.download-guide-icon { font-size: 1.8rem; flex-shrink: 0; }
+.download-guide-title { font-weight: 900; font-size: 1rem; margin-bottom: 3px; }
+.download-guide-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); font-weight: 600; }

@@ -162,6 +162,18 @@ export default function LearningPath() {
         <p>A structured learning journey for newly diagnosed families. Build knowledge week by week — reducing anxiety as your confidence grows.</p>
       </div>
 
+      <a
+        href="/T1D-First-90-Days-Guide.pdf"
+        download="T1D-First-90-Days-Guide.pdf"
+        className="download-guide-btn"
+      >
+        <span className="download-guide-icon">⬇️</span>
+        <div>
+          <div className="download-guide-title">Download the complete guide</div>
+          <div className="download-guide-sub">PDF · 6 weeks · 18 topics · Print-friendly</div>
+        </div>
+      </a>
+
       <div className="progress-panel">
         <div className="progress-header">
           <span style={{ fontWeight: 800, fontSize: "0.9rem", color: "#1A3A4A" }}>Your progress</span>
