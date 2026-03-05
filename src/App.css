@@ -3198,3 +3198,69 @@ body {
 .clin-contact-title {
   font-weight: 900; color: #1A3A4A; font-size: 1rem; margin-bottom: 10px;
 }
+
+/* ══════════════════════════════════════════════════════════
+   HERO — CGM TOOL CENTRED LAYOUT
+═══════════════════════════════════════════════════════════ */
+
+/* Upload CTA button */
+.hero-cta-upload {
+  display: flex; align-items: center; gap: 14px;
+  background: white; border: none; border-radius: 16px;
+  padding: 16px 22px; cursor: pointer; width: 100%;
+  max-width: 400px; margin: 0 auto 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-align: left;
+}
+.hero-cta-upload:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+}
+.hero-upload-icon { font-size: 1.8rem; flex-shrink: 0; }
+.hero-upload-title { font-weight: 900; color: #1A3A4A; font-size: 1rem; margin-bottom: 2px; }
+.hero-upload-sub { font-size: 0.78rem; color: #8A9BB0; font-weight: 600; }
+
+/* Privacy reassurance */
+.hero-privacy {
+  font-size: 0.75rem; color: rgba(255,255,255,0.65);
+  margin: 0 auto 20px; text-align: center;
+  max-width: 340px; line-height: 1.5;
+}
+
+/* Mock example card */
+.hero-example {
+  max-width: 400px; margin: 0 auto 20px; text-align: left;
+}
+.hero-example-label {
+  font-size: 0.68rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1.5px; color: rgba(255,255,255,0.5);
+  margin-bottom: 8px; text-align: center;
+}
+.hero-example-card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px; padding: 14px 16px;
+  backdrop-filter: blur(4px);
+}
+.hero-example-detected {
+  font-size: 0.82rem; font-weight: 900; color: #FFD166;
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.hero-example-reasons-label {
+  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: rgba(255,255,255,0.55);
+  margin-bottom: 8px;
+}
+.hero-example-reasons { display: flex; flex-direction: column; gap: 6px; }
+.hero-example-reason {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.83rem; color: rgba(255,255,255,0.9); font-weight: 600;
+}
+.hero-example-reason span { font-size: 1rem; flex-shrink: 0; }
+
+/* Secondary CTAs row */
+.hero-secondary-ctas {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-bottom: 16px;
+}

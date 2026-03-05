@@ -442,17 +442,45 @@ export default function App() {
     <div className="app">
       <div className="hero">
         <div className="hero-name">Living Brilliantly with T1D</div>
-        <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
-        <p className="hero-connection">If your child has just been diagnosed, you are not alone.</p>
-        <p className="hero-sub">Learn why glucose behaves the way it does.</p>
-        <div className="hero-ctas">
-          <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Why did this happen? →</button>
+        <h1>Why did this happen?</h1>
+        <p className="hero-connection">Upload your CGM graph and learn what may have caused the pattern.</p>
+
+        {/* Tool CTA — centred and primary */}
+        <button className="hero-cta-upload" onClick={() => switchTab("explainer")}>
+          <span className="hero-upload-icon">📸</span>
+          <div>
+            <div className="hero-upload-title">Upload My CGM Graph</div>
+            <div className="hero-upload-sub">Get a plain-language explanation in seconds</div>
+          </div>
+        </button>
+
+        {/* Privacy reassurance */}
+        <p className="hero-privacy">🔒 Your CGM image is not stored or shared. Educational resource — not medical advice.</p>
+
+        {/* Mock example */}
+        <div className="hero-example">
+          <div className="hero-example-label">Example explanation</div>
+          <div className="hero-example-card">
+            <div className="hero-example-detected">Pattern detected: Delayed spike after meal</div>
+            <div className="hero-example-reasons-label">Possible reasons</div>
+            <div className="hero-example-reasons">
+              <div className="hero-example-reason"><span>🍕</span> High-fat meal slowing digestion</div>
+              <div className="hero-example-reason"><span>💉</span> Insulin given after eating</div>
+              <div className="hero-example-reason"><span>⚽</span> Reduced activity in the evening</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Secondary CTAs */}
+        <div className="hero-secondary-ctas">
           <button className="hero-letter-btn" onClick={() => switchTab("isnormal")}>Is this normal?</button>
           <button className="hero-letter-btn" onClick={() => switchTab("activity")}>Real-life situations</button>
+          <button className="hero-letter-btn" onClick={() => switchTab("sickday")}>Sick day rules</button>
         </div>
+
         <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
         <div className="hero-trust">
-          <span>🔒 Educational resource — not medical advice</span>
+          <button className="hero-trust-link" onClick={() => switchTab("clinicians")}>🏥 For clinicians</button>
           <span>·</span>
           <button className="hero-trust-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
         </div>
