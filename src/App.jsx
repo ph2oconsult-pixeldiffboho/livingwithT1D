@@ -12,6 +12,7 @@ import Dashboard from "./features/Dashboard";
 import DisclaimerPage from "./features/DisclaimerPage";
 import PatternProfile from "./features/PatternProfile";
 import GlucoseExplorer from "./features/GlucoseExplorer";
+import SickDayRules from "./features/SickDayRules";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -392,12 +393,13 @@ export default function App() {
     { id: "home",       label: "Home",       emoji: "🏠" },
     { id: "explainer",  label: "Explain",    emoji: "🔎" },
     { id: "isnormal",   label: "Normal?",    emoji: "🤔" },
+    { id: "sickday",    label: "Sick Day",   emoji: "🤒" },
     { id: "activity",   label: "Life Guide", emoji: "🏫" },
     { id: "learning",   label: "90 Days",    emoji: "🗓️" },
-    { id: "patterns",   label: "Patterns",   emoji: "📈" },
   ];
   const secondaryTabs = [
     { id: "explorer",   label: "Explorer",   emoji: "🔍" },
+    { id: "patterns",   label: "Patterns",   emoji: "📈" },
     { id: "letter",     label: "Our Story",  emoji: "💌" },
     { id: "simulator",  label: "What If?",   emoji: "🎮" },
     { id: "child",      label: "For Kids",   emoji: "🌟" },
@@ -587,6 +589,7 @@ export default function App() {
           </>
         )}
 
+        {activeTab === "sickday"   && <SickDayRules />}
         {activeTab === "explorer"  && <GlucoseExplorer />}
         {activeTab === "patterns"  && <GlucosePatterns />}
         {activeTab === "learning"  && <LearningPath />}

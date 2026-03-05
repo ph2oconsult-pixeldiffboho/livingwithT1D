@@ -2952,3 +2952,150 @@ body {
   animation: toastIn 0.3s ease;
 }
 @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(12px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* ══════════════════════════════════════════════════════════
+   SICK DAY RULES + EMERGENCY GUIDE
+═══════════════════════════════════════════════════════════ */
+
+/* Emergency banner */
+.sdr-emergency-banner {
+  display: flex; align-items: center; gap: 14px;
+  background: #C0392B; border-radius: 14px;
+  padding: 14px 18px; margin-bottom: 20px; color: white;
+}
+.sdr-banner-icon { font-size: 1.8rem; flex-shrink: 0; }
+.sdr-banner-title { font-weight: 900; font-size: 0.95rem; margin-bottom: 3px; }
+.sdr-banner-sub { font-size: 0.78rem; opacity: 0.85; line-height: 1.4; }
+
+/* Tab toggle */
+.sdr-tabs {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.sdr-tab {
+  flex: 1; padding: 12px 8px; border-radius: 12px;
+  border: 2px solid #E8E4DF; background: white;
+  font-weight: 800; font-size: 0.85rem; cursor: pointer;
+  font-family: 'Nunito', sans-serif; color: #8A9BB0;
+  transition: all 0.15s;
+}
+.sdr-tab.active {
+  background: #1A3A4A; color: white; border-color: #1A3A4A;
+}
+
+/* Intro box */
+.sdr-intro-box {
+  background: #F0F8FF; border-radius: 14px;
+  padding: 18px; margin-bottom: 16px;
+  border-left: 4px solid #2E86AB;
+}
+.sdr-intro-title { font-weight: 900; color: #1A3A4A; margin-bottom: 8px; font-size: 0.95rem; }
+.sdr-intro-text { font-size: 0.9rem; line-height: 1.6; color: #2A4A5A; margin: 0; }
+
+/* Sick day cards */
+.sdr-sick-card {
+  background: white; border-radius: 14px;
+  border: 2px solid #E8E4DF; margin-bottom: 10px;
+  overflow: hidden; transition: border-color 0.15s;
+}
+.sdr-sick-card.open { border-color: var(--s-color); }
+.sdr-sick-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px; cursor: pointer;
+}
+.sdr-sick-emoji { font-size: 1.6rem; flex-shrink: 0; }
+.sdr-sick-titles { flex: 1; }
+.sdr-sick-title { font-weight: 900; color: #1A3A4A; font-size: 0.95rem; }
+.sdr-sick-subtitle { font-size: 0.78rem; color: #8A9BB0; font-weight: 600; margin-top: 2px; }
+.sdr-chevron { color: #8A9BB0; font-size: 0.75rem; flex-shrink: 0; }
+.sdr-sick-body { padding: 0 16px 18px; border-top: 1px solid #F0EDE8; }
+.sdr-sick-content { font-size: 0.9rem; line-height: 1.7; color: #2A4A5A; margin: 14px 0 12px; }
+.sdr-key-point {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #F7F3EE; border-radius: 10px; padding: 12px 14px;
+  font-size: 0.875rem; line-height: 1.6; color: #1A3A4A; font-weight: 600;
+}
+.sdr-key-icon { flex-shrink: 0; font-size: 1rem; }
+
+/* Emergency cards */
+.sdr-emerg-card {
+  background: white; border-radius: 14px;
+  border: 2px solid var(--em-color); margin-bottom: 12px;
+  overflow: hidden;
+}
+.sdr-emerg-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px; cursor: pointer;
+  background: color-mix(in srgb, var(--em-color) 8%, white);
+}
+.sdr-emerg-left { display: flex; align-items: center; gap: 12px; }
+.sdr-emerg-emoji { font-size: 1.8rem; flex-shrink: 0; }
+.sdr-emerg-title { font-weight: 900; color: #1A3A4A; font-size: 0.95rem; }
+.sdr-emerg-threshold { font-size: 0.78rem; color: var(--em-color); font-weight: 700; margin-top: 2px; }
+.sdr-emerg-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.sdr-ooo-badge {
+  background: #C0392B; color: white; font-weight: 900;
+  font-size: 0.7rem; padding: 3px 8px; border-radius: 99px; letter-spacing: 0.5px;
+}
+.sdr-emerg-body { padding: 0 16px 18px; }
+.sdr-call-bar {
+  background: #C0392B; color: white; font-weight: 800;
+  font-size: 0.85rem; padding: 10px 14px; border-radius: 8px;
+  margin: 14px 0; text-align: center;
+}
+.sdr-emerg-section { margin: 14px 0; }
+.sdr-emerg-section-label {
+  font-size: 0.72rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1px; color: #8A9BB0; margin-bottom: 10px;
+}
+.sdr-symptom-list {
+  list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;
+}
+.sdr-symptom-list li {
+  font-size: 0.9rem; color: #2A4A5A; padding-left: 16px; position: relative;
+}
+.sdr-symptom-list li::before {
+  content: "•"; position: absolute; left: 0; color: var(--em-color); font-weight: 900;
+}
+.sdr-step {
+  display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;
+}
+.sdr-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  color: white; font-weight: 900; font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sdr-step-action { font-weight: 800; color: #1A3A4A; font-size: 0.9rem; margin-bottom: 3px; }
+.sdr-step-detail { font-size: 0.83rem; color: #4A6070; line-height: 1.5; }
+.sdr-warning-box {
+  display: flex; gap: 10px; align-items: flex-start;
+  border: 2px solid; border-radius: 10px; padding: 12px 14px; margin-top: 14px;
+  font-size: 0.875rem; line-height: 1.6; color: #1A3A4A; font-weight: 600;
+  background: #FFF5F5;
+}
+.sdr-warning-icon { flex-shrink: 0; }
+
+/* Numbers box */
+.sdr-numbers-box {
+  background: #1A3A4A; border-radius: 14px; padding: 18px; margin: 20px 0;
+}
+.sdr-numbers-title { font-weight: 900; color: white; font-size: 0.9rem; margin-bottom: 14px; }
+.sdr-numbers-grid { display: flex; flex-direction: column; gap: 8px; }
+.sdr-number-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: rgba(255,255,255,0.08); border-radius: 8px;
+}
+.sdr-number-label { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+.sdr-number-val { font-weight: 900; color: #FFD166; font-size: 0.9rem; }
+
+/* Print note */
+.sdr-print-note {
+  background: #F7F3EE; border-radius: 10px; padding: 12px 14px;
+  font-size: 0.83rem; color: #8A9BB0; margin: 16px 0; line-height: 1.5;
+}
+
+/* Disclaimer */
+.sdr-disclaimer {
+  font-size: 0.78rem; color: #8A9BB0; line-height: 1.6;
+  text-align: center; padding: 16px 0;
+  border-top: 1px solid #E8E4DF; margin-top: 8px;
+}
