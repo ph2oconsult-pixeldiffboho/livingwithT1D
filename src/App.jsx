@@ -440,13 +440,14 @@ export default function App() {
 
   return (
     <div className="app">
+      {activeTab === "home" && (
       <div className="hero">
         <div className="hero-name">Living Brilliantly with T1D</div>
         <h1>Why did this happen?</h1>
         <p className="hero-connection">Upload your CGM graph and learn what may have caused the pattern.</p>
 
         {/* Tool CTA — centred and primary */}
-        <button className="hero-cta-upload" onClick={() => switchTab("explainer")}>
+        <button className="hero-cta-upload" onClick={() => { switchTab("explainer"); setTimeout(() => { document.querySelector(".content")?.scrollIntoView({ behavior: "smooth" }); }, 80); }}>
           <span className="hero-upload-icon">📸</span>
           <div>
             <div className="hero-upload-title">Upload My CGM Graph</div>
@@ -485,6 +486,7 @@ export default function App() {
           <button className="hero-trust-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
         </div>
       </div>
+      )}
 
       {/* Clinician trust strip */}
       {activeTab === "home" && (
