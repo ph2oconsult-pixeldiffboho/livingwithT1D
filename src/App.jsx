@@ -438,7 +438,8 @@ export default function App() {
       <div className="hero">
         <div className="hero-name">Living Brilliantly with T1D</div>
         <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
-        <p className="hero-sub">If your child has just been diagnosed, you are not alone — and you will learn how to navigate this. Understand why glucose behaves the way it does — meals, sport, overnight patterns, illness.</p>
+        <p className="hero-connection">If your child has just been diagnosed, you are not alone.</p>
+        <p className="hero-sub">Learn why glucose behaves the way it does — from meals and sport<br className="hero-br" /> to overnight patterns and illness.</p>
         <div className="hero-ctas">
           <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Explain a glucose pattern →</button>
           <button className="hero-letter-btn" onClick={() => switchTab("isnormal")}>Is this normal?</button>
