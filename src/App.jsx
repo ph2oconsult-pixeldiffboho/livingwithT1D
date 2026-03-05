@@ -439,18 +439,17 @@ export default function App() {
         <div className="hero-name">Living Brilliantly with T1D</div>
         <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
         <p className="hero-connection">If your child has just been diagnosed, you are not alone.</p>
-        <p className="hero-sub">Learn why glucose behaves the way it does — from meals and sport<br className="hero-br" /> to overnight patterns and illness.</p>
+        <p className="hero-sub">Learn why glucose behaves the way it does.</p>
         <div className="hero-ctas">
-          <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Explain a glucose pattern →</button>
+          <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Why did this happen? →</button>
           <button className="hero-letter-btn" onClick={() => switchTab("isnormal")}>Is this normal?</button>
           <button className="hero-letter-btn" onClick={() => switchTab("activity")}>Real-life situations</button>
         </div>
+        <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
         <div className="hero-trust">
           <span>🔒 Educational only — not medical advice</span>
           <span>·</span>
           <button className="hero-trust-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
-          <span>·</span>
-          <span>Built from lived experience with T1D</span>
         </div>
       </div>
 

@@ -2761,3 +2761,12 @@ body {
 }
 .hero-br { display: none; }
 @media (min-width: 480px) { .hero-br { display: inline; } }
+
+/* ── Hero byline ── */
+.hero-byline {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
