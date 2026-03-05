@@ -41,6 +41,7 @@ const HOW_STEPS = [
 ];
 
 const secondaryFeatures = [
+  { tab: "profile",    emoji: "🗂️", title: "My Pattern Profile",    desc: "Your personal glucose behaviour map, built from every analysis you run.", color: COLORS.ocean },
   { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",   desc: "The most searched glucose behaviours, explained clearly.", color: COLORS.lavender },
   { tab: "simulator",  emoji: "🎮", title: "What Happens If…",       desc: "Simulate situations before they happen — sport, sick days, parties.", color: COLORS.sunshine },
   { tab: "learning",   emoji: "🗓️", title: "First 90 Days",          desc: "A structured 6-week learning path. Track your progress.", color: COLORS.ocean },

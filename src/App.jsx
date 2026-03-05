@@ -10,6 +10,7 @@ import ExplainMyGlucose from "./features/ExplainMyGlucose";
 import Onboarding from "./features/Onboarding";
 import Dashboard from "./features/Dashboard";
 import DisclaimerPage from "./features/DisclaimerPage";
+import PatternProfile from "./features/PatternProfile";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -406,6 +407,7 @@ export default function App() {
     { id: "forum",      label: "Community",  emoji: "💬" },
     { id: "resources",  label: "Resources",  emoji: "📚" },
     { id: "disclaimer", label: "Disclaimer", emoji: "🔒" },
+    { id: "profile",    label: "My Patterns", emoji: "🗂️" },
   ];
   const [moreOpen, setMoreOpen] = useState(false);
   const allTabs = [...primaryTabs, ...secondaryTabs];
@@ -635,6 +637,10 @@ export default function App() {
 
         {activeTab === "disclaimer" && (
           <DisclaimerPage onNavigate={switchTab} />
+        )}
+
+        {activeTab === "profile" && (
+          <PatternProfile onNavigate={switchTab} />
         )}
 
         {activeTab === "resources" && (

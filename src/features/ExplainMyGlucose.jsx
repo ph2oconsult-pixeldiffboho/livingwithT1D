@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { patternStore } from "./PatternProfile";
 
 const COLORS = { ocean: "#2E86AB", coral: "#F46036", mint: "#56C596", sunshine: "#FFD166", lavender: "#9B8EC4", deep: "#1A3A4A", muted: "#8A9BB0" };
 
@@ -566,6 +567,21 @@ export default function ExplainMyGlucose() {
     { id: "rollercoaster",  label: "Rollercoaster day",          emoji: "🎢", ctx: { mealTime: "60", mealType: "fast", insulinTiming: "after", activityLevel: "light" } },
   ];
 
+  const saveFeedbackEntry = (vote, reason) => {
+    if (!aiExplanation) return;
+    patternStore.add({
+      source: uploadImage ? "screenshot" : "demo",
+      title: aiExplanation.title,
+      what_happened: aiExplanation.what_happened,
+      likely_reasons: aiExplanation.likely_reasons,
+      patternIds: patterns.length > 0
+        ? patterns.map(p => p.id)
+        : ["screenshot"],
+      feedback: vote,
+      feedbackReason: reason,
+    });
+  };
+
   const loadDemo = (demo) => {
     const data = generateDemoData(demo.id);
     setReadings(data);
@@ -641,7 +657,10 @@ ${JSON.stringify(patternSummary, null, 2)}`;
 
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
@@ -650,13 +669,19 @@ ${JSON.stringify(patternSummary, null, 2)}`;
         }),
       });
 
+      if (!response.ok) {
+        const errBody = await response.json().catch(() => ({}));
+        throw new Error(`API ${response.status}: ${errBody?.error?.message || response.statusText}`);
+      }
+
       const data = await response.json();
       const raw = data.content?.map(b => b.text || "").join("").trim();
       const clean = raw.replace(/^```json|^```|```$/gm, "").trim();
       const parsed = JSON.parse(clean);
       setAiExplanation(parsed);
     } catch (err) {
-      setAiError("Could not generate AI explanation — showing standard analysis below.");
+      console.error("AI explanation error:", err);
+      setAiError(`Could not generate explanation: ${err.message}`);
     } finally {
       setAiLoading(false);
     }
@@ -724,7 +749,10 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
 
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
@@ -745,6 +773,11 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         })
       });
 
+      if (!response.ok) {
+        const errBody = await response.json().catch(() => ({}));
+        throw new Error(`API ${response.status}: ${errBody?.error?.message || response.statusText}`);
+      }
+
       const data = await response.json();
       const raw = data.content?.map(b => b.text || "").join("").trim();
       const clean = raw.replace(/^```json|^```|```$/gm, "").trim();
@@ -752,7 +785,8 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
       setAiExplanation(parsed);
       setStep("screenshot-result");
     } catch (err) {
-      setUploadError("Could not analyse the screenshot. Please try again, or use a clearer image.");
+      console.error("Screenshot analysis error:", err);
+      setUploadError(`Could not analyse the screenshot: ${err.message}`);
     } finally {
       setUploadLoading(false);
     }
@@ -858,7 +892,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
 
       {uploadError && <div className="upload-error" style={{ marginTop: 8 }}>{uploadError}</div>}
 
-      <ExplanationPanel explanation={aiExplanation} source="screenshot" />
+      <ExplanationPanel explanation={aiExplanation} source="screenshot" onFeedback={saveFeedbackEntry} />
     </div>
   );
 
@@ -955,7 +989,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
           )}
           {aiError && <div className="tool-disclaimer" style={{ marginBottom: 12 }}>{aiError}</div>}
           {aiExplanation && !aiLoading && (
-            <ExplanationPanel explanation={aiExplanation} source="demo" />
+            <ExplanationPanel explanation={aiExplanation} source="demo" onFeedback={saveFeedbackEntry} />
           )}
         </>
       )}

@@ -2567,3 +2567,141 @@ body {
   font-size: 0.85rem;
   cursor: pointer;
 }
+
+/* ── Pattern Profile ── */
+.pp-empty {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 32px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  border: 2px dashed #E8E4DF;
+}
+.pp-empty-icon { font-size: 3.5rem; margin-bottom: 16px; }
+.pp-empty h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #1A3A4A; margin-bottom: 10px; }
+.pp-empty p { font-size: 0.9rem; color: #4A6070; line-height: 1.7; max-width: 400px; margin: 0 auto 24px; }
+
+.pp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pp-stat {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.pp-stat-num { font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+.pp-stat-label { font-size: 0.75rem; color: #8A9BB0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+
+.pp-block { margin-bottom: 24px; }
+.pp-block-title {
+  font-weight: 900;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8A9BB0;
+  margin-bottom: 12px;
+}
+
+.pp-pattern-map { display: flex; flex-direction: column; gap: 10px; }
+.pp-pattern-bar {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.pp-pattern-bar-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.pp-pattern-emoji { font-size: 1.6rem; flex-shrink: 0; }
+.pp-pattern-label { font-weight: 800; font-size: 0.9rem; color: #1A3A4A; margin-bottom: 2px; }
+.pp-pattern-desc { font-size: 0.75rem; color: #8A9BB0; line-height: 1.4; }
+.pp-pattern-bar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.pp-bar-track { width: 80px; height: 8px; background: #F0EDE8; border-radius: 100px; overflow: hidden; }
+.pp-bar-fill { height: 100%; border-radius: 100px; transition: width 0.6s ease; }
+.pp-pattern-count { font-weight: 900; font-size: 0.85rem; min-width: 28px; text-align: right; }
+
+.pp-entries { display: flex; flex-direction: column; gap: 8px; }
+.pp-entry {
+  background: white;
+  border-radius: 14px;
+  border-left: 4px solid #E8E4DF;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+.pp-entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  gap: 10px;
+}
+.pp-entry-header:hover { background: #FAFAF8; }
+.pp-entry-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.pp-entry-emoji { font-size: 1.4rem; flex-shrink: 0; }
+.pp-entry-title { font-weight: 800; font-size: 0.88rem; color: #1A3A4A; margin-bottom: 2px; }
+.pp-entry-time { font-size: 0.72rem; color: #8A9BB0; }
+.pp-entry-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.pp-fb-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.pp-fb-yes { background: #EEF8F4; color: #56C596; }
+.pp-fb-no  { background: #FEF0EE; color: #F46036; }
+.pp-chevron { font-size: 0.65rem; color: #8A9BB0; }
+
+.pp-entry-body { padding: 4px 16px 16px 16px; border-top: 1px solid #F0EDE8; }
+.pp-entry-section { margin-bottom: 12px; }
+.pp-entry-section:last-child { margin-bottom: 0; }
+.pp-entry-section-label {
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #B0C0CC;
+  margin-bottom: 6px;
+}
+.pp-entry-section p { font-size: 0.85rem; color: #2A4A5A; line-height: 1.65; margin: 0; }
+.pp-reason-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #4A6070;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.pp-reason-row:last-child { margin-bottom: 0; }
+.pp-reason-num {
+  color: white;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.68rem;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+.pp-cta-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 8px; padding-top: 8px; }
+.pp-persist-note {
+  font-size: 0.78rem;
+  color: #8A9BB0;
+  text-align: center;
+  max-width: 380px;
+  line-height: 1.5;
+}
+
+@media (max-width: 500px) {
+  .pp-stats { grid-template-columns: repeat(3, 1fr); }
+  .pp-bar-track { width: 50px; }
+}
