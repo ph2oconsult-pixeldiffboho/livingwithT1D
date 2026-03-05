@@ -177,19 +177,39 @@ export default function Dashboard({ profile, onNavigate }) {
       )}
 
       {/* ── SECTION B: FOUNDER STORY ── */}
-      <div className="why-story">
-        <div className="why-story-text">
-          <div className="why-label">Why this project exists</div>
-          <p>When my daughter was diagnosed with Type 1 Diabetes, our family entered a world we knew nothing about. Suddenly there were new routines, constant decisions, and a level of vigilance we had never experienced before.</p>
-          <p>Over time something remarkable happened. Instead of defining her, diabetes became part of what shaped her determination and purpose. Today she works for <strong>Breakthrough T1D</strong>, helping advance the search for better treatments and a cure.</p>
-          <p>This project grew out of that journey — to help other families understand the everyday realities of living with Type 1 Diabetes, and to build confidence in the decisions that come with it.</p>
-          <button className="letter-link-btn" onClick={() => onNavigate("letter")}>Read our open letter to newly diagnosed families →</button>
-        </div>
-        <div className="why-story-image">
-          <div className="story-image-placeholder">
-            <div style={{ fontSize: "4rem", marginBottom: 12 }}>👨‍👧</div>
-            <div style={{ fontWeight: 700, fontSize: "0.88rem", color: "#8A9BB0", lineHeight: 1.7 }}>
-              A parent & daughter.<br />A journey of resilience.<br />A project born from love.
+      <div className="founder-story">
+        <div className="founder-story-inner">
+          {/* Left: image */}
+          <div className="founder-photo">
+            <div className="founder-photo-placeholder">
+              <span style={{ fontSize: "4.5rem" }}>👨‍👧</span>
+            </div>
+            <div className="founder-photo-caption">A parent & daughter. A journey of resilience.</div>
+          </div>
+
+          {/* Right: story */}
+          <div className="founder-text">
+            <div className="founder-eyebrow">Why this project exists</div>
+            <h2 className="founder-headline">
+              "Our daughter was diagnosed with Type&nbsp;1 Diabetes. We had no idea what we were doing."
+            </h2>
+            <p className="founder-body">
+              When she was diagnosed, our family entered a world we knew nothing about. Suddenly there were new routines, constant decisions, and a level of vigilance none of us had experienced before. The numbers on the CGM were frightening because we didn't yet understand what they meant.
+            </p>
+            <p className="founder-body">
+              Over time, something remarkable happened. Instead of defining her, diabetes became part of what shaped her resilience and purpose. <strong>Today she works for Breakthrough T1D</strong>, helping advance the search for better treatments and ultimately a cure.
+            </p>
+            <p className="founder-body">
+              This project grew out of that journey — built to help other families understand what we had to learn the hard way, and to feel more confident in the everyday decisions that come with T1D.
+            </p>
+            <div className="founder-actions">
+              <button className="founder-cta" onClick={() => onNavigate("letter")}>
+                Read our open letter to newly diagnosed families →
+              </button>
+              <div className="founder-trust-line">
+                <span className="founder-trust-badge">🔬</span>
+                Connected with <strong>Breakthrough T1D</strong> — the world's leading T1D research funder
+              </div>
             </div>
           </div>
         </div>

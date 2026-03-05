@@ -2010,3 +2010,125 @@ body {
   .safety-strip-inner { grid-template-columns: 1fr; }
   .ec-form { flex-direction: column; }
 }
+
+/* ── Founder Story — prominent featured section ── */
+.founder-story {
+  background: linear-gradient(135deg, #1A3A4A 0%, #2A5068 100%);
+  border-radius: 24px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(26,58,74,0.25);
+}
+.founder-story-inner {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+.founder-photo {
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 28px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  gap: 16px;
+}
+.founder-photo-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 3px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.founder-photo-caption {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  line-height: 1.5;
+  font-style: italic;
+}
+.founder-text {
+  padding: 40px 44px 40px 40px;
+}
+.founder-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #FFD166;
+  margin-bottom: 14px;
+}
+.founder-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  color: white;
+  line-height: 1.45;
+  margin-bottom: 18px;
+  font-style: italic;
+  border-left: 3px solid #FFD166;
+  padding-left: 16px;
+}
+.founder-body {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+.founder-body strong { color: white; }
+.founder-actions {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.founder-cta {
+  display: inline-block;
+  background: #FFD166;
+  color: #1A3A4A;
+  border: none;
+  border-radius: 100px;
+  padding: 12px 24px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
+}
+.founder-cta:hover {
+  background: white;
+  transform: translateX(3px);
+}
+.founder-trust-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+}
+.founder-trust-line strong { color: rgba(255,255,255,0.85); }
+.founder-trust-badge {
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+  .founder-story-inner { grid-template-columns: 1fr; }
+  .founder-photo { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 28px; flex-direction: row; gap: 16px; }
+  .founder-photo-placeholder { width: 80px; height: 80px; flex-shrink: 0; }
+  .founder-text { padding: 28px 24px; }
+}
