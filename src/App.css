@@ -3264,3 +3264,69 @@ body {
   display: flex; flex-wrap: wrap; gap: 8px;
   justify-content: center; margin-bottom: 16px;
 }
+
+/* ══════════════════════════════════════════════════════════
+   TOOL CONTEXT BLOCK — WHY DID THIS HAPPEN
+═══════════════════════════════════════════════════════════ */
+
+.tool-context-block {
+  background: white; border-radius: 16px; padding: 20px;
+  margin-bottom: 14px; border: 1px solid #E8E4DF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.tool-context-intro {
+  font-size: 0.95rem; line-height: 1.7; color: #2A4A5A; margin-bottom: 16px;
+}
+.tool-context-patterns-label {
+  font-size: 0.75rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1px; color: #8A9BB0; margin-bottom: 10px;
+}
+.tool-context-patterns {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;
+}
+@media (max-width: 400px) { .tool-context-patterns { grid-template-columns: 1fr; } }
+.tool-context-pattern {
+  display: flex; align-items: center; gap: 8px;
+  background: #F7F3EE; border-radius: 10px; padding: 9px 12px;
+  font-size: 0.83rem; color: #2A4A5A; font-weight: 600;
+}
+.tool-context-pattern span:first-child { font-size: 1.1rem; flex-shrink: 0; }
+.tool-context-goal {
+  font-size: 0.88rem; color: #2E86AB; font-weight: 700;
+  padding-top: 12px; border-top: 1px solid #F0EDE8; line-height: 1.5;
+}
+
+/* When to use box */
+.tool-when-box {
+  background: #F0F8FF; border-radius: 16px; padding: 18px;
+  margin-bottom: 14px; border-left: 4px solid #2E86AB;
+}
+.tool-when-title {
+  font-weight: 900; color: #1A3A4A; font-size: 0.95rem; margin-bottom: 8px;
+}
+.tool-when-intro {
+  font-size: 0.88rem; color: #4A6070; margin-bottom: 10px;
+}
+.tool-when-questions { display: flex; flex-direction: column; gap: 7px; margin-bottom: 10px; }
+.tool-when-q {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 0.88rem; color: #1A3A4A; font-weight: 600; line-height: 1.4;
+}
+.tool-when-bullet {
+  color: #2E86AB; font-weight: 900; flex-shrink: 0; margin-top: 1px;
+}
+.tool-when-note {
+  font-size: 0.8rem; color: #8A9BB0; font-style: italic; margin: 0;
+}
+
+/* Privacy + safety notes under upload */
+.upload-trust-notes {
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid #F0EDE8;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.upload-trust-row {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 0.8rem; color: #8A9BB0; line-height: 1.5;
+}
+.upload-trust-row span:first-child { flex-shrink: 0; }

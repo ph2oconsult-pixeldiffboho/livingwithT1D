@@ -919,12 +919,54 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
   if (step === "load") return (
     <div>
       <div className="section-header">
-        <h2>🔎 Explain My Glucose</h2>
-        <p>Upload a CGM screenshot for an instant explanation — or explore a demo scenario to see how the pattern detector works.</p>
+        <h2>🔎 Why did this happen?</h2>
+        <p>Sometimes glucose patterns can be confusing. This tool helps explain possible reasons behind what you're seeing.</p>
       </div>
 
-      <div className="tool-disclaimer">
-        <strong>Educational tool only.</strong> Identifies glucose patterns and provides educational explanations. Does not provide dosing advice and does not replace your diabetes care team.
+      {/* ── CONTEXT EXPLAINER ── */}
+      <div className="tool-context-block">
+        <p className="tool-context-intro">
+          A spike hours after dinner, a rise overnight, or a drop after sport can leave families wondering what caused it.
+          Upload a CGM screenshot and the app will help explain possible reasons behind the pattern.
+        </p>
+        <div className="tool-context-patterns-label">It looks for common situations such as:</div>
+        <div className="tool-context-patterns">
+          {[
+            { emoji: "🍕", text: "Delayed spikes after high-fat meals" },
+            { emoji: "⚽", text: "Glucose rises after intense exercise" },
+            { emoji: "🌙", text: "Overnight hormone effects" },
+            { emoji: "📉", text: "Delayed lows hours after activity" },
+            { emoji: "🤒", text: "Illness raising glucose unexpectedly" },
+            { emoji: "🌅", text: "Dawn phenomenon — early morning rises" },
+          ].map((p, i) => (
+            <div key={i} className="tool-context-pattern">
+              <span>{p.emoji}</span><span>{p.text}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tool-context-goal">
+          The goal is to help families understand patterns and build confidence over time.
+        </div>
+      </div>
+
+      {/* ── WHEN TO USE ── */}
+      <div className="tool-when-box">
+        <div className="tool-when-title">💬 When might this help?</div>
+        <p className="tool-when-intro">Use this tool when you're wondering things like:</p>
+        <div className="tool-when-questions">
+          {[
+            "Why did glucose spike hours after dinner?",
+            "Why did sport raise glucose instead of lowering it?",
+            "Why did glucose rise overnight while my child was sleeping?",
+            "Why did insulin seem slow to work today?",
+            "Why is glucose high this morning when it was fine at bedtime?",
+          ].map((q, i) => (
+            <div key={i} className="tool-when-q">
+              <span className="tool-when-bullet">→</span><span>{q}</span>
+            </div>
+          ))}
+        </div>
+        <p className="tool-when-note">These are very common questions for families navigating Type 1 Diabetes.</p>
       </div>
 
       {/* ── UPLOAD OPTION — primary ── */}
@@ -933,7 +975,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
           <span style={{ fontSize: "1.8rem" }}>📸</span>
           <div>
             <div className="upload-panel-title">Upload a CGM screenshot</div>
-            <div className="upload-panel-sub">Take a screenshot of your Dexcom, Libre, or any CGM app and upload it here for an instant explanation.</div>
+            <div className="upload-panel-sub">Take a screenshot of your Dexcom, Libre, or any CGM app and upload it here for an explanation.</div>
           </div>
         </div>
 
@@ -942,7 +984,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
             <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileSelect} />
             <div className="upload-dropzone-icon">⬆️</div>
             <div className="upload-dropzone-label">Tap to choose a screenshot</div>
-            <div className="upload-dropzone-sub">PNG, JPG · Max 8MB · Your image is not stored</div>
+            <div className="upload-dropzone-sub">PNG, JPG · Max 8MB</div>
           </label>
         ) : (
           <div className="upload-preview-wrap">
@@ -968,6 +1010,16 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
           </div>
         )}
         {uploadError && !uploadImage && <div className="upload-error">{uploadError}</div>}
+
+        {/* Privacy + safety note directly under upload */}
+        <div className="upload-trust-notes">
+          <div className="upload-trust-row">
+            <span>🔒</span><span>Your CGM image is analysed only to explain patterns and is not stored or shared.</span>
+          </div>
+          <div className="upload-trust-row">
+            <span>⚕️</span><span>This tool supports learning about glucose behaviour. It does not replace advice from your diabetes care team.</span>
+          </div>
+        </div>
       </div>
 
       {/* ── DIVIDER ── */}
