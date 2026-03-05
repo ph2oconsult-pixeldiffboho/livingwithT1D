@@ -2293,3 +2293,277 @@ body {
   height: 1px;
   background: #E8E4DF;
 }
+
+/* ── 5-Part Explanation Panel ── */
+.exp-panel {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 28px rgba(26,58,74,0.1);
+  margin-bottom: 8px;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.exp-header {
+  background: linear-gradient(135deg, #1A3A4A, #2E86AB);
+  padding: 22px 26px;
+}
+.exp-source-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.exp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  color: white;
+  line-height: 1.35;
+  margin: 0;
+}
+.exp-section {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #F0EDE8;
+}
+.exp-section:last-of-type { border-bottom: none; }
+.exp-section-num {
+  width: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 22px;
+  font-weight: 900;
+  font-size: 0.78rem;
+  color: #C8D8E0;
+}
+.exp-section-body {
+  flex: 1;
+  padding: 18px 22px 18px 4px;
+}
+.exp-section-label {
+  font-weight: 900;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8A9BB0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.exp-not-advice {
+  font-weight: 600;
+  font-size: 0.68rem;
+  color: #B0C0CC;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.exp-narrative {
+  font-size: 0.95rem;
+  color: #1A3A4A;
+  line-height: 1.75;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Part 2 — reasons */
+.exp-reasons { display: flex; flex-direction: column; gap: 12px; }
+.exp-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F7F3EE;
+}
+.exp-reason:last-child { border-bottom: none; padding-bottom: 0; }
+.exp-reason-num {
+  color: white;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.75rem;
+  flex-shrink: 0; margin-top: 2px;
+}
+.exp-reason-content { flex: 1; }
+.exp-reason-title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #1A3A4A;
+  margin-bottom: 3px;
+}
+.exp-reason-detail {
+  font-size: 0.83rem;
+  color: #4A6070;
+  line-height: 1.55;
+}
+.exp-conf-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 3px;
+}
+
+/* Part 3 — what families notice */
+.exp-families-notice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #F7F3EE;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.exp-families-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.exp-families-notice p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #2A4A5A;
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* Part 4 — watch list */
+.exp-watch-list { display: flex; flex-direction: column; gap: 8px; }
+.exp-watch-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.88rem;
+  color: #2A4A5A;
+  line-height: 1.5;
+}
+.exp-watch-bullet {
+  color: #2E86AB;
+  font-weight: 900;
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+/* Encouragement */
+.exp-encouragement {
+  background: linear-gradient(135deg, #EEF8F4, #E8F4FD);
+  padding: 14px 22px 14px 16px;
+  font-size: 0.9rem;
+  color: #1A3A4A;
+  font-weight: 600;
+  line-height: 1.55;
+  border-top: 1px solid #F0EDE8;
+}
+
+/* Part 5 — safety note */
+.exp-safety {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #FFF8F0;
+  border-top: 1px solid #F0EDE8;
+  padding: 14px 18px;
+}
+.exp-safety-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.exp-safety p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #6A7A8A;
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* Inline feedback */
+.exp-feedback {
+  border-top: 1px solid #F0EDE8;
+  padding: 16px 18px;
+  background: #FAFAF8;
+}
+.exp-feedback--done {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #1A3A4A;
+  background: #EEF8F4;
+  border-color: #56C596;
+}
+.exp-feedback-q {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #1A3A4A;
+  margin-bottom: 10px;
+}
+.exp-feedback-btns {
+  display: flex;
+  gap: 10px;
+}
+.exp-fb-btn {
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: 2px solid #E8E4DF;
+  background: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #4A6070;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.exp-fb-btn.yes  { border-color: #56C596; color: #56C596; }
+.exp-fb-btn.yes:hover { background: #56C596; color: white; }
+.exp-fb-btn.no   { border-color: #F46036; color: #F46036; }
+.exp-fb-btn.no:hover  { background: #F46036; color: white; }
+.exp-fb-btn:hover { border-color: #2E86AB; color: #2E86AB; }
+.exp-feedback-reasons { margin-top: 14px; }
+.exp-feedback-why {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #8A9BB0;
+  margin-bottom: 8px;
+}
+.exp-feedback-reason-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+.exp-fb-reason {
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1.5px solid #E8E4DF;
+  background: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #4A6070;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.exp-fb-reason.active,
+.exp-fb-reason:hover { border-color: #2E86AB; color: #2E86AB; background: #E8F4FD; }
+.exp-fb-submit {
+  background: #1A3A4A;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+}

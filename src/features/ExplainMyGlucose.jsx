@@ -365,6 +365,175 @@ function ConfBadge({ score }) {
   );
 }
 
+// ─── Shared 5-Part Explanation Panel ────────────────────────────────────────────
+// Used by both screenshot result and demo result steps.
+// Always renders the same trusted structure regardless of input source.
+
+function ExplanationPanel({ explanation, source, onFeedback }) {
+  if (!explanation) return null;
+  const { title, what_happened, likely_reasons, what_families_notice, what_to_notice_next_time, encouragement, safety_note } = explanation;
+
+  return (
+    <div className="exp-panel">
+
+      {/* Header */}
+      <div className="exp-header">
+        <div className="exp-source-badge">
+          {source === "screenshot" ? "📸 Screenshot analysis" : "✨ Pattern analysis"}
+        </div>
+        <h3 className="exp-title">{title}</h3>
+      </div>
+
+      {/* Part 1 — What happened */}
+      <div className="exp-section exp-section--1">
+        <div className="exp-section-num">1</div>
+        <div className="exp-section-body">
+          <div className="exp-section-label">What happened</div>
+          <p className="exp-narrative">{what_happened}</p>
+        </div>
+      </div>
+
+      {/* Part 2 — Possible reasons */}
+      {likely_reasons?.length > 0 && (
+        <div className="exp-section exp-section--2">
+          <div className="exp-section-num">2</div>
+          <div className="exp-section-body">
+            <div className="exp-section-label">
+              Possible reasons
+              <span className="exp-not-advice">— educational, not medical advice</span>
+            </div>
+            <div className="exp-reasons">
+              {likely_reasons.map((r, i) => {
+                const confColor = r.confidence === "high" ? COLORS.mint : r.confidence === "medium" ? COLORS.sunshine : COLORS.muted;
+                return (
+                  <div key={i} className="exp-reason">
+                    <div className="exp-reason-num" style={{ background: confColor }}>{i + 1}</div>
+                    <div className="exp-reason-content">
+                      <div className="exp-reason-title">{r.reason}</div>
+                      <div className="exp-reason-detail">{r.why_this_fits}</div>
+                    </div>
+                    <span className="exp-conf-badge" style={{ background: confColor + "20", color: confColor }}>
+                      {r.confidence}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Part 3 — What families often notice */}
+      {what_families_notice && (
+        <div className="exp-section exp-section--3">
+          <div className="exp-section-num">3</div>
+          <div className="exp-section-body">
+            <div className="exp-section-label">What families often notice</div>
+            <div className="exp-families-notice">
+              <span className="exp-families-icon">💬</span>
+              <p>{what_families_notice}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Part 4 — What to watch next time */}
+      {what_to_notice_next_time?.length > 0 && (
+        <div className="exp-section exp-section--4">
+          <div className="exp-section-num">4</div>
+          <div className="exp-section-body">
+            <div className="exp-section-label">What to watch next time</div>
+            <div className="exp-watch-list">
+              {what_to_notice_next_time.map((q, i) => (
+                <div key={i} className="exp-watch-item">
+                  <span className="exp-watch-bullet">•</span>
+                  <span>{q}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Encouragement */}
+      {encouragement && (
+        <div className="exp-encouragement">
+          💙 {encouragement}
+        </div>
+      )}
+
+      {/* Part 5 — Safety note (always shown) */}
+      <div className="exp-safety">
+        <span className="exp-safety-icon">⚕️</span>
+        <p>{safety_note || "This explanation is educational and does not replace advice from your diabetes care team. Always follow the guidance of your healthcare provider."}</p>
+      </div>
+
+      {/* Inline feedback */}
+      <InlineFeedback onFeedback={onFeedback} />
+    </div>
+  );
+}
+
+// ─── Inline Feedback Widget ───────────────────────────────────────────────────
+function InlineFeedback({ onFeedback }) {
+  const [answer, setAnswer] = useState(null);
+  const [reason, setReason] = useState(null);
+  const [done, setDone] = useState(false);
+
+  const NOT_REALLY_OPTIONS = [
+    "Meal timing was wrong",
+    "Activity level was missing",
+    "Illness wasn't considered",
+    "The explanation didn't match",
+    "Something else",
+  ];
+
+  if (done) return (
+    <div className="exp-feedback exp-feedback--done">
+      💙 Thank you — your feedback helps us improve for every family.
+    </div>
+  );
+
+  return (
+    <div className="exp-feedback">
+      <div className="exp-feedback-q">Was this explanation helpful?</div>
+      <div className="exp-feedback-btns">
+        <button
+          className={`exp-fb-btn ${answer === "yes" ? "yes" : ""}`}
+          onClick={() => { setAnswer("yes"); setDone(true); if (onFeedback) onFeedback("yes", null); }}
+        >
+          ✔ Yes
+        </button>
+        <button
+          className={`exp-fb-btn ${answer === "no" ? "no" : ""}`}
+          onClick={() => setAnswer("no")}
+        >
+          ✖ Not really
+        </button>
+      </div>
+      {answer === "no" && !done && (
+        <div className="exp-feedback-reasons">
+          <div className="exp-feedback-why">What was missing or incorrect?</div>
+          <div className="exp-feedback-reason-grid">
+            {NOT_REALLY_OPTIONS.map(opt => (
+              <button
+                key={opt}
+                className={`exp-fb-reason ${reason === opt ? "active" : ""}`}
+                onClick={() => setReason(opt)}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+          <button className="exp-fb-submit" onClick={() => { setDone(true); if (onFeedback) onFeedback("no", reason); }}>
+            Send feedback →
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ExplainMyGlucose() {
   const STEPS = ["load", "context", "result", "feedback"];
@@ -450,18 +619,18 @@ RULES — follow these strictly:
 - Tone: calm, empathetic, parent-friendly — like a knowledgeable friend, not a doctor
 - Reading level: simple, clear, no medical jargon unless briefly explained
 - If safety_flags show severe lows or persistent highs, gently advise following care plan and contacting care team
-- Always end with a brief encouragement
 
 OUTPUT FORMAT — return valid JSON only, no markdown fences:
 {
   "title": "short friendly title for what happened (max 10 words)",
-  "what_happened": "2-3 warm sentences describing the glucose pattern in plain language. Reference mmol/L values if helpful.",
+  "what_happened": "2-3 warm sentences describing the glucose pattern in plain language. Be specific — reference approximate values and time windows.",
   "likely_reasons": [
-    {"reason": "name of reason", "why_this_fits": "1-2 sentences explaining why this might apply, in plain language", "confidence": "high|medium|low"}
+    {"reason": "name of reason", "why_this_fits": "1-2 plain sentences explaining why this might apply", "confidence": "high|medium|low"}
   ],
+  "what_families_notice": "1-2 sentences describing what families commonly observe with this pattern in real life. Should sound like a real parent's observation, not clinical language. E.g. 'Many families notice this kind of delayed rise after pizza or takeaway nights — the spike often surprises them because glucose looked fine right after dinner.'",
   "what_to_notice_next_time": ["question or observation 1", "question or observation 2", "question or observation 3"],
   "encouragement": "One warm sentence of encouragement for the family.",
-  "safety_note": "Brief safety reminder if needed, otherwise empty string."
+  "safety_note": "This explanation is educational and does not replace advice from your diabetes care team. Always follow the guidance of your healthcare provider."
 }
 
 Return 2-3 likely_reasons maximum. Rank most likely first.`;
@@ -529,7 +698,7 @@ ${JSON.stringify(patternSummary, null, 2)}`;
       const base64 = uploadImage.split(",")[1];
       const mimeType = uploadImage.split(";")[0].split(":")[1];
 
-      const systemPrompt = \`You are a warm, supportive educational assistant for families living with Type 1 Diabetes.
+      const systemPrompt = `You are a warm, supportive educational assistant for families living with Type 1 Diabetes.
 You will be shown a CGM (Continuous Glucose Monitor) screenshot. Your job is to describe what you see in plain, calm, family-friendly language.
 
 STRICT RULES:
@@ -537,21 +706,21 @@ STRICT RULES:
 - Use "possible reasons" language throughout — never state causes as facts
 - Tone: calm, reassuring, like a knowledgeable friend — not a doctor
 - If the image does not appear to be a CGM graph, say so gently and ask the user to upload a CGM screenshot
-- Always end with the safety note
 
 Return ONLY valid JSON (no markdown fences, no preamble):
 {
   "title": "short friendly title describing what you see (max 10 words)",
-  "what_happened": "2-3 warm sentences describing the glucose pattern visible in the graph. Mention approximate time windows and values if visible. Use mmol/L.",
+  "what_happened": "2-3 warm sentences describing the glucose pattern visible in the graph. Be specific — reference approximate time windows and values if visible. Use mmol/L.",
   "likely_reasons": [
     {"reason": "name of reason", "why_this_fits": "1-2 plain sentences explaining why this might apply", "confidence": "high|medium|low"}
   ],
-  "what_to_notice_next_time": ["observation 1", "observation 2", "observation 3"],
+  "what_families_notice": "1-2 sentences describing what families commonly observe with this pattern in real life. Should sound like a lived observation, not clinical language.",
+  "what_to_notice_next_time": ["observation or question 1", "observation or question 2", "observation or question 3"],
   "encouragement": "One warm sentence of encouragement for the family.",
-  "safety_note": "Brief reminder to follow care team guidance.",
+  "safety_note": "This explanation is educational and does not replace advice from your diabetes care team. Always follow the guidance of your healthcare provider.",
   "is_cgm_image": true
 }
-Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm_image to false and explain in what_happened.\`;
+Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm_image to false and explain in what_happened.`;
 
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -578,7 +747,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
 
       const data = await response.json();
       const raw = data.content?.map(b => b.text || "").join("").trim();
-      const clean = raw.replace(/^\`\`\`json|\`\`\`$/gm, "").trim();
+      const clean = raw.replace(/^```json|^```|```$/gm, "").trim();
       const parsed = JSON.parse(clean);
       setAiExplanation(parsed);
       setStep("screenshot-result");
@@ -670,11 +839,10 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
     <div>
       <button className="back-btn" onClick={reset}>← Upload a different screenshot</button>
 
-      {/* Show the uploaded image */}
       {uploadImage && (
         <div style={{ marginBottom: 20 }}>
           <div className="step-label">Your CGM screenshot</div>
-          <img src={uploadImage} alt="CGM screenshot" style={{ width: "100%", borderRadius: 14, maxHeight: 260, objectFit: "contain", background: "#F7F3EE" }} />
+          <img src={uploadImage} alt="CGM screenshot" style={{ width: "100%", borderRadius: 14, maxHeight: 260, objectFit: "contain", background: "#F7F3EE", border: "1px solid #E8E4DF" }} />
         </div>
       )}
 
@@ -683,73 +851,14 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
           <div className="ai-loading-pulse" />
           <div>
             <div style={{ fontWeight: 800, color: COLORS.deep, marginBottom: 4 }}>Reading your screenshot…</div>
-            <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Claude is looking at the graph and building an explanation for your family.</div>
+            <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Looking at the graph and building an explanation for your family.</div>
           </div>
         </div>
       )}
 
-      {aiExplanation && (
-        <div className="ai-explanation-panel">
-          <div className="ai-panel-header">
-            <div className="ai-badge">✨ Screenshot analysis</div>
-            <h3 className="ai-title">{aiExplanation.title}</h3>
-          </div>
+      {uploadError && <div className="upload-error" style={{ marginTop: 8 }}>{uploadError}</div>}
 
-          <div className="ai-section">
-            <div className="ai-section-label">📊 What happened</div>
-            <p className="ai-text">{aiExplanation.what_happened}</p>
-          </div>
-
-          {aiExplanation.is_cgm_image !== false && aiExplanation.likely_reasons?.length > 0 && (
-            <div className="ai-section">
-              <div className="ai-section-label">🔬 Possible reasons <span style={{ fontWeight: 400, color: COLORS.muted, fontSize: "0.75rem" }}>(educational — not medical advice)</span></div>
-              {aiExplanation.likely_reasons.map((r, i) => {
-                const confColor = r.confidence === "high" ? COLORS.mint : r.confidence === "medium" ? COLORS.sunshine : COLORS.muted;
-                return (
-                  <div key={i} className="ai-driver">
-                    <div className="ai-driver-rank" style={{ background: COLORS.ocean }}>{i+1}</div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                        <span style={{ fontWeight: 800, fontSize: "0.9rem", color: COLORS.deep }}>{r.reason}</span>
-                        <span style={{ fontSize: "0.68rem", fontWeight: 800, background: confColor + "22", color: confColor, padding: "2px 8px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>{r.confidence}</span>
-                      </div>
-                      <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.55 }}>{r.why_this_fits}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {aiExplanation.what_to_notice_next_time?.length > 0 && (
-            <div className="ai-section">
-              <div className="ai-section-label">💡 What to notice next time</div>
-              {aiExplanation.what_to_notice_next_time.map((q, i) => (
-                <div key={i} className="next-time-item">
-                  <span style={{ color: COLORS.ocean }}>→</span>
-                  <span style={{ fontSize: "0.88rem", color: "#2A4A5A", lineHeight: 1.5 }}>{q}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {aiExplanation.encouragement && (
-            <div className="ai-encouragement">💙 {aiExplanation.encouragement}</div>
-          )}
-
-          <div className="tool-disclaimer" style={{ marginTop: 0 }}>
-            {aiExplanation.safety_note || "This is an educational explanation only. For dosing or treatment decisions, always follow your diabetes care team's guidance."}
-          </div>
-        </div>
-      )}
-
-      {uploadError && (
-        <div className="upload-error" style={{ marginTop: 16 }}>{uploadError}</div>
-      )}
-
-      <button className="forum-post-btn" style={{ marginTop: 20, width: "100%" }} onClick={() => setStep("feedback")}>
-        Was this helpful? Give 10 seconds of feedback →
-      </button>
+      <ExplanationPanel explanation={aiExplanation} source="screenshot" />
     </div>
   );
 
@@ -818,217 +927,40 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
     </div>
   );
 
-  // ── Step: Result ──────────────────────────────────────────────────────────
-  if (step === "result") {
-    const active = patterns.find(p => p.id === openPattern);
-    const confidenceLabel = score => score >= 75 ? "Strong match" : score >= 55 ? "Possible match" : "Weak signal";
-    const confidenceColor = score => score >= 75 ? COLORS.mint : score >= 55 ? COLORS.sunshine : COLORS.muted;
+  // ── Step: Result (demo analysis) ─────────────────────────────────────────
+  if (step === "result") return (
+    <div>
+      <button className="back-btn" onClick={() => setStep("context")}>← Adjust context</button>
 
-    return (
-      <div>
-        <button className="back-btn" onClick={() => setStep("context")}>← Adjust context</button>
+      <div style={{ marginBottom: 20 }}>
+        <CGMChart readings={readings} mealTime={ctx.mealTime ? parseInt(ctx.mealTime) : null} activityTime={ctx.activityTime ? parseInt(ctx.activityTime) : null} />
+      </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <CGMChart readings={readings} mealTime={ctx.mealTime ? parseInt(ctx.mealTime) : null} activityTime={ctx.activityTime ? parseInt(ctx.activityTime) : null} />
+      {patterns.length === 0 ? (
+        <div style={{ background: "#EEF8F4", borderRadius: 16, padding: 24, textAlign: "center" }}>
+          <div style={{ fontSize: "2rem", marginBottom: 8 }}>✅</div>
+          <div style={{ fontWeight: 800, color: COLORS.deep }}>No significant patterns detected</div>
+          <div style={{ fontSize: "0.9rem", color: "#4A6070", marginTop: 8 }}>The glucose trace looks relatively stable. Try adding more context, or explore a different scenario.</div>
         </div>
-
-        {patterns.length === 0 ? (
-          <div style={{ background: "#EEF8F4", borderRadius: 16, padding: 24, textAlign: "center" }}>
-            <div style={{ fontSize: "2rem", marginBottom: 8 }}>✅</div>
-            <div style={{ fontWeight: 800, color: COLORS.deep }}>No significant patterns detected</div>
-            <div style={{ fontSize: "0.9rem", color: "#4A6070", marginTop: 8 }}>The glucose trace looks relatively stable. Try adding more context above, or explore a different scenario.</div>
-          </div>
-        ) : (
-          <>
-            {/* ── AI EXPLANATION — shown first and prominently ── */}
-            {aiLoading && (
-              <div className="ai-loading-panel">
-                <div className="ai-loading-pulse" />
-                <div>
-                  <div style={{ fontWeight: 800, color: COLORS.deep, marginBottom: 4 }}>Generating explanation…</div>
-                  <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Analysing the pattern and context to create a personalised explanation for your family.</div>
-                </div>
+      ) : (
+        <>
+          {aiLoading && (
+            <div className="ai-loading-panel">
+              <div className="ai-loading-pulse" />
+              <div>
+                <div style={{ fontWeight: 800, color: COLORS.deep, marginBottom: 4 }}>Building your explanation…</div>
+                <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Analysing the pattern and context to create a clear explanation for your family.</div>
               </div>
-            )}
-
-            {aiError && (
-              <div className="tool-disclaimer" style={{ marginBottom: 16 }}>{aiError}</div>
-            )}
-
-            {aiExplanation && !aiLoading && (
-              <div className="ai-explanation-panel">
-                <div className="ai-panel-header">
-                  <div className="ai-badge">✨ AI-powered explanation</div>
-                  <h3 className="ai-title">{aiExplanation.title}</h3>
-                </div>
-
-                <div className="ai-section">
-                  <div className="ai-section-label">📊 What happened</div>
-                  <p className="ai-text">{aiExplanation.what_happened}</p>
-                </div>
-
-                <div className="ai-section">
-                  <div className="ai-section-label">🔬 Possible reasons <span style={{ fontWeight: 400, color: COLORS.muted, fontSize: "0.75rem" }}>(educational — not medical advice)</span></div>
-                  {aiExplanation.likely_reasons?.map((r, i) => {
-                    const confColor = r.confidence === "high" ? COLORS.mint : r.confidence === "medium" ? COLORS.sunshine : COLORS.muted;
-                    return (
-                      <div key={i} className="ai-driver">
-                        <div className="ai-driver-rank" style={{ background: COLORS.ocean }}>{i+1}</div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                            <span style={{ fontWeight: 800, fontSize: "0.9rem", color: COLORS.deep }}>{r.reason}</span>
-                            <span style={{ fontSize: "0.68rem", fontWeight: 800, background: confColor + "22", color: confColor, padding: "2px 8px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>{r.confidence}</span>
-                          </div>
-                          <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.55 }}>{r.why_this_fits}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="ai-section">
-                  <div className="ai-section-label">💡 What to notice next time</div>
-                  {aiExplanation.what_to_notice_next_time?.map((q, i) => (
-                    <div key={i} className="next-time-item">
-                      <span style={{ color: COLORS.ocean }}>→</span>
-                      <span style={{ fontSize: "0.88rem", color: "#2A4A5A", lineHeight: 1.5 }}>{q}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {aiExplanation.encouragement && (
-                  <div className="ai-encouragement">
-                    💙 {aiExplanation.encouragement}
-                  </div>
-                )}
-
-                {aiExplanation.safety_note && (
-                  <div className="tool-disclaimer" style={{ marginTop: 0 }}>
-                    {aiExplanation.safety_note}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* ── PATTERN DETAIL — shown below AI explanation ── */}
-            {!aiLoading && (
-              <>
-                <div className="step-label" style={{ margin: "24px 0 12px" }}>
-                  {patterns.length} pattern{patterns.length > 1 ? "s" : ""} detected by analysis engine
-                </div>
-
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
-                  {patterns.map(p => (
-                    <button key={p.id} onClick={() => setOpenPattern(p.id)}
-                      style={{ padding: "8px 14px", borderRadius: 100, border: `2px solid ${p.color}`, background: openPattern === p.id ? p.color : "white", color: openPattern === p.id ? "white" : p.color, fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: "0.82rem", cursor: "pointer", transition: "all 0.15s" }}>
-                      {p.emoji} {p.label}
-                    </button>
-                  ))}
-                </div>
-
-                {active && (
-                  <div className="result-panel" style={{ "--r-color": active.color }}>
-                    <div className="result-section">
-                      <div className="result-section-head">📊 Pattern detail</div>
-                      <p style={{ color: "#2A4A5A", fontSize: "0.9rem", lineHeight: 1.7 }}>{active.description}</p>
-                      <div style={{ marginTop: 8 }}>
-                        <span style={{ background: confidenceColor(active.confidence) + "22", color: confidenceColor(active.confidence), fontSize: "0.7rem", fontWeight: 800, padding: "3px 10px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                          {confidenceLabel(active.confidence)} · {active.confidence}%
-                        </span>
-                      </div>
-                    </div>
-                    <div className="result-section">
-                      <div className="result-section-head">🔬 Top drivers identified</div>
-                      {active.drivers.map((d, i) => (
-                        <div key={i} className="driver-item">
-                          <div className="driver-rank" style={{ background: active.color }}>{i+1}</div>
-                          <div>
-                            <div style={{ fontWeight: 800, fontSize: "0.88rem", color: COLORS.deep, marginBottom: 2 }}>{d.label}</div>
-                            <div style={{ fontSize: "0.82rem", color: "#4A6070", lineHeight: 1.5 }}>{d.explanation}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="tool-disclaimer" style={{ marginTop: 0 }}>
-                      Educational only. For dosing or treatment decisions, always follow your diabetes care team's guidance.
-                    </div>
-                  </div>
-                )}
-
-                <button className="forum-post-btn" style={{ marginTop: 20, width: "100%" }} onClick={() => setStep("feedback")}>
-                  Was this helpful? Give 10 seconds of feedback →
-                </button>
-              </>
-            )}
-          </>
-        )}
-      </div>
-    );
-  }
-
-  // ── Step: Feedback (Learning Loop) ───────────────────────────────────────
-  if (step === "feedback") {
-    if (feedbackDone) return (
-      <div style={{ textAlign: "center", padding: "60px 20px" }}>
-        <div style={{ fontSize: "3rem", marginBottom: 16 }}>💙</div>
-        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", color: COLORS.deep, marginBottom: 8 }}>Thank you — that helps us improve.</div>
-        <div style={{ color: COLORS.muted, fontSize: "0.9rem" }}>Returning to the start…</div>
-      </div>
-    );
-
-    const topPattern = patterns[0];
-    return (
-      <div>
-        <div className="section-header">
-          <h2>💬 Quick feedback</h2>
-          <p>10 seconds. Helps us make the explanations better for every family.</p>
-        </div>
-
-        <div className="feedback-card">
-          <div className="feedback-q">Was this explanation helpful?</div>
-          <div style={{ display: "flex", gap: 12 }}>
-            {["Yes — it made sense", "Partially", "No — it didn't match"].map(opt => (
-              <button key={opt} className={`ctx-option ${feedback.helpful === opt ? "active" : ""}`}
-                style={{ flex: 1 }} onClick={() => setFeedback(p => ({...p, helpful: opt}))}>
-                {opt}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {topPattern && (
-          <div className="feedback-card">
-            <div className="feedback-q">Which reason seems most likely to you?</div>
-            {topPattern.drivers.map((d, i) => (
-              <button key={i} className={`ctx-option ${feedback.likelyDriver === d.label ? "active" : ""}`}
-                onClick={() => setFeedback(p => ({...p, likelyDriver: d.label}))}>
-                {d.label}
-              </button>
-            ))}
-            <button className={`ctx-option ${feedback.likelyDriver === "unsure" ? "active" : ""}`}
-              onClick={() => setFeedback(p => ({...p, likelyDriver: "unsure"}))}>
-              Not sure
-            </button>
-          </div>
-        )}
-
-        <div className="feedback-card">
-          <div className="feedback-q">Anything unusual that day? <span style={{ fontWeight: 400, color: COLORS.muted }}>(optional)</span></div>
-          <input className="forum-input" style={{ width: "100%", marginTop: 8 }}
-            placeholder="e.g. illness, stress, party, new infusion site, different meal..."
-            value={feedback.unusual}
-            onChange={e => setFeedback(p => ({...p, unusual: e.target.value}))} />
-        </div>
-
-        <button className="forum-post-btn" style={{ width: "100%", padding: 16, fontSize: "1rem" }} onClick={submitFeedback}>
-          Submit feedback →
-        </button>
-        <button onClick={reset} style={{ display: "block", width: "100%", marginTop: 10, background: "none", border: "none", color: COLORS.muted, fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", padding: 10 }}>
-          Skip and start over
-        </button>
-      </div>
-    );
-  }
+            </div>
+          )}
+          {aiError && <div className="tool-disclaimer" style={{ marginBottom: 12 }}>{aiError}</div>}
+          {aiExplanation && !aiLoading && (
+            <ExplanationPanel explanation={aiExplanation} source="demo" />
+          )}
+        </>
+      )}
+    </div>
+  );
 
   return null;
 }
