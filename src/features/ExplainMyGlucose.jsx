@@ -384,6 +384,10 @@ export default function ExplainMyGlucose() {
   const [aiExplanation, setAiExplanation] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState(null);
+  const [uploadMode, setUploadMode] = useState(false);
+  const [uploadImage, setUploadImage] = useState(null);   // base64 data URL
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
 
   const DEMOS = [
     { id: "pizza",          label: "Pizza dinner spike",         emoji: "🍕", ctx: { mealTime: "60", mealType: "highfat", insulinTiming: "at", activityLevel: "none" } },
@@ -498,7 +502,91 @@ ${JSON.stringify(patternSummary, null, 2)}`;
     setStep("load"); setReadings(null); setPatterns([]); setOpenPattern(null);
     setFeedback({ helpful: null, likelyDriver: null, unusual: "" }); setFeedbackDone(false);
     setAiExplanation(null); setAiLoading(false); setAiError(null);
+    setUploadMode(false); setUploadImage(null); setUploadLoading(false); setUploadError(null);
     setCtx({ mealTime: "", mealType: "", insulinTiming: "", activityTime: "", activityLevel: "", sick: false, schoolDay: false, pumpSiteChanged: null, snackAfterActivity: null });
+  };
+
+  // Handle file selection → base64
+  const handleFileSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { setUploadError("Please select an image file (PNG, JPG, etc.)"); return; }
+    if (file.size > 8 * 1024 * 1024) { setUploadError("Image is too large — please use a screenshot under 8MB."); return; }
+    setUploadError(null);
+    const reader = new FileReader();
+    reader.onload = (ev) => setUploadImage(ev.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  // Send screenshot to Claude Vision → extract pattern → set AI explanation directly
+  const analyseScreenshot = async () => {
+    if (!uploadImage) return;
+    setUploadLoading(true);
+    setUploadError(null);
+    setAiExplanation(null);
+
+    try {
+      const base64 = uploadImage.split(",")[1];
+      const mimeType = uploadImage.split(";")[0].split(":")[1];
+
+      const systemPrompt = \`You are a warm, supportive educational assistant for families living with Type 1 Diabetes.
+You will be shown a CGM (Continuous Glucose Monitor) screenshot. Your job is to describe what you see in plain, calm, family-friendly language.
+
+STRICT RULES:
+- Do NOT give dosing advice, medication recommendations, or any treatment instructions
+- Use "possible reasons" language throughout — never state causes as facts
+- Tone: calm, reassuring, like a knowledgeable friend — not a doctor
+- If the image does not appear to be a CGM graph, say so gently and ask the user to upload a CGM screenshot
+- Always end with the safety note
+
+Return ONLY valid JSON (no markdown fences, no preamble):
+{
+  "title": "short friendly title describing what you see (max 10 words)",
+  "what_happened": "2-3 warm sentences describing the glucose pattern visible in the graph. Mention approximate time windows and values if visible. Use mmol/L.",
+  "likely_reasons": [
+    {"reason": "name of reason", "why_this_fits": "1-2 plain sentences explaining why this might apply", "confidence": "high|medium|low"}
+  ],
+  "what_to_notice_next_time": ["observation 1", "observation 2", "observation 3"],
+  "encouragement": "One warm sentence of encouragement for the family.",
+  "safety_note": "Brief reminder to follow care team guidance.",
+  "is_cgm_image": true
+}
+Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm_image to false and explain in what_happened.\`;
+
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: systemPrompt,
+          messages: [{
+            role: "user",
+            content: [
+              {
+                type: "image",
+                source: { type: "base64", media_type: mimeType, data: base64 }
+              },
+              {
+                type: "text",
+                text: "Please analyse this CGM screenshot and explain the glucose pattern you can see in plain, warm, family-friendly language. Return JSON only."
+              }
+            ]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const raw = data.content?.map(b => b.text || "").join("").trim();
+      const clean = raw.replace(/^\`\`\`json|\`\`\`$/gm, "").trim();
+      const parsed = JSON.parse(clean);
+      setAiExplanation(parsed);
+      setStep("screenshot-result");
+    } catch (err) {
+      setUploadError("Could not analyse the screenshot. Please try again, or use a clearer image.");
+    } finally {
+      setUploadLoading(false);
+    }
   };
 
   // ── Step: Load ────────────────────────────────────────────────────────────
@@ -506,35 +594,162 @@ ${JSON.stringify(patternSummary, null, 2)}`;
     <div>
       <div className="section-header">
         <h2>🔎 Explain My Glucose</h2>
-        <p>Select a scenario below to see how the pattern detector works — turning a glucose graph into a clear, educational explanation.</p>
+        <p>Upload a CGM screenshot for an instant explanation — or explore a demo scenario to see how the pattern detector works.</p>
       </div>
 
       <div className="tool-disclaimer">
-        <strong>Educational tool only.</strong> This tool identifies glucose patterns and their likely educational explanations. It does not provide dosing advice and does not replace your diabetes care team. Always consult your endocrinologist for treatment decisions.
+        <strong>Educational tool only.</strong> Identifies glucose patterns and provides educational explanations. Does not provide dosing advice and does not replace your diabetes care team.
       </div>
 
-      <div style={{ marginBottom: 28 }}>
-        <div className="step-label">Choose a demo scenario to explore</div>
-        <div style={{ display: "grid", gap: 12 }}>
-          {DEMOS.map(d => (
-            <button key={d.id} className="demo-scenario-btn" onClick={() => loadDemo(d)}>
-              <span style={{ fontSize: "1.6rem" }}>{d.emoji}</span>
-              <div>
-                <div style={{ fontWeight: 800, color: COLORS.deep }}>{d.label}</div>
-                <div style={{ fontSize: "0.8rem", color: COLORS.muted, marginTop: 2 }}>Tap to load sample CGM data and run pattern analysis</div>
-              </div>
-              <span style={{ color: COLORS.ocean, fontSize: "1.1rem", marginLeft: "auto" }}>→</span>
-            </button>
-          ))}
+      {/* ── UPLOAD OPTION — primary ── */}
+      <div className="upload-panel">
+        <div className="upload-panel-header">
+          <span style={{ fontSize: "1.8rem" }}>📸</span>
+          <div>
+            <div className="upload-panel-title">Upload a CGM screenshot</div>
+            <div className="upload-panel-sub">Take a screenshot of your Dexcom, Libre, or any CGM app and upload it here for an instant explanation.</div>
+          </div>
         </div>
+
+        {!uploadImage ? (
+          <label className="upload-dropzone">
+            <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileSelect} />
+            <div className="upload-dropzone-icon">⬆️</div>
+            <div className="upload-dropzone-label">Tap to choose a screenshot</div>
+            <div className="upload-dropzone-sub">PNG, JPG · Max 8MB · Your image is not stored</div>
+          </label>
+        ) : (
+          <div className="upload-preview-wrap">
+            <img src={uploadImage} alt="CGM screenshot" className="upload-preview-img" />
+            <div className="upload-preview-actions">
+              {uploadLoading ? (
+                <div className="upload-analysing">
+                  <div className="ai-loading-pulse" style={{ width: 28, height: 28 }} />
+                  <span>Analysing your screenshot…</span>
+                </div>
+              ) : (
+                <>
+                  <button className="explain-btn" onClick={analyseScreenshot}>
+                    Explain this graph →
+                  </button>
+                  <button className="back-btn" style={{ marginTop: 8 }} onClick={() => { setUploadImage(null); setUploadError(null); }}>
+                    ← Choose a different image
+                  </button>
+                </>
+              )}
+            </div>
+            {uploadError && <div className="upload-error">{uploadError}</div>}
+          </div>
+        )}
+        {uploadError && !uploadImage && <div className="upload-error">{uploadError}</div>}
       </div>
 
-      <div style={{ background: "#F7F3EE", borderRadius: 16, padding: "20px 24px" }}>
-        <div style={{ fontWeight: 800, fontSize: "0.85rem", color: COLORS.deep, marginBottom: 8 }}>🛣️ What's coming next</div>
-        <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.7 }}>
-          Future versions will allow direct CGM data connection (Dexcom, Libre) or CSV upload. For now, the demo scenarios show exactly how the pattern detection and explanation engine works.
-        </div>
+      {/* ── DIVIDER ── */}
+      <div className="upload-divider">
+        <span>or try a demo scenario</span>
       </div>
+
+      {/* ── DEMO SCENARIOS — secondary ── */}
+      <div style={{ display: "grid", gap: 10 }}>
+        {DEMOS.map(d => (
+          <button key={d.id} className="demo-scenario-btn" onClick={() => loadDemo(d)}>
+            <span style={{ fontSize: "1.5rem" }}>{d.emoji}</span>
+            <div>
+              <div style={{ fontWeight: 800, color: COLORS.deep, fontSize: "0.9rem" }}>{d.label}</div>
+              <div style={{ fontSize: "0.78rem", color: COLORS.muted, marginTop: 2 }}>Demo · tap to load sample data</div>
+            </div>
+            <span style={{ color: COLORS.ocean, fontSize: "1.1rem", marginLeft: "auto" }}>→</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  // ── Step: Screenshot Result ────────────────────────────────────────────────
+  if (step === "screenshot-result") return (
+    <div>
+      <button className="back-btn" onClick={reset}>← Upload a different screenshot</button>
+
+      {/* Show the uploaded image */}
+      {uploadImage && (
+        <div style={{ marginBottom: 20 }}>
+          <div className="step-label">Your CGM screenshot</div>
+          <img src={uploadImage} alt="CGM screenshot" style={{ width: "100%", borderRadius: 14, maxHeight: 260, objectFit: "contain", background: "#F7F3EE" }} />
+        </div>
+      )}
+
+      {uploadLoading && (
+        <div className="ai-loading-panel">
+          <div className="ai-loading-pulse" />
+          <div>
+            <div style={{ fontWeight: 800, color: COLORS.deep, marginBottom: 4 }}>Reading your screenshot…</div>
+            <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Claude is looking at the graph and building an explanation for your family.</div>
+          </div>
+        </div>
+      )}
+
+      {aiExplanation && (
+        <div className="ai-explanation-panel">
+          <div className="ai-panel-header">
+            <div className="ai-badge">✨ Screenshot analysis</div>
+            <h3 className="ai-title">{aiExplanation.title}</h3>
+          </div>
+
+          <div className="ai-section">
+            <div className="ai-section-label">📊 What happened</div>
+            <p className="ai-text">{aiExplanation.what_happened}</p>
+          </div>
+
+          {aiExplanation.is_cgm_image !== false && aiExplanation.likely_reasons?.length > 0 && (
+            <div className="ai-section">
+              <div className="ai-section-label">🔬 Possible reasons <span style={{ fontWeight: 400, color: COLORS.muted, fontSize: "0.75rem" }}>(educational — not medical advice)</span></div>
+              {aiExplanation.likely_reasons.map((r, i) => {
+                const confColor = r.confidence === "high" ? COLORS.mint : r.confidence === "medium" ? COLORS.sunshine : COLORS.muted;
+                return (
+                  <div key={i} className="ai-driver">
+                    <div className="ai-driver-rank" style={{ background: COLORS.ocean }}>{i+1}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                        <span style={{ fontWeight: 800, fontSize: "0.9rem", color: COLORS.deep }}>{r.reason}</span>
+                        <span style={{ fontSize: "0.68rem", fontWeight: 800, background: confColor + "22", color: confColor, padding: "2px 8px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>{r.confidence}</span>
+                      </div>
+                      <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.55 }}>{r.why_this_fits}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {aiExplanation.what_to_notice_next_time?.length > 0 && (
+            <div className="ai-section">
+              <div className="ai-section-label">💡 What to notice next time</div>
+              {aiExplanation.what_to_notice_next_time.map((q, i) => (
+                <div key={i} className="next-time-item">
+                  <span style={{ color: COLORS.ocean }}>→</span>
+                  <span style={{ fontSize: "0.88rem", color: "#2A4A5A", lineHeight: 1.5 }}>{q}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {aiExplanation.encouragement && (
+            <div className="ai-encouragement">💙 {aiExplanation.encouragement}</div>
+          )}
+
+          <div className="tool-disclaimer" style={{ marginTop: 0 }}>
+            {aiExplanation.safety_note || "This is an educational explanation only. For dosing or treatment decisions, always follow your diabetes care team's guidance."}
+          </div>
+        </div>
+      )}
+
+      {uploadError && (
+        <div className="upload-error" style={{ marginTop: 16 }}>{uploadError}</div>
+      )}
+
+      <button className="forum-post-btn" style={{ marginTop: 20, width: "100%" }} onClick={() => setStep("feedback")}>
+        Was this helpful? Give 10 seconds of feedback →
+      </button>
     </div>
   );
 

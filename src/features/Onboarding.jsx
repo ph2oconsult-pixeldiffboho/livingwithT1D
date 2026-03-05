@@ -56,11 +56,17 @@ export default function Onboarding({ onComplete }) {
   return (
     <div className="onboarding-wrap">
       <div className="onboarding-card">
-        {/* Progress */}
-        <div className="ob-progress">
-          {questions.map((_, i) => (
-            <div key={i} className={`ob-dot ${i <= step ? "filled" : ""}`} />
-          ))}
+
+        {/* Top row: progress dots + skip X */}
+        <div className="ob-top-row">
+          <div className="ob-progress">
+            {questions.map((_, i) => (
+              <div key={i} className={`ob-dot ${i <= step ? "filled" : ""}`} />
+            ))}
+          </div>
+          <button className="ob-skip-x" onClick={() => onComplete(null)} title="Skip to app">
+            Skip ✕
+          </button>
         </div>
 
         <div className="ob-emoji">{current.emoji}</div>
@@ -84,9 +90,10 @@ export default function Onboarding({ onComplete }) {
           {isLast ? "Take me to the app →" : "Next →"}
         </button>
 
-        <button className="ob-skip" onClick={() => onComplete(null)}>
-          Skip personalisation
+        <button className="ob-skip-link" onClick={() => onComplete(null)}>
+          Skip — take me straight to the app
         </button>
+
       </div>
     </div>
   );
