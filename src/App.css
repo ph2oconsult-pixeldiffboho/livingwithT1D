@@ -2740,3 +2740,13 @@ body {
 .download-guide-icon { font-size: 1.8rem; flex-shrink: 0; }
 .download-guide-title { font-weight: 900; font-size: 1rem; margin-bottom: 3px; }
 .download-guide-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); font-weight: 600; }
+
+/* ── Hero name + tagline ── */
+.hero-name {
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 14px;
+}

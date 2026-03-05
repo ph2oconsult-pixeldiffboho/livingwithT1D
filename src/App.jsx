@@ -384,7 +384,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [selectedModule, setSelectedModule] = useState(null);
   const [profile, setProfile] = useState(null);      // null = not onboarded yet
-  const [onboarding, setOnboarding] = useState(false); // skip onboarding by default
+  const [onboarding, setOnboarding] = useState(true); // show onboarding on first visit
 
   // Two nav tiers: primary (always visible) + secondary (overflow)
   const primaryTabs = [
@@ -424,15 +424,21 @@ export default function App() {
     setOnboarding(false);
   };
 
-  // Show onboarding on first load
-  if (onboarding) return <Onboarding onComplete={completeOnboarding} />;
+  // Show onboarding on first load — skip gracefully if it crashes
+  if (onboarding) {
+    try {
+      return <Onboarding onComplete={completeOnboarding} />;
+    } catch (e) {
+      setOnboarding(false);
+    }
+  }
 
   return (
     <div className="app">
       <div className="hero">
-        <div className="hero-badge">Built from a family's lived experience</div>
-        <h1>A learning companion for families<br />navigating <span>Type 1 Diabetes</span></h1>
-        <p className="hero-sub">Understand why glucose behaves the way it does — meals, sport, nights, illness. Built by a parent who lived it.</p>
+        <div className="hero-name">Living Brilliantly with T1D</div>
+        <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
+        <p className="hero-sub">If your child has just been diagnosed, you are not alone — and you will learn how to navigate this. Understand why glucose behaves the way it does — meals, sport, overnight patterns, illness.</p>
         <div className="hero-ctas">
           <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Explain a glucose pattern →</button>
           <button className="hero-letter-btn" onClick={() => switchTab("isnormal")}>Is this normal?</button>
