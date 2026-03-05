@@ -80,6 +80,25 @@ export default function Dashboard({ profile, onNavigate }) {
 
   return (
     <div>
+      {/* Why this project exists — always shown at top */}
+      <div className="why-story">
+        <div className="why-story-text">
+          <div className="why-label">Why this project exists</div>
+          <p>When my daughter was diagnosed with Type 1 Diabetes, our family entered a world we knew nothing about. Suddenly there were new routines, constant decisions, and a level of vigilance we had never experienced before.</p>
+          <p>We watched the daily ups and downs — the uncertainty, the learning, the resilience it required.</p>
+          <p>Over time something remarkable happened. Instead of defining her, diabetes became part of what shaped her determination and purpose.</p>
+          <p>Today she works for <strong>Breakthrough T1D</strong>, helping advance the search for better treatments and ultimately a cure.</p>
+          <p>This project grew out of that journey — designed to help other families understand the everyday realities of living with Type 1 Diabetes, and to build confidence in the decisions that come with it.</p>
+          <button className="letter-link-btn" onClick={() => onNavigate("letter")}>Read our open letter to newly diagnosed families →</button>
+        </div>
+        <div className="why-story-image">
+          <div className="story-image-placeholder">
+            <div style={{ fontSize: "4rem", marginBottom: 12 }}>👨‍👧</div>
+            <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#8A9BB0", lineHeight: 1.6 }}>A parent & daughter.<br />A journey of resilience.<br />A project born from love.</div>
+          </div>
+        </div>
+      </div>
+
       {/* Personalised greeting */}
       {diag && (
         <div className="dashboard-greeting" style={{ "--g-color": diag.color }}>
