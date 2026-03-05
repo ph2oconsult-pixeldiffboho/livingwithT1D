@@ -380,6 +380,7 @@ export default function App() {
 
   const tabs = [
     { id: "home",       label: "Home",        emoji: "🏠" },
+    { id: "letter",      label: "Our Story",   emoji: "💌" },
     { id: "learning",    label: "90 Days",     emoji: "🗓️" },
     { id: "explainer",   label: "Why?",         emoji: "🔍" },
     { id: "simulator",   label: "What If?",     emoji: "🎮" },
@@ -405,8 +406,9 @@ export default function App() {
     <div className="app">
       <div className="hero">
         <div className="hero-badge">A Family Learning Journey</div>
-        <h1>Living Brilliantly<br />with <span>Type 1 Diabetes</span></h1>
-        <p>A warm, honest, and empowering companion for families navigating a T1D diagnosis together — learning, growing, and thriving as one.</p>
+        <h1>Helping families build<br /><span>confidence with T1D</span></h1>
+        <p className="hero-sub">If your child has just been diagnosed with Type 1 Diabetes, you may feel overwhelmed. This project exists to help families learn the everyday decisions of T1D — step by step.</p>
+        <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Read our open letter to newly diagnosed families →</button>
       </div>
 
       <div className="nav-container">
@@ -424,6 +426,24 @@ export default function App() {
 
         {activeTab === "home" && (
           <>
+            {/* Why story */}
+            <div className="why-story">
+              <div className="why-story-text">
+                <div className="why-label">Why this project exists</div>
+                <p>When my daughter was diagnosed with Type 1 Diabetes, our family entered a world we knew nothing about. Suddenly there were new routines, constant decisions, and a level of vigilance we had never experienced before.</p>
+                <p>Over time something remarkable happened. Instead of defining her, diabetes became part of what shaped her determination and purpose.</p>
+                <p>Today she works for <strong>Breakthrough T1D</strong>, helping advance the search for better treatments and ultimately a cure.</p>
+                <p>This project grew out of that journey — designed to help other families understand the everyday realities of living with Type 1 Diabetes, and to build confidence in the decisions that come with it.</p>
+                <button className="letter-link-btn" onClick={() => switchTab("letter")}>Read the open letter to newly diagnosed families →</button>
+              </div>
+              <div className="why-story-image">
+                <div className="story-image-placeholder">
+                  <div style={{ fontSize: "4rem", marginBottom: 12 }}>👨‍👧</div>
+                  <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#8A9BB0", lineHeight: 1.4 }}>A parent & daughter.<br />A journey of resilience.</div>
+                </div>
+              </div>
+            </div>
+
             <div className="welcome-panel">
               <h2>You're not alone in this. 💙</h2>
               <p>A T1D diagnosis changes things — but it doesn't limit what's possible. This is your family's companion: a place to learn together, find comfort in others' stories, and access the latest support and resources.</p>
@@ -565,6 +585,51 @@ export default function App() {
         )}
 
         {activeTab === "learning"  && <LearningPath />}
+        {activeTab === "letter" && (
+          <div className="open-letter">
+            <div className="letter-header">
+              <div className="letter-eyebrow">💌 An open letter</div>
+              <h2>To parents of a child newly diagnosed with Type 1 Diabetes</h2>
+            </div>
+            <div className="letter-body">
+              <p className="letter-lead">If your child has just been diagnosed with Type 1 Diabetes, your world may feel like it has changed overnight.</p>
+              <p>Suddenly there are new words, new routines, and more decisions than you ever imagined.</p>
+              <div className="letter-list">
+                <span>Carb counting.</span>
+                <span>Insulin doses.</span>
+                <span>Glucose numbers.</span>
+                <span>Highs. Lows. Alarms in the middle of the night.</span>
+              </div>
+              <p>It can feel overwhelming.</p>
+              <p>Many parents describe the first months as a blur of information and worry — trying to learn quickly while also helping their child adjust to something none of you asked for.</p>
+              <div className="letter-callout">If that is where you are right now, please know something important:<br /><strong>You will learn this.</strong></div>
+              <p>Not all at once. Not perfectly. But step by step.</p>
+              <p>Over time, the things that seem impossible today will slowly become part of your family's rhythm.</p>
+              <p>You will learn how food affects glucose. You will learn how exercise changes things. You will learn how to manage the unexpected highs and lows.</p>
+              <p>And your child will learn too.</p>
+              <p>Children living with Type 1 Diabetes develop an extraordinary awareness of their own bodies. They grow in resilience, independence, and strength.</p>
+              <div className="letter-divider">— ✦ —</div>
+              <p>I know this because our family has walked this path.</p>
+              <p>When my daughter was diagnosed, we had to learn everything from the beginning — just like you may be doing now. We experienced the same uncertainty, the same late nights checking glucose, the same constant questions about whether we were doing the right thing.</p>
+              <p>But we also watched something remarkable happen.</p>
+              <p>Our daughter grew stronger through the experience. Instead of defining her, Type 1 Diabetes became part of what shaped her determination and purpose.</p>
+              <p><strong>Today she works with Breakthrough T1D</strong>, helping advance research and support for people living with T1D.</p>
+              <div className="letter-divider">— ✦ —</div>
+              <p>This project was created because we remember how difficult those early months were.</p>
+              <p>The goal is simple: to help families understand the everyday decisions that come with Type 1 Diabetes — and to feel more confident navigating them.</p>
+              <p>No tool or guide will ever remove the condition entirely. But knowledge, experience, and support can make the journey much easier.</p>
+              <div className="letter-closing">
+                <p>If you are at the beginning of this path, please remember:</p>
+                <p><strong>You are not alone.</strong><br /><strong>You will learn this.</strong><br /><strong>And your child can grow up to live an extraordinary life.</strong></p>
+              </div>
+            </div>
+            <div className="letter-footer">
+              <div className="letter-sig">With love and solidarity,</div>
+              <div className="letter-sig-name">A T1D family, for T1D families</div>
+              <button className="explain-btn" style={{ marginTop: 24 }} onClick={() => { setActiveTab("home"); window.scrollTo(0,0); }}>Explore the app →</button>
+            </div>
+          </div>
+        )}
         {activeTab === "explainer" && <GlucoseExplainer />}
         {activeTab === "simulator" && <ScenarioSimulator />}
         {activeTab === "isnormal"  && <IsThisNormal />}
