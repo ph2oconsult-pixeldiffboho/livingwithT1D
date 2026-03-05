@@ -443,15 +443,16 @@ export default function App() {
       {activeTab === "home" && (
       <div className="hero">
         <div className="hero-name">Living Brilliantly with T1D</div>
-        <h1>Why did this happen?</h1>
-        <p className="hero-connection">Upload your CGM graph and learn what may have caused the pattern.</p>
+        <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
+        <p className="hero-connection">If your child has just been diagnosed, you are not alone.</p>
+        <p className="hero-sub">Upload your CGM graph and learn why glucose behaves the way it does.</p>
 
         {/* Tool CTA — centred and primary */}
         <button className="hero-cta-upload" onClick={() => { switchTab("explainer"); setTimeout(() => { document.querySelector(".content")?.scrollIntoView({ behavior: "smooth" }); }, 80); }}>
           <span className="hero-upload-icon">📸</span>
           <div>
-            <div className="hero-upload-title">Upload My CGM Graph</div>
-            <div className="hero-upload-sub">Get a plain-language explanation in seconds</div>
+            <div className="hero-upload-title">Why did this happen? →</div>
+            <div className="hero-upload-sub">Upload a CGM graph · get a plain-language explanation</div>
           </div>
         </button>
 
