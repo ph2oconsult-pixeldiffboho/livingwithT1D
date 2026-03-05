@@ -398,6 +398,7 @@ export default function App() {
     { id: "learning",   label: "90 Days",    emoji: "🗓️" },
   ];
   const secondaryTabs = [
+    { id: "clinicians",  label: "For Clinicians", emoji: "🏥" },
     { id: "explorer",   label: "Explorer",   emoji: "🔍" },
     { id: "patterns",   label: "Patterns",   emoji: "📈" },
     { id: "letter",     label: "Our Story",  emoji: "💌" },
@@ -457,6 +458,15 @@ export default function App() {
         </div>
       </div>
 
+      {/* Clinician trust strip */}
+      {activeTab === "home" && (
+        <div className="clinician-strip">
+          <span className="clinician-strip-icon">🏥</span>
+          <span className="clinician-strip-text">Designed to complement clinical care — not replace it.</span>
+          <button className="clinician-strip-link" onClick={() => switchTab("clinicians")}>For clinicians →</button>
+        </div>
+      )}
+
       {/* Primary nav */}
       <div className="nav-container">
         <div className="nav-shell">
@@ -501,6 +511,72 @@ export default function App() {
           <Dashboard profile={profile} onNavigate={switchTab} />
         )}
 
+        {activeTab === "clinicians" && (
+          <div>
+            <div className="section-header">
+              <h2>🏥 For Clinicians & Healthcare Teams</h2>
+              <p>Information for diabetes educators, endocrinologists, and paediatric teams considering this resource for families in their care.</p>
+            </div>
+
+            <div className="clin-what-it-is">
+              <div className="clin-section-title">What this platform is</div>
+              <p className="clin-body">Living Brilliantly with T1D is a free educational learning companion for families navigating Type 1 Diabetes. It is designed to help families understand <em>why</em> glucose behaves the way it does — not to replace clinical guidance or support treatment decisions.</p>
+              <div className="clin-pillars">
+                {[
+                  { emoji: "📚", title: "Educational only", desc: "All content explains glucose behaviour in plain language. No dosing advice, no treatment recommendations." },
+                  { emoji: "🔒", title: "No sensitive data collected", desc: "No medical records, glucose values, or personal health data are stored. CGM screenshots are processed by AI and immediately discarded." },
+                  { emoji: "🆓", title: "Free, no registration", desc: "No sign-up, no clinic code, no subscription. Families access it immediately — including newly diagnosed families who may not yet have a clinical team established." },
+                  { emoji: "🤝", title: "Complements clinical care", desc: "Every explanation includes a clear note that it does not replace advice from the diabetes care team. The platform explicitly reinforces the importance of clinical relationships." },
+                ].map((p, i) => (
+                  <div key={i} className="clin-pillar">
+                    <span className="clin-pillar-emoji">{p.emoji}</span>
+                    <div>
+                      <div className="clin-pillar-title">{p.title}</div>
+                      <div className="clin-pillar-desc">{p.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="clin-features">
+              <div className="clin-section-title">Features relevant to newly diagnosed families</div>
+              {[
+                { emoji: "🗓️", title: "First 90 Days structured guide", desc: "A 6-week learning path covering glucose patterns, meals, exercise, overnight behaviour, school management, and emergencies. Downloadable as a PDF." },
+                { emoji: "🔎", title: "Glucose pattern explainer", desc: "Families can describe or upload a CGM screenshot to receive a plain-language explanation of what happened and why — framed as education, not diagnosis." },
+                { emoji: "🤒", title: "Sick day rules & emergency guide", desc: "Step-by-step guidance for hypos, severe hypos, and DKA. Includes the 15-15 rule, glucagon protocols, and ketone thresholds. Signposts emergency services clearly." },
+                { emoji: "🔍", title: "Glucose Explorer for children", desc: "Story-based learning tool helping children understand their own glucose patterns through guessing games and metaphors — builds confidence rather than anxiety." },
+                { emoji: "🤔", title: "Is This Normal?", desc: "Reassurance guides for common patterns — overnight rises, post-exercise drops, variability, morning highs. Reduces unnecessary alarm while encouraging clinical contact when needed." },
+              ].map((f, i) => (
+                <div key={i} className="clin-feature-row">
+                  <span className="clin-feature-emoji">{f.emoji}</span>
+                  <div>
+                    <div className="clin-feature-title">{f.title}</div>
+                    <div className="clin-feature-desc">{f.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="clin-safety">
+              <div className="clin-section-title">Safety & disclaimer language</div>
+              <p className="clin-body">Every AI-generated explanation includes the following statement:</p>
+              <div className="clin-quote">"This explanation is designed to help families understand glucose behaviour. It does not replace advice from your diabetes care team and should not be used to make treatment decisions. Always follow your healthcare provider's guidance."</div>
+              <p className="clin-body">The platform does not provide insulin dosing guidance, medication recommendations, or any form of clinical decision support. It uses "possible reasons" and "this might be" language throughout — never stating causes as fact.</p>
+            </div>
+
+            <div className="clin-built-by">
+              <div className="clin-section-title">Built by a T1D family</div>
+              <p className="clin-body">This platform was created by a parent whose daughter lives with Type 1 Diabetes. Our family's experience navigating diagnosis, CGM patterns, school management, and sport inspired us to build the resource we wished had existed when we started.</p>
+              <p className="clin-body">Our daughter is involved with Breakthrough T1D, and we remain closely connected to the T1D community. This is a community resource, not a commercial product.</p>
+            </div>
+
+            <div className="clin-contact">
+              <div className="clin-contact-title">Questions or feedback from clinical teams</div>
+              <p className="clin-body" style={{ marginBottom: 0 }}>We welcome feedback from healthcare professionals and are open to conversations about how this platform could better serve families in your care. We are also interested in forming relationships with Australian diabetes clinical teams.</p>
+            </div>
+          </div>
+        )}
 
 
         {activeTab === "child" && !selectedModule && (

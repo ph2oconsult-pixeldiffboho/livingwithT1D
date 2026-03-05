@@ -314,9 +314,9 @@ function generateDemoData(scenario) {
 }
 
 // ─── Mini CGM Chart ───────────────────────────────────────────────────────────
-function CGMChart({ readings, mealTime, activityTime }) {
+function CGMChart({ readings, mealTime, activityTime, highlight }) {
   if (!readings || readings.length === 0) return null;
-  const W = 560, H = 160, PAD = { l: 40, r: 16, t: 12, b: 28 };
+  const W = 560, H = 160, PAD = { l: 40, r: 16, t: 20, b: 28 };
   const vals = readings.map(r => r.value);
   const times = readings.map(r => r.time);
   const minV = Math.max(0, Math.min(...vals) - 1);
@@ -329,29 +329,75 @@ function CGMChart({ readings, mealTime, activityTime }) {
   const low = py(3.9), high = py(10);
   const points = readings.map(r => `${px(r.time)},${py(r.value)}`).join(" ");
 
+  // Compute highlight region from detected pattern if present
+  const hl = highlight || (() => {
+    if (!readings || readings.length < 4) return null;
+    // Find the region with the steepest sustained rise or the lowest point
+    let maxRise = 0, hlStart = null, hlEnd = null;
+    for (let i = 1; i < readings.length - 1; i++) {
+      const rise = readings[i + 1].value - readings[i - 1].value;
+      if (rise > maxRise) { maxRise = rise; hlStart = readings[i - 1].time; hlEnd = readings[Math.min(i + 3, readings.length - 1)].time; }
+    }
+    // Also check for significant lows
+    const minVal = Math.min(...vals);
+    if (minVal < 4.5) {
+      const lowIdx = vals.indexOf(minVal);
+      return { startT: readings[Math.max(0, lowIdx - 2)].time, endT: readings[Math.min(readings.length - 1, lowIdx + 2)].time, label: "Pattern detected", color: "#F46036" };
+    }
+    if (maxRise > 2 && hlStart !== null) return { startT: hlStart, endT: hlEnd, label: "Pattern detected", color: "#F46036" };
+    return null;
+  })();
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", borderRadius: 12, background: "#FAFAF9" }}>
-      {/* Range band */}
-      <rect x={PAD.l} y={high} width={W - PAD.l - PAD.r} height={low - high} fill="#EEF8F4" opacity="0.8" />
-      {/* Range lines */}
-      <line x1={PAD.l} y1={high} x2={W - PAD.r} y2={high} stroke="#56C596" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
-      <line x1={PAD.l} y1={low}  x2={W - PAD.r} y2={low}  stroke="#F46036" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
-      {/* Labels */}
-      <text x={PAD.l - 4} y={high + 4} textAnchor="end" fontSize="9" fill="#56C596">10</text>
-      <text x={PAD.l - 4} y={low  + 4} textAnchor="end" fontSize="9" fill="#F46036">4</text>
-      {/* Meal marker */}
-      {mealTime && <line x1={px(mealTime)} y1={PAD.t} x2={px(mealTime)} y2={H - PAD.b} stroke="#FFD166" strokeWidth="2" />}
-      {mealTime && <text x={px(mealTime)} y={PAD.t - 2} textAnchor="middle" fontSize="9" fill="#F46036">🍽️</text>}
-      {/* Activity marker */}
-      {activityTime && <line x1={px(activityTime)} y1={PAD.t} x2={px(activityTime)} y2={H - PAD.b} stroke="#9B8EC4" strokeWidth="2" />}
-      {activityTime && <text x={px(activityTime)} y={PAD.t - 2} textAnchor="middle" fontSize="9" fill="#9B8EC4">⚽</text>}
-      {/* CGM line */}
-      <polyline points={points} fill="none" stroke="#2E86AB" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
-      {/* Dots for lows */}
-      {readings.filter(r => r.value < 3.9).map((r, i) => (
-        <circle key={i} cx={px(r.time)} cy={py(r.value)} r="4" fill="#F46036" />
-      ))}
-    </svg>
+    <div style={{ position: "relative" }}>
+      {hl && (
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0,
+          display: "flex", alignItems: "center", justifyContent: "flex-end",
+          padding: "4px 8px", zIndex: 2, pointerEvents: "none",
+        }}>
+          <span style={{ background: "#F46036", color: "white", fontSize: "0.65rem", fontWeight: 900, padding: "2px 8px", borderRadius: 99, letterSpacing: 0.5 }}>
+            ● {hl.label}
+          </span>
+        </div>
+      )}
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", borderRadius: 12, background: "#FAFAF9", display: "block" }}>
+        {/* Range band */}
+        <rect x={PAD.l} y={high} width={W - PAD.l - PAD.r} height={low - high} fill="#EEF8F4" opacity="0.8" />
+        {/* Highlight region */}
+        {hl && (
+          <>
+            <rect
+              x={px(hl.startT)} y={PAD.t}
+              width={px(hl.endT) - px(hl.startT)} height={H - PAD.t - PAD.b}
+              fill={hl.color || "#F46036"} fillOpacity="0.1"
+              stroke={hl.color || "#F46036"} strokeWidth="1.5" strokeDasharray="4,3"
+              rx="4"
+            />
+            <line x1={px(hl.startT)} y1={PAD.t} x2={px(hl.startT)} y2={H - PAD.b} stroke={hl.color || "#F46036"} strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
+            <line x1={px(hl.endT)}   y1={PAD.t} x2={px(hl.endT)}   y2={H - PAD.b} stroke={hl.color || "#F46036"} strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
+          </>
+        )}
+        {/* Range lines */}
+        <line x1={PAD.l} y1={high} x2={W - PAD.r} y2={high} stroke="#56C596" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
+        <line x1={PAD.l} y1={low}  x2={W - PAD.r} y2={low}  stroke="#F46036" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
+        {/* Labels */}
+        <text x={PAD.l - 4} y={high + 4} textAnchor="end" fontSize="9" fill="#56C596">10</text>
+        <text x={PAD.l - 4} y={low  + 4} textAnchor="end" fontSize="9" fill="#F46036">4</text>
+        {/* Meal marker */}
+        {mealTime && <line x1={px(mealTime)} y1={PAD.t} x2={px(mealTime)} y2={H - PAD.b} stroke="#FFD166" strokeWidth="2" />}
+        {mealTime && <text x={px(mealTime)} y={PAD.t - 2} textAnchor="middle" fontSize="9" fill="#F46036">🍽️</text>}
+        {/* Activity marker */}
+        {activityTime && <line x1={px(activityTime)} y1={PAD.t} x2={px(activityTime)} y2={H - PAD.b} stroke="#9B8EC4" strokeWidth="2" />}
+        {activityTime && <text x={px(activityTime)} y={PAD.t - 2} textAnchor="middle" fontSize="9" fill="#9B8EC4">⚽</text>}
+        {/* CGM line */}
+        <polyline points={points} fill="none" stroke="#2E86AB" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+        {/* Dots for lows */}
+        {readings.filter(r => r.value < 3.9).map((r, i) => (
+          <circle key={i} cx={px(r.time)} cy={py(r.value)} r="4" fill="#F46036" />
+        ))}
+      </svg>
+    </div>
   );
 }
 
@@ -366,13 +412,69 @@ function ConfBadge({ score }) {
   );
 }
 
+// ─── Similar Patterns Data ────────────────────────────────────────────────────
+const SIMILAR_PATTERNS = {
+  "post-meal-spike": [
+    { emoji: "🍕", label: "High-fat meals (pizza, burgers, pasta with cream)" },
+    { emoji: "🍞", label: "Large carbohydrate portions without early insulin" },
+    { emoji: "💉", label: "Insulin given after the meal rather than before" },
+    { emoji: "😰", label: "Stressful day — stress hormones slow insulin action" },
+  ],
+  "pizza-effect": [
+    { emoji: "🍕", label: "Pizza, burgers, or any high-fat meal" },
+    { emoji: "🧀", label: "Creamy pasta, cheese-heavy dishes, fried food" },
+    { emoji: "🌙", label: "After-dinner glucose rising hours after eating" },
+    { emoji: "⏰", label: "Insulin peaked too early for the delayed carb absorption" },
+  ],
+  "exercise-spike": [
+    { emoji: "⚽", label: "Intense sport or competitive exercise" },
+    { emoji: "🏃", label: "Sprint training, HIIT, or high-adrenaline activity" },
+    { emoji: "😤", label: "Excitement or competition nerves before sport" },
+    { emoji: "💪", label: "Resistance training (weights, gymnastics)" },
+  ],
+  "exercise-drop": [
+    { emoji: "⚽", label: "Aerobic sport (football, swimming, running, cycling)" },
+    { emoji: "🌙", label: "Overnight after afternoon or evening exercise" },
+    { emoji: "🍫", label: "No snack given after activity" },
+    { emoji: "⏳", label: "Muscles still absorbing glucose hours after activity" },
+  ],
+  "dawn-phenomenon": [
+    { emoji: "🌙", label: "Overnight rise starting from around 2–4 AM" },
+    { emoji: "📈", label: "Growth hormone released during deep sleep" },
+    { emoji: "🧒", label: "Very common in children and teenagers" },
+    { emoji: "🌅", label: "Waking up with higher glucose than bedtime" },
+  ],
+  "stubborn-high": [
+    { emoji: "🤒", label: "Mild illness or infection (even without obvious symptoms)" },
+    { emoji: "😰", label: "Stress, exams, or emotional upset" },
+    { emoji: "📈", label: "Growth spurt — insulin needs can change rapidly" },
+    { emoji: "💉", label: "Pump site issue — blocked cannula or poor absorption" },
+  ],
+  "rollercoaster": [
+    { emoji: "🍬", label: "Fast-acting carbs followed by aggressive correction" },
+    { emoji: "💉", label: "Insulin stacking — too much insulin too close together" },
+    { emoji: "🍕", label: "Mixed meals with both fast and slow carbs" },
+    { emoji: "⚽", label: "Active day with variable insulin sensitivity" },
+  ],
+  "screenshot": [
+    { emoji: "🍽️", label: "Meals in the hours before the pattern" },
+    { emoji: "⚽", label: "Physical activity earlier in the day" },
+    { emoji: "🌙", label: "Overnight hormone changes during sleep" },
+    { emoji: "🤒", label: "Illness, stress, or disruption to routine" },
+  ],
+};
+
 // ─── Shared 5-Part Explanation Panel ────────────────────────────────────────────
 // Used by both screenshot result and demo result steps.
 // Always renders the same trusted structure regardless of input source.
 
-function ExplanationPanel({ explanation, source, onFeedback }) {
+function ExplanationPanel({ explanation, source, onFeedback, patternIds }) {
   if (!explanation) return null;
   const { title, what_happened, likely_reasons, what_families_notice, what_to_notice_next_time, encouragement, safety_note } = explanation;
+
+  // Pick similar patterns from the first detected pattern id, fallback to screenshot
+  const similarKey = (patternIds && patternIds[0]) || source || "screenshot";
+  const similarItems = SIMILAR_PATTERNS[similarKey] || SIMILAR_PATTERNS["screenshot"];
 
   return (
     <div className="exp-panel">
@@ -466,7 +568,24 @@ function ExplanationPanel({ explanation, source, onFeedback }) {
       {/* Part 5 — Safety note (always shown) */}
       <div className="exp-safety">
         <span className="exp-safety-icon">⚕️</span>
-        <p>{safety_note || "This explanation is educational and does not replace advice from your diabetes care team. Always follow the guidance of your healthcare provider."}</p>
+        <p>{safety_note || "This explanation is designed to help families understand glucose behaviour. It does not replace advice from your diabetes care team and should not be used to make treatment decisions. Always follow your healthcare provider's guidance."}</p>
+      </div>
+
+      {/* Similar patterns families see */}
+      <div className="exp-section exp-section--similar">
+        <div className="exp-section-num" style={{ background: "#9B8EC4" }}>💬</div>
+        <div className="exp-section-body">
+          <div className="exp-section-label">Families often see this pattern when…</div>
+          <div className="exp-similar-grid">
+            {similarItems.map((item, i) => (
+              <div key={i} className="exp-similar-item">
+                <span className="exp-similar-emoji">{item.emoji}</span>
+                <span className="exp-similar-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="exp-similar-note">You are not alone — these patterns are seen by families all around the world living with T1D.</div>
+        </div>
       </div>
 
       {/* Inline feedback */}
@@ -896,7 +1015,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
 
       {uploadError && <div className="upload-error" style={{ marginTop: 8 }}>{uploadError}</div>}
 
-      <ExplanationPanel explanation={aiExplanation} source="screenshot" onFeedback={saveFeedbackEntry} />
+      <ExplanationPanel explanation={aiExplanation} source="screenshot" onFeedback={saveFeedbackEntry} patternIds={["screenshot"]} />
     </div>
   );
 
@@ -993,7 +1112,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
           )}
           {aiError && <div className="tool-disclaimer" style={{ marginBottom: 12 }}>{aiError}</div>}
           {aiExplanation && !aiLoading && (
-            <ExplanationPanel explanation={aiExplanation} source="demo" onFeedback={saveFeedbackEntry} />
+            <ExplanationPanel explanation={aiExplanation} source="demo" onFeedback={saveFeedbackEntry} patternIds={patterns.map(p => p.id)} />
           )}
         </>
       )}

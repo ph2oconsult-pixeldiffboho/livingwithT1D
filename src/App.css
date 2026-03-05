@@ -3099,3 +3099,102 @@ body {
   text-align: center; padding: 16px 0;
   border-top: 1px solid #E8E4DF; margin-top: 8px;
 }
+
+/* ── Similar patterns section ── */
+.exp-section--similar { align-items: flex-start; }
+.exp-similar-grid {
+  display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;
+}
+.exp-similar-item {
+  display: flex; align-items: center; gap: 10px;
+  background: #F7F3EE; border-radius: 10px; padding: 10px 12px;
+}
+.exp-similar-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.exp-similar-label { font-size: 0.88rem; color: #2A4A5A; font-weight: 600; line-height: 1.4; }
+.exp-similar-note {
+  font-size: 0.8rem; color: #8A9BB0; font-style: italic;
+  line-height: 1.5; padding: 0 2px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CLINICIAN TRUST STRIP + FOR CLINICIANS PAGE
+═══════════════════════════════════════════════════════════ */
+
+/* Trust strip */
+.clinician-strip {
+  display: flex; align-items: center; gap: 10px;
+  background: #EEF8F4; border-bottom: 1px solid #D4EFE4;
+  padding: 9px 16px; font-size: 0.82rem;
+}
+.clinician-strip-icon { flex-shrink: 0; }
+.clinician-strip-text { flex: 1; color: #2A5A40; font-weight: 600; }
+.clinician-strip-link {
+  background: none; border: none; color: #2E86AB; font-weight: 800;
+  font-size: 0.82rem; cursor: pointer; white-space: nowrap; padding: 0;
+  font-family: inherit;
+}
+.clinician-strip-link:hover { text-decoration: underline; }
+
+/* Clinicians page */
+.clin-section-title {
+  font-weight: 900; color: #1A3A4A; font-size: 1rem;
+  margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 2px solid #E8E4DF;
+}
+.clin-body {
+  font-size: 0.92rem; line-height: 1.7; color: #2A4A5A; margin-bottom: 14px;
+}
+
+.clin-what-it-is {
+  background: white; border-radius: 16px; padding: 20px;
+  margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #E8E4DF;
+}
+.clin-pillars { display: flex; flex-direction: column; gap: 12px; }
+.clin-pillar {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #F7F3EE; border-radius: 12px; padding: 14px;
+}
+.clin-pillar-emoji { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+.clin-pillar-title { font-weight: 900; color: #1A3A4A; font-size: 0.9rem; margin-bottom: 3px; }
+.clin-pillar-desc { font-size: 0.83rem; color: #4A6070; line-height: 1.5; }
+
+.clin-features {
+  background: white; border-radius: 16px; padding: 20px;
+  margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #E8E4DF;
+}
+.clin-feature-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid #F0EDE8;
+}
+.clin-feature-row:last-child { border-bottom: none; padding-bottom: 0; }
+.clin-feature-emoji { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.clin-feature-title { font-weight: 800; color: #1A3A4A; font-size: 0.9rem; margin-bottom: 3px; }
+.clin-feature-desc { font-size: 0.83rem; color: #4A6070; line-height: 1.5; }
+
+.clin-safety {
+  background: #FFF8F0; border-radius: 16px; padding: 20px;
+  margin-bottom: 16px; border-left: 4px solid #FFD166;
+}
+.clin-quote {
+  background: white; border-radius: 10px; padding: 14px 16px;
+  font-size: 0.9rem; color: #1A3A4A; font-style: italic;
+  line-height: 1.7; border-left: 3px solid #2E86AB;
+  margin: 12px 0;
+}
+
+.clin-built-by {
+  background: linear-gradient(135deg, #1A3A4A, #2E4A5A);
+  border-radius: 16px; padding: 20px; margin-bottom: 16px; color: white;
+}
+.clin-built-by .clin-section-title { color: white; border-color: rgba(255,255,255,0.2); }
+.clin-built-by .clin-body { color: rgba(255,255,255,0.85); }
+
+.clin-contact {
+  background: #F0F8FF; border-radius: 16px; padding: 20px;
+  margin-bottom: 16px; border-left: 4px solid #2E86AB;
+}
+.clin-contact-title {
+  font-weight: 900; color: #1A3A4A; font-size: 1rem; margin-bottom: 10px;
+}

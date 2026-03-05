@@ -45,6 +45,7 @@ const secondaryFeatures = [
   { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",   desc: "The most searched glucose behaviours, explained clearly.", color: COLORS.lavender },
   { tab: "simulator",  emoji: "🎮", title: "What Happens If…",       desc: "Simulate situations before they happen — sport, sick days, parties.", color: COLORS.sunshine },
   { tab: "learning",   emoji: "🗓️", title: "First 90 Days",          desc: "A structured 6-week learning path. Track your progress.", color: COLORS.ocean },
+  { tab: "clinicians",  emoji: "🏥", title: "For Clinicians",             desc: "Information for diabetes educators and healthcare teams considering this resource.", color: COLORS.ocean },
   { tab: "sickday",    emoji: "🤒", title: "Sick Day Rules",            desc: "What to do when your child is unwell. Includes emergency guide for hypos and DKA.", color: COLORS.coral },
   { tab: "explorer",   emoji: "🔍", title: "Glucose Explorer",          desc: "Stories, guessing games and badges. Kids learn why glucose behaves the way it does.", color: COLORS.mint },
   { tab: "child",      emoji: "🌟", title: "For Kids",               desc: "Age-appropriate modules to help your child understand T1D.", color: COLORS.coral },
