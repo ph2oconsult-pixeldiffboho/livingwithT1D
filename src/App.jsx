@@ -5,6 +5,7 @@ import ScenarioSimulator from "./features/ScenarioSimulator";
 import LearningPath from "./features/LearningPath";
 import IsThisNormal from "./features/IsThisNormal";
 import SchoolActivityCompanion from "./features/SchoolActivity";
+import GlucosePatterns from "./features/GlucosePatterns";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -382,7 +383,8 @@ export default function App() {
     { id: "home",       label: "Home",        emoji: "🏠" },
     { id: "letter",      label: "Our Story",   emoji: "💌" },
     { id: "learning",    label: "90 Days",     emoji: "🗓️" },
-    { id: "explainer",   label: "Why?",         emoji: "🔍" },
+    { id: "patterns",    label: "Why?",         emoji: "📈" },
+    { id: "explainer",   label: "Explainer",    emoji: "🔍" },
     { id: "simulator",   label: "What If?",     emoji: "🎮" },
     { id: "isnormal",    label: "Normal?",      emoji: "🤔" },
     { id: "activity",    label: "School/Sport", emoji: "🏫" },
@@ -405,10 +407,13 @@ export default function App() {
   return (
     <div className="app">
       <div className="hero">
-        <div className="hero-badge">A Family Learning Journey</div>
-        <h1>Helping families build<br /><span>confidence with T1D</span></h1>
-        <p className="hero-sub">If your child has just been diagnosed with Type 1 Diabetes, you may feel overwhelmed. This project exists to help families learn the everyday decisions of T1D — step by step.</p>
-        <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Read our open letter to newly diagnosed families →</button>
+        <div className="hero-badge">Built from a family's journey</div>
+        <h1>A learning companion for families<br />navigating life with <span>Type 1 Diabetes</span></h1>
+        <p className="hero-sub">Built from a family's journey after their daughter was diagnosed — helping parents understand the everyday decisions of T1D and feel more confident navigating them.</p>
+        <div className="hero-ctas">
+          <button className="hero-cta-primary" onClick={() => switchTab("learning")}>Start learning →</button>
+          <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Our story & open letter</button>
+        </div>
       </div>
 
       <div className="nav-container">
@@ -457,11 +462,12 @@ export default function App() {
               <div style={{ fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1, color: "#8A9BB0", marginBottom: 12 }}>🆕 Learning Tools</div>
               <div className="modules-grid" style={{ marginBottom: 20 }}>
                 {[
-                  { tab: "learning",   emoji: "🗓️", title: "First 90 Days",          desc: "A guided week-by-week learning path for newly diagnosed families. Build confidence progressively.", color: COLORS.ocean },
-                  { tab: "explainer",  emoji: "🔍", title: "Why Did This Happen?",   desc: "Input what you observed and get a clear educational explanation of the glucose pattern.", color: COLORS.coral },
-                  { tab: "simulator",  emoji: "🎮", title: "What Happens If…",       desc: "Simulate common situations before they occur — late insulin, soccer, sick days, parties.", color: COLORS.mint },
-                  { tab: "isnormal",   emoji: "🤔", title: "Is This Normal?",         desc: "Turn overnight spikes, post-exercise crashes, and confusing patterns into reassuring understanding.", color: COLORS.lavender },
-                  { tab: "activity",   emoji: "🏫", title: "School & Activity Guide", desc: "Practical guidance for school lunches, birthday parties, sleepovers, soccer, swimming and more.", color: COLORS.sunshine },
+                  { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",     desc: "The most confusing glucose behaviours — pizza spikes, exercise rises, overnight highs — all clearly explained.", color: COLORS.coral },
+                  { tab: "learning",   emoji: "🗓️", title: "First 90 Days",            desc: "A structured week-by-week learning path for newly diagnosed families. Build confidence progressively.", color: COLORS.ocean },
+                  { tab: "explainer",  emoji: "🔍", title: "Why Did This Happen?",     desc: "Input what you observed and get a clear educational explanation of the glucose pattern.", color: COLORS.lavender },
+                  { tab: "simulator",  emoji: "🎮", title: "What Happens If…",         desc: "Simulate common situations before they occur — late insulin, soccer, sick days, parties.", color: COLORS.mint },
+                  { tab: "isnormal",   emoji: "🤔", title: "Is This Normal?",           desc: "Turn overnight spikes, post-exercise crashes, and confusing patterns into reassuring understanding.", color: COLORS.sunshine },
+                  { tab: "activity",   emoji: "🏫", title: "School & Activity Guide",   desc: "Practical guidance for school lunches, birthday parties, sleepovers, soccer, swimming and more.", color: COLORS.ocean },
                 ].map(item => (
                   <div key={item.tab} className="module-card tool-card" style={{ "--card-color": item.color }} onClick={() => switchTab(item.tab)}>
                     <span className="module-emoji">{item.emoji}</span>
@@ -584,6 +590,7 @@ export default function App() {
           </>
         )}
 
+        {activeTab === "patterns"  && <GlucosePatterns />}
         {activeTab === "learning"  && <LearningPath />}
         {activeTab === "letter" && (
           <div className="open-letter">
