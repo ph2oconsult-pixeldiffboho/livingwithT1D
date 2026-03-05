@@ -437,26 +437,37 @@ export default function App() {
 
       {/* Primary nav */}
       <div className="nav-container">
-        <div className="nav-tabs">
-          {primaryTabs.map(t => (
-            <button key={t.id} className={`nav-tab ${activeTab === t.id ? "active" : ""}`} onClick={() => switchTab(t.id)}>
-              <span className="tab-emoji">{t.emoji}</span>
-              {t.label}
-            </button>
-          ))}
-          {/* More dropdown */}
-          <div style={{ position: "relative" }}>
-            <button className={`nav-tab ${moreOpen ? "active" : ""}`} onClick={() => setMoreOpen(o => !o)}>
-              ☰ More
+        <div className="nav-shell">
+          {/* Scrollable primary tabs */}
+          <div className="nav-tabs">
+            {primaryTabs.map(t => (
+              <button key={t.id} className={`nav-tab ${activeTab === t.id ? "active" : ""}`} onClick={() => switchTab(t.id)}>
+                <span className="tab-emoji">{t.emoji}</span>
+                {t.label}
+              </button>
+            ))}
+          </div>
+          {/* More button — outside the overflow container */}
+          <div className="more-wrapper">
+            <button className={`nav-tab more-btn ${moreOpen ? "active" : ""}`} onClick={() => setMoreOpen(o => !o)}>
+              <span className="tab-emoji">{moreOpen ? "✕" : "☰"}</span>
+              More
             </button>
             {moreOpen && (
-              <div className="more-dropdown">
-                {secondaryTabs.map(t => (
-                  <button key={t.id} className="more-item" onClick={() => switchTab(t.id)}>
-                    <span>{t.emoji}</span> {t.label}
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="more-backdrop" onClick={() => setMoreOpen(false)} />
+                <div className="more-dropdown">
+                  <div className="more-dropdown-title">More sections</div>
+                  <div className="more-grid">
+                    {secondaryTabs.map(t => (
+                      <button key={t.id} className={`more-item ${activeTab === t.id ? "active" : ""}`} onClick={() => switchTab(t.id)}>
+                        <span className="more-item-emoji">{t.emoji}</span>
+                        <span className="more-item-label">{t.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>

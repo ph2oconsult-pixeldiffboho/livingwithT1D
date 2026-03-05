@@ -71,13 +71,18 @@ body {
   background: white;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+.nav-shell {
+  display: flex;
+  max-width: 960px;
+  margin: 0 auto;
+  align-items: stretch;
 }
 .nav-tabs {
   display: flex;
-  max-width: 900px;
-  margin: 0 auto;
+  flex: 1;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1426,37 +1431,74 @@ body {
 .ob-skip { background: none; border: none; color: #8A9BB0; font-family: 'Nunito', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: underline; }
 
 /* ── More dropdown nav ── */
+.more-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  border-left: 1px solid #F0EDE8;
+}
+.more-btn {
+  height: 100%;
+  white-space: nowrap;
+  min-width: 80px !important;
+}
+.more-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 299;
+}
 .more-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   right: 0;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-  padding: 8px;
-  z-index: 100;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  border-radius: 20px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  z-index: 300;
+  width: 280px;
+  animation: dropIn 0.18s ease;
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.more-dropdown-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #8A9BB0;
+  padding: 0 6px 10px;
+  border-bottom: 1px solid #F0EDE8;
+  margin-bottom: 8px;
+}
+.more-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
 }
 .more-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: 4px;
+  padding: 12px 8px;
   border: none;
-  background: none;
-  border-radius: 10px;
+  background: #F7F3EE;
+  border-radius: 12px;
   font-family: 'Nunito', sans-serif;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: #1A3A4A;
   cursor: pointer;
-  text-align: left;
-  transition: background 0.15s;
+  text-align: center;
+  transition: all 0.15s;
+  border: 2px solid transparent;
 }
-.more-item:hover { background: #F7F3EE; }
+.more-item:hover { background: #E8F4FD; border-color: #2E86AB; color: #2E86AB; }
+.more-item.active { background: #2E86AB; border-color: #2E86AB; color: white; }
+.more-item-emoji { font-size: 1.3rem; }
+.more-item-label { font-size: 0.75rem; font-weight: 800; line-height: 1.2; }
 
 /* ── Dashboard ── */
 .section-divider-label {
