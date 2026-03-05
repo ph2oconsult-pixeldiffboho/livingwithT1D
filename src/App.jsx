@@ -11,6 +11,7 @@ import Onboarding from "./features/Onboarding";
 import Dashboard from "./features/Dashboard";
 import DisclaimerPage from "./features/DisclaimerPage";
 import PatternProfile from "./features/PatternProfile";
+import GlucoseExplorer from "./features/GlucoseExplorer";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -396,6 +397,7 @@ export default function App() {
     { id: "patterns",   label: "Patterns",   emoji: "📈" },
   ];
   const secondaryTabs = [
+    { id: "explorer",   label: "Explorer",   emoji: "🔍" },
     { id: "letter",     label: "Our Story",  emoji: "💌" },
     { id: "simulator",  label: "What If?",   emoji: "🎮" },
     { id: "child",      label: "For Kids",   emoji: "🌟" },
@@ -447,7 +449,7 @@ export default function App() {
         </div>
         <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
         <div className="hero-trust">
-          <span>🔒 Educational only — not medical advice</span>
+          <span>🔒 Educational resource — not medical advice</span>
           <span>·</span>
           <button className="hero-trust-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
         </div>
@@ -585,6 +587,7 @@ export default function App() {
           </>
         )}
 
+        {activeTab === "explorer"  && <GlucoseExplorer />}
         {activeTab === "patterns"  && <GlucosePatterns />}
         {activeTab === "learning"  && <LearningPath />}
         {activeTab === "letter" && (
@@ -704,15 +707,15 @@ export default function App() {
       </div>
 
       <div className="footer">
-        <p>💙 Built with love for T1D families everywhere</p>
+        <p>💙 A learning companion for families living with Type 1 Diabetes</p>
         <div className="footer-links">
           <button className="footer-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
           <span>·</span>
           <button className="footer-link" onClick={() => switchTab("forum")}>Contact & Feedback</button>
           <span>·</span>
-          <span>Educational only — not medical advice</span>
+          <span>Educational resource. Not medical advice.</span>
         </div>
-        <p style={{ fontSize: "0.78rem", marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Living Brilliantly with T1D. For educational purposes only. Not a substitute for professional medical advice.</p>
+        <p style={{ fontSize: "0.78rem", marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Living Brilliantly with T1D. Educational resource. Not medical advice.</p>
       </div>
     </div>
   );
