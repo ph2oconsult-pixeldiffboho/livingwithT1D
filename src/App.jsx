@@ -9,6 +9,7 @@ import GlucosePatterns from "./features/GlucosePatterns";
 import ExplainMyGlucose from "./features/ExplainMyGlucose";
 import Onboarding from "./features/Onboarding";
 import Dashboard from "./features/Dashboard";
+import DisclaimerPage from "./features/DisclaimerPage";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -404,6 +405,7 @@ export default function App() {
     { id: "research",   label: "Research",   emoji: "🔬" },
     { id: "forum",      label: "Community",  emoji: "💬" },
     { id: "resources",  label: "Resources",  emoji: "📚" },
+    { id: "disclaimer", label: "Disclaimer", emoji: "🔒" },
   ];
   const [moreOpen, setMoreOpen] = useState(false);
   const allTabs = [...primaryTabs, ...secondaryTabs];
@@ -426,12 +428,20 @@ export default function App() {
   return (
     <div className="app">
       <div className="hero">
-        <div className="hero-badge">Built from a family's journey</div>
-        <h1>Understand why glucose<br />behaves the way it does<span>.</span></h1>
-        <p className="hero-sub">A learning companion for families navigating life with Type 1 Diabetes — built by a parent who lived it.</p>
+        <div className="hero-badge">Built from a family's lived experience</div>
+        <h1>A learning companion for families<br />navigating <span>Type 1 Diabetes</span></h1>
+        <p className="hero-sub">Understand why glucose behaves the way it does — meals, sport, nights, illness. Built by a parent who lived it.</p>
         <div className="hero-ctas">
           <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Explain a glucose pattern →</button>
-          <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Our story</button>
+          <button className="hero-letter-btn" onClick={() => switchTab("isnormal")}>Is this normal?</button>
+          <button className="hero-letter-btn" onClick={() => switchTab("activity")}>Real-life situations</button>
+        </div>
+        <div className="hero-trust">
+          <span>🔒 Educational only — not medical advice</span>
+          <span>·</span>
+          <button className="hero-trust-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
+          <span>·</span>
+          <span>Built from lived experience with T1D</span>
         </div>
       </div>
 
@@ -623,6 +633,10 @@ export default function App() {
         {activeTab === "research" && <ResearchTab />}
         {activeTab === "forum" && <ForumTab />}
 
+        {activeTab === "disclaimer" && (
+          <DisclaimerPage onNavigate={switchTab} />
+        )}
+
         {activeTab === "resources" && (
           <>
             <div className="section-header">
@@ -679,7 +693,14 @@ export default function App() {
 
       <div className="footer">
         <p>💙 Built with love for T1D families everywhere</p>
-        <p style={{ fontSize: "0.8rem", marginTop: 4, opacity: 0.7 }}>© 2025 Living Brilliantly with T1D. For educational purposes only.</p>
+        <div className="footer-links">
+          <button className="footer-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
+          <span>·</span>
+          <button className="footer-link" onClick={() => switchTab("forum")}>Contact & Feedback</button>
+          <span>·</span>
+          <span>Educational only — not medical advice</span>
+        </div>
+        <p style={{ fontSize: "0.78rem", marginTop: 8, opacity: 0.6 }}>© 2025 Living Brilliantly with T1D. For educational purposes only. Not a substitute for professional medical advice.</p>
       </div>
     </div>
   );
