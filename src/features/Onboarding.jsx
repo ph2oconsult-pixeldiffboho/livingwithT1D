@@ -10,7 +10,7 @@ export default function Onboarding({ onComplete }) {
     {
       key: "timeSince",
       question: "How long since diagnosis?",
-      emoji: "📅",
+      emoji: "⏱️",
       options: [
         { value: "new",    label: "Just diagnosed",      sub: "Less than 1 month" },
         { value: "recent", label: "Recently diagnosed",  sub: "1–6 months" },
