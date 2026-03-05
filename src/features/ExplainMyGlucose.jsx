@@ -381,6 +381,9 @@ export default function ExplainMyGlucose() {
   const [openPattern, setOpenPattern] = useState(null);
   const [feedback, setFeedback] = useState({ helpful: null, likelyDriver: null, unusual: "" });
   const [feedbackDone, setFeedbackDone] = useState(false);
+  const [aiExplanation, setAiExplanation] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState(null);
 
   const DEMOS = [
     { id: "pizza",          label: "Pizza dinner spike",         emoji: "🍕", ctx: { mealTime: "60", mealType: "highfat", insulinTiming: "at", activityLevel: "none" } },
@@ -398,11 +401,92 @@ export default function ExplainMyGlucose() {
     setStep("context");
   };
 
-  const runAnalysis = () => {
+  const runAnalysis = async () => {
     const found = detectPatterns(readings, ctx);
     setPatterns(found);
     setOpenPattern(found[0]?.id || null);
+    setAiExplanation(null);
+    setAiError(null);
     setStep("result");
+
+    if (found.length === 0) return;
+
+    // Build pattern summary JSON to pass to Claude
+    const patternSummary = {
+      units: "mmol/L",
+      detected_patterns: found.map(p => ({
+        label: p.id,
+        display_label: p.label,
+        confidence_score: p.confidence,
+        description: p.description,
+        top_drivers: p.drivers.map(d => ({ label: d.label, score: d.score })),
+      })),
+      context: {
+        meal_type: ctx.mealType || "unknown",
+        insulin_timing: ctx.insulinTiming || "unknown",
+        activity_level: ctx.activityLevel || "unknown",
+        illness: ctx.sick ? "yes" : "no",
+        pump_site_changed: ctx.pumpSiteChanged === false ? "no" : "unknown",
+        snack_after_activity: ctx.snackAfterActivity === false ? "no" : "unknown",
+        school_day: ctx.schoolDay ? "yes" : "no",
+      },
+      safety_flags: {
+        severe_low_detected: found.some(p => p.id === "exercise-drop") && Math.min(...readings.map(r=>r.value)) < 3.5,
+        persistent_high: found.some(p => p.id === "stubborn-high"),
+      }
+    };
+
+    setAiLoading(true);
+    try {
+      const systemPrompt = `You are a warm, supportive educational assistant for families learning to live with Type 1 Diabetes.
+
+RULES — follow these strictly:
+- Do NOT provide insulin dosing, medication changes, or treatment instructions of any kind
+- Use "possible reasons" and "this might be" language — never state causes as fact
+- Tone: calm, empathetic, parent-friendly — like a knowledgeable friend, not a doctor
+- Reading level: simple, clear, no medical jargon unless briefly explained
+- If safety_flags show severe lows or persistent highs, gently advise following care plan and contacting care team
+- Always end with a brief encouragement
+
+OUTPUT FORMAT — return valid JSON only, no markdown fences:
+{
+  "title": "short friendly title for what happened (max 10 words)",
+  "what_happened": "2-3 warm sentences describing the glucose pattern in plain language. Reference mmol/L values if helpful.",
+  "likely_reasons": [
+    {"reason": "name of reason", "why_this_fits": "1-2 sentences explaining why this might apply, in plain language", "confidence": "high|medium|low"}
+  ],
+  "what_to_notice_next_time": ["question or observation 1", "question or observation 2", "question or observation 3"],
+  "encouragement": "One warm sentence of encouragement for the family.",
+  "safety_note": "Brief safety reminder if needed, otherwise empty string."
+}
+
+Return 2-3 likely_reasons maximum. Rank most likely first.`;
+
+      const userContent = `Here is the glucose pattern summary for this family. Please explain it warmly and clearly.
+
+${JSON.stringify(patternSummary, null, 2)}`;
+
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userContent }],
+        }),
+      });
+
+      const data = await response.json();
+      const raw = data.content?.map(b => b.text || "").join("").trim();
+      const clean = raw.replace(/^```json|^```|```$/gm, "").trim();
+      const parsed = JSON.parse(clean);
+      setAiExplanation(parsed);
+    } catch (err) {
+      setAiError("Could not generate AI explanation — showing standard analysis below.");
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const submitFeedback = () => {
@@ -413,6 +497,7 @@ export default function ExplainMyGlucose() {
   const reset = () => {
     setStep("load"); setReadings(null); setPatterns([]); setOpenPattern(null);
     setFeedback({ helpful: null, likelyDriver: null, unusual: "" }); setFeedbackDone(false);
+    setAiExplanation(null); setAiLoading(false); setAiError(null);
     setCtx({ mealTime: "", mealType: "", insulinTiming: "", activityTime: "", activityLevel: "", sick: false, schoolDay: false, pumpSiteChanged: null, snackAfterActivity: null });
   };
 
@@ -521,6 +606,9 @@ export default function ExplainMyGlucose() {
   // ── Step: Result ──────────────────────────────────────────────────────────
   if (step === "result") {
     const active = patterns.find(p => p.id === openPattern);
+    const confidenceLabel = score => score >= 75 ? "Strong match" : score >= 55 ? "Possible match" : "Weak signal";
+    const confidenceColor = score => score >= 75 ? COLORS.mint : score >= 55 ? COLORS.sunshine : COLORS.muted;
+
     return (
       <div>
         <button className="back-btn" onClick={() => setStep("context")}>← Adjust context</button>
@@ -537,63 +625,126 @@ export default function ExplainMyGlucose() {
           </div>
         ) : (
           <>
-            <div className="step-label" style={{ marginBottom: 14 }}>
-              {patterns.length} pattern{patterns.length > 1 ? "s" : ""} detected — tap each to explore
-            </div>
+            {/* ── AI EXPLANATION — shown first and prominently ── */}
+            {aiLoading && (
+              <div className="ai-loading-panel">
+                <div className="ai-loading-pulse" />
+                <div>
+                  <div style={{ fontWeight: 800, color: COLORS.deep, marginBottom: 4 }}>Generating explanation…</div>
+                  <div style={{ fontSize: "0.82rem", color: COLORS.muted }}>Analysing the pattern and context to create a personalised explanation for your family.</div>
+                </div>
+              </div>
+            )}
 
-            {/* Pattern tabs */}
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
-              {patterns.map(p => (
-                <button key={p.id} onClick={() => setOpenPattern(p.id)}
-                  style={{ padding: "8px 14px", borderRadius: 100, border: `2px solid ${p.color}`, background: openPattern === p.id ? p.color : "white", color: openPattern === p.id ? "white" : p.color, fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: "0.82rem", cursor: "pointer", transition: "all 0.15s" }}>
-                  {p.emoji} {p.label}
-                </button>
-              ))}
-            </div>
+            {aiError && (
+              <div className="tool-disclaimer" style={{ marginBottom: 16 }}>{aiError}</div>
+            )}
 
-            {active && (
-              <div className="result-panel" style={{ "--r-color": active.color }}>
-                {/* What happened */}
-                <div className="result-section">
-                  <div className="result-section-head">📊 What happened</div>
-                  <p style={{ color: "#2A4A5A", fontSize: "0.95rem", lineHeight: 1.7 }}>{active.description}</p>
-                  <div style={{ marginTop: 8 }}><ConfBadge score={active.confidence} /></div>
+            {aiExplanation && !aiLoading && (
+              <div className="ai-explanation-panel">
+                <div className="ai-panel-header">
+                  <div className="ai-badge">✨ AI-powered explanation</div>
+                  <h3 className="ai-title">{aiExplanation.title}</h3>
                 </div>
 
-                {/* Likely drivers */}
-                <div className="result-section">
-                  <div className="result-section-head">🔬 Most likely reasons <span style={{ fontWeight: 400, fontSize: "0.75rem", color: COLORS.muted }}>(not medical advice)</span></div>
-                  {active.drivers.map((d, i) => (
-                    <div key={i} className="driver-item">
-                      <div className="driver-rank" style={{ background: active.color }}>{i+1}</div>
-                      <div>
-                        <div style={{ fontWeight: 800, fontSize: "0.9rem", color: COLORS.deep, marginBottom: 3 }}>{d.label}</div>
-                        <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.5 }}>{d.explanation}</div>
+                <div className="ai-section">
+                  <div className="ai-section-label">📊 What happened</div>
+                  <p className="ai-text">{aiExplanation.what_happened}</p>
+                </div>
+
+                <div className="ai-section">
+                  <div className="ai-section-label">🔬 Possible reasons <span style={{ fontWeight: 400, color: COLORS.muted, fontSize: "0.75rem" }}>(educational — not medical advice)</span></div>
+                  {aiExplanation.likely_reasons?.map((r, i) => {
+                    const confColor = r.confidence === "high" ? COLORS.mint : r.confidence === "medium" ? COLORS.sunshine : COLORS.muted;
+                    return (
+                      <div key={i} className="ai-driver">
+                        <div className="ai-driver-rank" style={{ background: COLORS.ocean }}>{i+1}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                            <span style={{ fontWeight: 800, fontSize: "0.9rem", color: COLORS.deep }}>{r.reason}</span>
+                            <span style={{ fontSize: "0.68rem", fontWeight: 800, background: confColor + "22", color: confColor, padding: "2px 8px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>{r.confidence}</span>
+                          </div>
+                          <div style={{ fontSize: "0.85rem", color: "#4A6070", lineHeight: 1.55 }}>{r.why_this_fits}</div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
-                {/* Next time */}
-                <div className="result-section">
-                  <div className="result-section-head">💡 What to notice next time</div>
-                  {active.nextTime.map((q, i) => (
+                <div className="ai-section">
+                  <div className="ai-section-label">💡 What to notice next time</div>
+                  {aiExplanation.what_to_notice_next_time?.map((q, i) => (
                     <div key={i} className="next-time-item">
-                      <span style={{ color: active.color }}>→</span>
+                      <span style={{ color: COLORS.ocean }}>→</span>
                       <span style={{ fontSize: "0.88rem", color: "#2A4A5A", lineHeight: 1.5 }}>{q}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="tool-disclaimer" style={{ marginTop: 0 }}>
-                  This is an educational explanation only. For dosing changes or persistent patterns, follow your diabetes care team's guidance.
-                </div>
+                {aiExplanation.encouragement && (
+                  <div className="ai-encouragement">
+                    💙 {aiExplanation.encouragement}
+                  </div>
+                )}
+
+                {aiExplanation.safety_note && (
+                  <div className="tool-disclaimer" style={{ marginTop: 0 }}>
+                    {aiExplanation.safety_note}
+                  </div>
+                )}
               </div>
             )}
 
-            <button className="forum-post-btn" style={{ marginTop: 20, width: "100%" }} onClick={() => setStep("feedback")}>
-              Was this helpful? Give 10 seconds of feedback →
-            </button>
+            {/* ── PATTERN DETAIL — shown below AI explanation ── */}
+            {!aiLoading && (
+              <>
+                <div className="step-label" style={{ margin: "24px 0 12px" }}>
+                  {patterns.length} pattern{patterns.length > 1 ? "s" : ""} detected by analysis engine
+                </div>
+
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
+                  {patterns.map(p => (
+                    <button key={p.id} onClick={() => setOpenPattern(p.id)}
+                      style={{ padding: "8px 14px", borderRadius: 100, border: `2px solid ${p.color}`, background: openPattern === p.id ? p.color : "white", color: openPattern === p.id ? "white" : p.color, fontFamily: "'Nunito', sans-serif", fontWeight: 800, fontSize: "0.82rem", cursor: "pointer", transition: "all 0.15s" }}>
+                      {p.emoji} {p.label}
+                    </button>
+                  ))}
+                </div>
+
+                {active && (
+                  <div className="result-panel" style={{ "--r-color": active.color }}>
+                    <div className="result-section">
+                      <div className="result-section-head">📊 Pattern detail</div>
+                      <p style={{ color: "#2A4A5A", fontSize: "0.9rem", lineHeight: 1.7 }}>{active.description}</p>
+                      <div style={{ marginTop: 8 }}>
+                        <span style={{ background: confidenceColor(active.confidence) + "22", color: confidenceColor(active.confidence), fontSize: "0.7rem", fontWeight: 800, padding: "3px 10px", borderRadius: 100, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                          {confidenceLabel(active.confidence)} · {active.confidence}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="result-section">
+                      <div className="result-section-head">🔬 Top drivers identified</div>
+                      {active.drivers.map((d, i) => (
+                        <div key={i} className="driver-item">
+                          <div className="driver-rank" style={{ background: active.color }}>{i+1}</div>
+                          <div>
+                            <div style={{ fontWeight: 800, fontSize: "0.88rem", color: COLORS.deep, marginBottom: 2 }}>{d.label}</div>
+                            <div style={{ fontSize: "0.82rem", color: "#4A6070", lineHeight: 1.5 }}>{d.explanation}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="tool-disclaimer" style={{ marginTop: 0 }}>
+                      Educational only. For dosing or treatment decisions, always follow your diabetes care team's guidance.
+                    </div>
+                  </div>
+                )}
+
+                <button className="forum-post-btn" style={{ marginTop: 20, width: "100%" }} onClick={() => setStep("feedback")}>
+                  Was this helpful? Give 10 seconds of feedback →
+                </button>
+              </>
+            )}
           </>
         )}
       </div>
