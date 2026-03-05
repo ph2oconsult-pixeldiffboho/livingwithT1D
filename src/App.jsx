@@ -6,6 +6,7 @@ import LearningPath from "./features/LearningPath";
 import IsThisNormal from "./features/IsThisNormal";
 import SchoolActivityCompanion from "./features/SchoolActivity";
 import GlucosePatterns from "./features/GlucosePatterns";
+import ExplainMyGlucose from "./features/ExplainMyGlucose";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -384,7 +385,7 @@ export default function App() {
     { id: "letter",      label: "Our Story",   emoji: "💌" },
     { id: "learning",    label: "90 Days",     emoji: "🗓️" },
     { id: "patterns",    label: "Why?",         emoji: "📈" },
-    { id: "explainer",   label: "Explainer",    emoji: "🔍" },
+    { id: "explainer",   label: "Explain 📊",   emoji: "🔎" },
     { id: "simulator",   label: "What If?",     emoji: "🎮" },
     { id: "isnormal",    label: "Normal?",      emoji: "🤔" },
     { id: "activity",    label: "School/Sport", emoji: "🏫" },
@@ -464,7 +465,7 @@ export default function App() {
                 {[
                   { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",     desc: "The most confusing glucose behaviours — pizza spikes, exercise rises, overnight highs — all clearly explained.", color: COLORS.coral },
                   { tab: "learning",   emoji: "🗓️", title: "First 90 Days",            desc: "A structured week-by-week learning path for newly diagnosed families. Build confidence progressively.", color: COLORS.ocean },
-                  { tab: "explainer",  emoji: "🔍", title: "Why Did This Happen?",     desc: "Input what you observed and get a clear educational explanation of the glucose pattern.", color: COLORS.lavender },
+                  { tab: "explainer",  emoji: "🔎", title: "Explain My Glucose",        desc: "Load a CGM scenario, add context, and get pattern detection — drivers, explanations, and what to watch next time.", color: COLORS.lavender },
                   { tab: "simulator",  emoji: "🎮", title: "What Happens If…",         desc: "Simulate common situations before they occur — late insulin, soccer, sick days, parties.", color: COLORS.mint },
                   { tab: "isnormal",   emoji: "🤔", title: "Is This Normal?",           desc: "Turn overnight spikes, post-exercise crashes, and confusing patterns into reassuring understanding.", color: COLORS.sunshine },
                   { tab: "activity",   emoji: "🏫", title: "School & Activity Guide",   desc: "Practical guidance for school lunches, birthday parties, sleepovers, soccer, swimming and more.", color: COLORS.ocean },
@@ -637,7 +638,7 @@ export default function App() {
             </div>
           </div>
         )}
-        {activeTab === "explainer" && <GlucoseExplainer />}
+        {activeTab === "explainer" && <ExplainMyGlucose />}
         {activeTab === "simulator" && <ScenarioSimulator />}
         {activeTab === "isnormal"  && <IsThisNormal />}
         {activeTab === "activity"  && <SchoolActivityCompanion />}

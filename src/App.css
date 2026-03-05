@@ -1231,3 +1231,137 @@ body {
   padding: 20px 24px;
   margin-top: 24px;
 }
+
+/* ── Explain My Glucose ── */
+.demo-scenario-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 2px solid #E8E4DF;
+  border-radius: 16px;
+  background: white;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Nunito', sans-serif;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.demo-scenario-btn:hover {
+  border-color: #2E86AB;
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(46,134,171,0.12);
+}
+
+.context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.context-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.context-card-title {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: #1A3A4A;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ctx-option {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid #E8E4DF;
+  border-radius: 10px;
+  background: #F7F3EE;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4A6070;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.ctx-option:hover { border-color: #2E86AB; background: #E8F4FD; color: #1A3A4A; }
+.ctx-option.active { border-color: #2E86AB; background: #2E86AB; color: white; font-weight: 800; }
+
+.result-panel {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border-top: 4px solid var(--r-color);
+}
+.result-section {
+  padding: 22px 24px;
+  border-bottom: 1px solid #F0EDE8;
+}
+.result-section:last-child { border-bottom: none; }
+.result-section-head {
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8A9BB0;
+  margin-bottom: 14px;
+}
+.driver-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F0EDE8;
+}
+.driver-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.driver-rank {
+  color: white;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.next-time-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: #F7F3EE;
+  border-radius: 10px;
+}
+.next-time-item:last-child { margin-bottom: 0; }
+
+.feedback-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  margin-bottom: 14px;
+}
+.feedback-q {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #1A3A4A;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+  .context-grid { grid-template-columns: 1fr; }
+}
