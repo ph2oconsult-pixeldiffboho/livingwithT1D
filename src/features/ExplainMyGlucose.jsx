@@ -659,6 +659,8 @@ ${JSON.stringify(patternSummary, null, 2)}`;
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY,
+          "anthropic-version": "2023-06-01",
           "anthropic-dangerous-direct-browser-access": "true",
         },
         body: JSON.stringify({
@@ -751,6 +753,8 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY,
+          "anthropic-version": "2023-06-01",
           "anthropic-dangerous-direct-browser-access": "true",
         },
         body: JSON.stringify({
