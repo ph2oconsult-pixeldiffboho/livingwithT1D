@@ -7,6 +7,8 @@ import IsThisNormal from "./features/IsThisNormal";
 import SchoolActivityCompanion from "./features/SchoolActivity";
 import GlucosePatterns from "./features/GlucosePatterns";
 import ExplainMyGlucose from "./features/ExplainMyGlucose";
+import Onboarding from "./features/Onboarding";
+import Dashboard from "./features/Dashboard";
 
 const COLORS = {
   ocean: "#2E86AB",
@@ -379,131 +381,94 @@ function ResearchTab() {
 export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [selectedModule, setSelectedModule] = useState(null);
+  const [profile, setProfile] = useState(null);      // null = not onboarded yet
+  const [onboarding, setOnboarding] = useState(true); // show onboarding first visit
 
-  const tabs = [
-    { id: "home",       label: "Home",        emoji: "🏠" },
-    { id: "letter",      label: "Our Story",   emoji: "💌" },
-    { id: "learning",    label: "90 Days",     emoji: "🗓️" },
-    { id: "patterns",    label: "Why?",         emoji: "📈" },
-    { id: "explainer",   label: "Explain 📊",   emoji: "🔎" },
-    { id: "simulator",   label: "What If?",     emoji: "🎮" },
-    { id: "isnormal",    label: "Normal?",      emoji: "🤔" },
-    { id: "activity",    label: "School/Sport", emoji: "🏫" },
-    { id: "child",      label: "For Kids",    emoji: "🌟" },
-    { id: "parent",     label: "For Parents", emoji: "❤️" },
-    { id: "treatments", label: "Treatments",  emoji: "💊" },
-    { id: "inspiring",  label: "Inspiring",   emoji: "✨" },
-    { id: "mental",     label: "Wellbeing",   emoji: "🧠" },
-    { id: "research",   label: "Research",    emoji: "🔬" },
-    { id: "forum",      label: "Community",   emoji: "💬" },
-    { id: "resources",  label: "Resources",   emoji: "📚" },
+  // Two nav tiers: primary (always visible) + secondary (overflow)
+  const primaryTabs = [
+    { id: "home",       label: "Home",       emoji: "🏠" },
+    { id: "explainer",  label: "Explain",    emoji: "🔎" },
+    { id: "isnormal",   label: "Normal?",    emoji: "🤔" },
+    { id: "activity",   label: "Life Guide", emoji: "🏫" },
+    { id: "learning",   label: "90 Days",    emoji: "🗓️" },
+    { id: "patterns",   label: "Patterns",   emoji: "📈" },
   ];
+  const secondaryTabs = [
+    { id: "letter",     label: "Our Story",  emoji: "💌" },
+    { id: "simulator",  label: "What If?",   emoji: "🎮" },
+    { id: "child",      label: "For Kids",   emoji: "🌟" },
+    { id: "parent",     label: "For Parents",emoji: "❤️" },
+    { id: "treatments", label: "Treatments", emoji: "💊" },
+    { id: "inspiring",  label: "Inspiring",  emoji: "✨" },
+    { id: "mental",     label: "Wellbeing",  emoji: "🧠" },
+    { id: "research",   label: "Research",   emoji: "🔬" },
+    { id: "forum",      label: "Community",  emoji: "💬" },
+    { id: "resources",  label: "Resources",  emoji: "📚" },
+  ];
+  const [moreOpen, setMoreOpen] = useState(false);
+  const allTabs = [...primaryTabs, ...secondaryTabs];
 
   const switchTab = (id) => {
     setActiveTab(id);
     setSelectedModule(null);
+    setMoreOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const completeOnboarding = (prof) => {
+    setProfile(prof);
+    setOnboarding(false);
+  };
+
+  // Show onboarding on first load
+  if (onboarding) return <Onboarding onComplete={completeOnboarding} />;
 
   return (
     <div className="app">
       <div className="hero">
         <div className="hero-badge">Built from a family's journey</div>
         <h1>A learning companion for families<br />navigating life with <span>Type 1 Diabetes</span></h1>
-        <p className="hero-sub">Built from a family's journey after their daughter was diagnosed — helping parents understand the everyday decisions of T1D and feel more confident navigating them.</p>
+        <p className="hero-sub">Helping parents understand glucose behaviour, everyday situations, and the decisions of T1D — with confidence.</p>
         <div className="hero-ctas">
-          <button className="hero-cta-primary" onClick={() => switchTab("learning")}>Start learning →</button>
-          <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Our story & open letter</button>
+          <button className="hero-cta-primary" onClick={() => switchTab("explainer")}>Explain My Glucose →</button>
+          <button className="hero-letter-btn" onClick={() => switchTab("letter")}>Our story</button>
         </div>
       </div>
 
+      {/* Primary nav */}
       <div className="nav-container">
         <div className="nav-tabs">
-          {tabs.map(t => (
+          {primaryTabs.map(t => (
             <button key={t.id} className={`nav-tab ${activeTab === t.id ? "active" : ""}`} onClick={() => switchTab(t.id)}>
               <span className="tab-emoji">{t.emoji}</span>
               {t.label}
             </button>
           ))}
+          {/* More dropdown */}
+          <div style={{ position: "relative" }}>
+            <button className={`nav-tab ${moreOpen ? "active" : ""}`} onClick={() => setMoreOpen(o => !o)}>
+              ☰ More
+            </button>
+            {moreOpen && (
+              <div className="more-dropdown">
+                {secondaryTabs.map(t => (
+                  <button key={t.id} className="more-item" onClick={() => switchTab(t.id)}>
+                    <span>{t.emoji}</span> {t.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="content">
 
         {activeTab === "home" && (
-          <>
-            {/* Why story */}
-            <div className="why-story">
-              <div className="why-story-text">
-                <div className="why-label">Why this project exists</div>
-                <p>When my daughter was diagnosed with Type 1 Diabetes, our family entered a world we knew nothing about. Suddenly there were new routines, constant decisions, and a level of vigilance we had never experienced before.</p>
-                <p>Over time something remarkable happened. Instead of defining her, diabetes became part of what shaped her determination and purpose.</p>
-                <p>Today she works for <strong>Breakthrough T1D</strong>, helping advance the search for better treatments and ultimately a cure.</p>
-                <p>This project grew out of that journey — designed to help other families understand the everyday realities of living with Type 1 Diabetes, and to build confidence in the decisions that come with it.</p>
-                <button className="letter-link-btn" onClick={() => switchTab("letter")}>Read the open letter to newly diagnosed families →</button>
-              </div>
-              <div className="why-story-image">
-                <div className="story-image-placeholder">
-                  <div style={{ fontSize: "4rem", marginBottom: 12 }}>👨‍👧</div>
-                  <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#8A9BB0", lineHeight: 1.4 }}>A parent & daughter.<br />A journey of resilience.</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="welcome-panel">
-              <h2>You're not alone in this. 💙</h2>
-              <p>A T1D diagnosis changes things — but it doesn't limit what's possible. This is your family's companion: a place to learn together, find comfort in others' stories, and access the latest support and resources.</p>
-              <div className="stat-row">
-                <div className="stat-item"><span className="stat-number">8.4M</span><span className="stat-label">People with T1D worldwide</span></div>
-                <div className="stat-item"><span className="stat-number">85K+</span><span className="stat-label">New diagnoses each year</span></div>
-                <div className="stat-item"><span className="stat-number">100%</span><span className="stat-label">Can live full, amazing lives</span></div>
-              </div>
-            </div>
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1, color: "#8A9BB0", marginBottom: 12 }}>🆕 Learning Tools</div>
-              <div className="modules-grid" style={{ marginBottom: 20 }}>
-                {[
-                  { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",     desc: "The most confusing glucose behaviours — pizza spikes, exercise rises, overnight highs — all clearly explained.", color: COLORS.coral },
-                  { tab: "learning",   emoji: "🗓️", title: "First 90 Days",            desc: "A structured week-by-week learning path for newly diagnosed families. Build confidence progressively.", color: COLORS.ocean },
-                  { tab: "explainer",  emoji: "🔎", title: "Explain My Glucose",        desc: "Load a CGM scenario, add context, and get pattern detection — drivers, explanations, and what to watch next time.", color: COLORS.lavender },
-                  { tab: "simulator",  emoji: "🎮", title: "What Happens If…",         desc: "Simulate common situations before they occur — late insulin, soccer, sick days, parties.", color: COLORS.mint },
-                  { tab: "isnormal",   emoji: "🤔", title: "Is This Normal?",           desc: "Turn overnight spikes, post-exercise crashes, and confusing patterns into reassuring understanding.", color: COLORS.sunshine },
-                  { tab: "activity",   emoji: "🏫", title: "School & Activity Guide",   desc: "Practical guidance for school lunches, birthday parties, sleepovers, soccer, swimming and more.", color: COLORS.ocean },
-                ].map(item => (
-                  <div key={item.tab} className="module-card tool-card" style={{ "--card-color": item.color }} onClick={() => switchTab(item.tab)}>
-                    <span className="module-emoji">{item.emoji}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <div style={{ fontWeight: 800, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1, color: "#8A9BB0", marginBottom: 12 }}>📚 Education & Support</div>
-            </div>
-            <div className="modules-grid">
-              {[
-                { tab: "child",      emoji: "🌟", title: "Learning for Kids",        desc: "Fun, age-appropriate modules to help your child understand their body and feel empowered.", color: COLORS.ocean },
-                { tab: "parent",     emoji: "❤️", title: "Parent Education",          desc: "In-depth guides to understand T1D, support your child emotionally, and navigate daily challenges.", color: COLORS.coral },
-                { tab: "treatments", emoji: "💊", title: "Treatments & Accessibility", desc: "Current therapies, NDSS subsidies, CGMs, pumps, and what's on the horizon.", color: COLORS.mint },
-                { tab: "inspiring",  emoji: "✨", title: "Inspiring Lives",            desc: "Discover the musicians, athletes, scientists and leaders who thrive with T1D.", color: COLORS.lavender },
-                { tab: "mental",     emoji: "🧠", title: "Mental Health & Wellbeing",  desc: "Emotional support resources and crisis links for children, parents, and families.", color: COLORS.sunshine },
-                { tab: "research",   emoji: "🔬", title: "Participate in Research",    desc: "Help bring a cure closer — find clinical trials and studies open to families.", color: COLORS.ocean },
-                { tab: "forum",      emoji: "💬", title: "Community Forum",            desc: "Connect with other T1D families. Ask questions, share stories, give encouragement.", color: COLORS.coral },
-                { tab: "resources",  emoji: "📚", title: "Support & Resources",        desc: "Connect with Breakthrough T1D, peer communities, Diabetes Australia, and more.", color: COLORS.mint },
-              ].map(item => (
-                <div key={item.tab} className="module-card" style={{ "--card-color": item.color }} onClick={() => switchTab(item.tab)}>
-                  <span className="module-emoji">{item.emoji}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div className="quote-banner">
-              <div style={{ fontSize: "1.8rem", marginBottom: 12 }}>💬</div>
-              <div className="quote-text">"T1D is not a limitation — it's a different way of navigating life. With the right knowledge and support, children with T1D can do anything."</div>
-              <div className="quote-attr">— The T1D Family Community</div>
-            </div>
-          </>
+          <Dashboard profile={profile} onNavigate={switchTab} />
         )}
+
+
 
         {activeTab === "child" && !selectedModule && (
           <>

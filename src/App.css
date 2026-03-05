@@ -1365,3 +1365,165 @@ body {
 @media (max-width: 600px) {
   .context-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Onboarding ── */
+.onboarding-wrap {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1A3A4A 0%, #2E86AB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.onboarding-card {
+  background: white;
+  border-radius: 28px;
+  padding: 40px 36px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.ob-progress { display: flex; gap: 8px; justify-content: center; margin-bottom: 32px; }
+.ob-dot { width: 32px; height: 6px; border-radius: 3px; background: #E8E4DF; transition: background 0.3s; }
+.ob-dot.filled { background: #2E86AB; }
+.ob-emoji { font-size: 3rem; margin-bottom: 16px; }
+.ob-question { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #1A3A4A; margin-bottom: 8px; }
+.ob-hint { font-size: 0.85rem; color: #8A9BB0; margin-bottom: 24px; }
+.ob-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; text-align: left; }
+.ob-option {
+  padding: 14px 18px;
+  border: 2px solid #E8E4DF;
+  border-radius: 14px;
+  background: #F7F3EE;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'Nunito', sans-serif;
+  text-align: left;
+}
+.ob-option:hover { border-color: #2E86AB; background: #E8F4FD; }
+.ob-option.active { border-color: #2E86AB; background: #2E86AB; }
+.ob-option.active .ob-option-label,
+.ob-option.active .ob-option-sub { color: white; }
+.ob-option-label { font-weight: 800; font-size: 0.95rem; color: #1A3A4A; }
+.ob-option-sub { font-size: 0.78rem; color: #8A9BB0; margin-top: 2px; }
+.ob-next-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 100px;
+  background: #2E86AB;
+  color: white;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+}
+.ob-next-btn:disabled { background: #C8D8E0; cursor: not-allowed; }
+.ob-next-btn:not(:disabled):hover { background: #1A3A4A; }
+.ob-skip { background: none; border: none; color: #8A9BB0; font-family: 'Nunito', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: underline; }
+
+/* ── More dropdown nav ── */
+.more-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  padding: 8px;
+  z-index: 100;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.more-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #1A3A4A;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.more-item:hover { background: #F7F3EE; }
+
+/* ── Dashboard ── */
+.section-divider-label {
+  font-weight: 800;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #8A9BB0;
+  margin-bottom: 14px;
+}
+.core-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.core-feature-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  transition: all 0.2s;
+  border-top: 4px solid var(--cf-color);
+  display: flex;
+  flex-direction: column;
+}
+.core-feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
+.cf-badge { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 100px; display: inline-block; width: fit-content; }
+.cf-title { font-weight: 900; font-size: 0.95rem; color: #1A3A4A; margin-bottom: 6px; }
+.cf-desc { font-size: 0.82rem; color: #4A6070; line-height: 1.5; flex: 1; }
+.cf-cta { font-weight: 800; font-size: 0.82rem; margin-top: 14px; }
+
+/* ── Personalised greeting ── */
+.dashboard-greeting {
+  background: white;
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--g-color);
+}
+.greeting-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+.greeting-msg { font-size: 0.95rem; color: #2A4A5A; line-height: 1.6; margin-bottom: 16px; }
+.start-here-card {
+  background: linear-gradient(135deg, #E8F4FD, #EEF8F4);
+  border-radius: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 14px;
+}
+.start-here-card:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(46,134,171,0.15); }
+.start-here-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #2E86AB; margin-bottom: 8px; }
+.personal-tips { display: flex; flex-direction: column; gap: 8px; }
+.personal-tip { background: #F7F3EE; border-radius: 10px; padding: 10px 14px; font-size: 0.84rem; color: #4A6070; line-height: 1.5; }
+
+@media (max-width: 640px) {
+  .core-features-grid { grid-template-columns: 1fr; }
+  .onboarding-card { padding: 28px 20px; }
+}
