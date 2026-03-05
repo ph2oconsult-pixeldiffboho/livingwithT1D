@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://livingwithT1D.vercel.app/sitemap.xml
