@@ -969,6 +969,26 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         <p className="tool-when-note">These are very common questions for families navigating Type 1 Diabetes.</p>
       </div>
 
+      {/* ── REAL EXAMPLE CHARTS ── */}
+      <div className="tool-examples-wrap">
+        <div className="tool-examples-label">Real examples — tap to see what an explanation looks like</div>
+        <div className="tool-examples-grid">
+          {[
+            { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect" },
+            { src: "/soccer-effect-example.png", alt: "Soccer training CGM graph", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike" },
+          ].map((ex, i) => (
+            <div key={i} className="tool-example-card" onClick={() => loadDemo(i === 0 ? DEMOS[0] : DEMOS[1])}>
+              <img src={ex.src} alt={ex.alt} className="tool-example-img" />
+              <div className="tool-example-footer">
+                <span className="tool-example-tag">{ex.tag}</span>
+                <span className="tool-example-caption">{ex.caption}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="tool-examples-note">Tap an example to explore the pattern — or upload your own graph above.</p>
+      </div>
+
       {/* ── UPLOAD OPTION — primary ── */}
       <div className="upload-panel">
         <div className="upload-panel-header">

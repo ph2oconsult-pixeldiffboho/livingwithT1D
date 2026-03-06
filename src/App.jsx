@@ -14,7 +14,44 @@ import PatternProfile from "./features/PatternProfile";
 import GlucoseExplorer from "./features/GlucoseExplorer";
 import SickDayRules from "./features/SickDayRules";
 
-const COLORS = {
+const HERO_EXAMPLES = [
+  {
+    src: "/pizza-effect-example.png",
+    alt: "CGM graph showing delayed glucose spike after pizza dinner",
+    caption: "Delayed spike 2.5 hours after dinner — likely the pizza effect",
+  },
+  {
+    src: "/soccer-effect-example.png",
+    alt: "CGM graph showing glucose rise after soccer training",
+    caption: "Glucose rose 4 hours after soccer training — adrenaline spike",
+  },
+];
+
+function HeroExampleCarousel() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActive(i => (i + 1) % HERO_EXAMPLES.length), 4000);
+    return () => clearInterval(t);
+  }, []);
+  const ex = HERO_EXAMPLES[active];
+  return (
+    <div className="hero-example-img-wrap">
+      <div className="hero-example-label">Here's what the analysis looks like</div>
+      <img key={active} src={ex.src} alt={ex.alt} className="hero-example-img hero-example-img--fade" />
+      <div className="hero-example-caption">
+        <span className="hero-example-caption-tag">Pattern detected</span>
+        {ex.caption}
+      </div>
+      <div className="hero-carousel-dots">
+        {HERO_EXAMPLES.map((_, i) => (
+          <button key={i} className={`hero-carousel-dot ${i === active ? "active" : ""}`} onClick={() => setActive(i)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
   ocean: "#2E86AB",
   coral: "#F46036",
   mint: "#56C596",
@@ -454,20 +491,6 @@ export default function App() {
         </div>
 
         <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
-
-        {/* Example chart image */}
-        <div className="hero-example-img-wrap">
-          <div className="hero-example-label">Here's what the analysis looks like</div>
-          <img
-            src="/pizza-effect-example.png"
-            alt="Example CGM graph showing a delayed glucose spike after a pizza dinner"
-            className="hero-example-img"
-          />
-          <div className="hero-example-caption">
-            <span className="hero-example-caption-tag">Pattern detected</span>
-            Delayed spike 2.5 hours after dinner — likely the pizza effect
-          </div>
-        </div>
 
         {/* CGM upload — the main CTA at the bottom of hero */}
         <div className="hero-cgm-footer">
