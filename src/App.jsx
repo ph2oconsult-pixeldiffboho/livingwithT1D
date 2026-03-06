@@ -52,6 +52,7 @@ function HeroExampleCarousel() {
 }
 
 
+const COLORS = {
   ocean: "#2E86AB",
   coral: "#F46036",
   mint: "#56C596",

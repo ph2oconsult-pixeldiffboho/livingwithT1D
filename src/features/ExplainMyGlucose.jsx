@@ -974,10 +974,11 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         <div className="tool-examples-label">Real examples — tap to see what an explanation looks like</div>
         <div className="tool-examples-grid">
           {[
-            { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect" },
-            { src: "/soccer-effect-example.png", alt: "Soccer training CGM graph", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike" },
+            { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect", demo: 0 },
+            { src: "/soccer-effect-example.png", alt: "Soccer training CGM graph", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike", demo: 1 },
+            { src: "/overnight-effect-example.png", alt: "Overnight glucose rise CGM graph", caption: "🌙 Steady rise during sleep — dawn phenomenon", tag: "Overnight rise", demo: 2 },
           ].map((ex, i) => (
-            <div key={i} className="tool-example-card" onClick={() => loadDemo(i === 0 ? DEMOS[0] : DEMOS[1])}>
+            <div key={i} className="tool-example-card" onClick={() => loadDemo(DEMOS[ex.demo])}>
               <img src={ex.src} alt={ex.alt} className="tool-example-img" />
               <div className="tool-example-footer">
                 <span className="tool-example-tag">{ex.tag}</span>
