@@ -455,6 +455,20 @@ export default function App() {
 
         <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
 
+        {/* Example chart image */}
+        <div className="hero-example-img-wrap">
+          <div className="hero-example-label">Here's what the analysis looks like</div>
+          <img
+            src="/pizza-effect-example.png"
+            alt="Example CGM graph showing a delayed glucose spike after a pizza dinner"
+            className="hero-example-img"
+          />
+          <div className="hero-example-caption">
+            <span className="hero-example-caption-tag">Pattern detected</span>
+            Delayed spike 2.5 hours after dinner — likely the pizza effect
+          </div>
+        </div>
+
         {/* CGM upload — the main CTA at the bottom of hero */}
         <div className="hero-cgm-footer">
           <div className="hero-cgm-label">Have a confusing glucose pattern?</div>
