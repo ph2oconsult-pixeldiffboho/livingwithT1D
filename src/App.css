@@ -3232,30 +3232,37 @@ body {
   max-width: 400px; margin: 0 auto 20px; text-align: left;
 }
 .hero-example-label {
-  font-size: 0.68rem; font-weight: 900; text-transform: uppercase;
-  letter-spacing: 1.5px; color: rgba(255,255,255,0.5);
-  margin-bottom: 8px; text-align: center;
+  font-size: 0.72rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1.5px; color: rgba(255,255,255,0.65);
+  margin-bottom: 10px; text-align: center;
 }
 .hero-example-card {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 14px; padding: 14px 16px;
-  backdrop-filter: blur(4px);
+  background: #F3F6FB;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  border: 1px solid rgba(255,255,255,0.9);
 }
 .hero-example-detected {
-  font-size: 0.82rem; font-weight: 900; color: #FFD166;
-  margin-bottom: 10px; padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.85rem; font-weight: 900; color: #1A3A4A;
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 1px solid #E0E8F0;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-example-detected::before {
+  content: "●"; color: #F46036; font-size: 0.6rem; flex-shrink: 0;
 }
 .hero-example-reasons-label {
-  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 1px; color: rgba(255,255,255,0.55);
+  font-size: 0.68rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1px; color: #8A9BB0;
   margin-bottom: 8px;
 }
-.hero-example-reasons { display: flex; flex-direction: column; gap: 6px; }
+.hero-example-reasons { display: flex; flex-direction: column; gap: 7px; }
 .hero-example-reason {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.83rem; color: rgba(255,255,255,0.9); font-weight: 600;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.85rem; color: #2A4A5A; font-weight: 700;
+  background: white; border-radius: 8px; padding: 8px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 .hero-example-reason span { font-size: 1rem; flex-shrink: 0; }
 
