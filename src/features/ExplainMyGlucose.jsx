@@ -969,6 +969,17 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         <p className="tool-when-note">These are very common questions for families navigating Type 1 Diabetes.</p>
       </div>
 
+      {/* ── PATTERN LIBRARY OVERVIEW ── */}
+      <div className="tool-pattern-library">
+        <div className="tool-pattern-library-title">8 patterns families ask about most</div>
+        <p className="tool-pattern-library-sub">Every one of these has a clear explanation. Tap any example below — or upload your own graph.</p>
+        <img
+          src="/pattern-library.png"
+          alt="8 common CGM glucose patterns including pizza spike, exercise low, overnight rise and more"
+          className="tool-pattern-library-img"
+        />
+      </div>
+
       {/* ── REAL EXAMPLE CHARTS ── */}
       <div className="tool-examples-wrap">
         <div className="tool-examples-label">Real examples — tap to see what an explanation looks like</div>

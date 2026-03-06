@@ -3496,3 +3496,20 @@ body {
 .tool-examples-note {
   font-size: 0.78rem; color: #8A9BB0; font-style: italic; text-align: center;
 }
+
+/* ── Pattern library overview ── */
+.tool-pattern-library {
+  background: white; border-radius: 16px; padding: 20px;
+  margin-bottom: 14px; border: 1px solid #E8E4DF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.tool-pattern-library-title {
+  font-weight: 900; color: #1A3A4A; font-size: 1.05rem; margin-bottom: 6px;
+}
+.tool-pattern-library-sub {
+  font-size: 0.85rem; color: #8A9BB0; margin-bottom: 14px; line-height: 1.5;
+}
+.tool-pattern-library-img {
+  width: 100%; border-radius: 10px; display: block;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
