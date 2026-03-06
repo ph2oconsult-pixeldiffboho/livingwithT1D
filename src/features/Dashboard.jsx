@@ -55,7 +55,7 @@ const secondaryFeatures = [
   { tab: "inspiring",  emoji: "✨", title: "Inspiring Lives",         desc: "Athletes, leaders, and artists who thrive with T1D.", color: COLORS.coral },
   { tab: "research",   emoji: "🔬", title: "Research",               desc: "Find clinical trials and studies your family can participate in.", color: COLORS.mint },
   { tab: "forum",      emoji: "💬", title: "Community Forum",         desc: "Connect with other T1D families. Ask questions, share stories.", color: COLORS.lavender },
-  { tab: "resources",  emoji: "📚", title: "Resources",              desc: "Breakthrough T1D, Diabetes Australia, JDRF and more.", color: COLORS.sunshine },
+  { tab: "resources",  emoji: "📚", title: "Resources",              desc: "Breakthrough T1D Australia, Diabetes Australia and more.", color: COLORS.sunshine },
 ];
 
 // Persistent feedback widget

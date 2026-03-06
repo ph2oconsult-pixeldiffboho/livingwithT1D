@@ -100,7 +100,7 @@ const parentModules = [
 const resources = [
   { name: "Breakthrough T1D", url: "https://www.breakthrought1d.org", description: "Leading funder of T1D research. Find clinical trials, latest breakthroughs, and family support programs.", type: "Research & Charity", emoji: "🔬", color: COLORS.ocean },
   { name: "Beyond Type 1", url: "https://beyondtype1.org", description: "Peer support community, education resources, and tools for people living with T1D.", type: "Community & Education", emoji: "🤝", color: COLORS.coral },
-  { name: "JDRF Australia", url: "https://jdrf.org.au", description: "Australian chapter of the global T1D research and advocacy organization.", type: "Research & Advocacy", emoji: "🇦🇺", color: COLORS.mint },
+  { name: "Breakthrough T1D Australia", url: "https://breakthrought1d.org.au", description: "Australian chapter of the global T1D research and advocacy organisation.", type: "Research & Advocacy", emoji: "🇦🇺", color: COLORS.mint },
   { name: "Children with Diabetes", url: "https://childrenwithdiabetes.com", description: "The largest online community for kids, families, and adults with T1D.", type: "Family Community", emoji: "👨‍👩‍👧", color: COLORS.lavender },
   { name: "Diabetes Australia", url: "https://www.diabetesaustralia.com.au", description: "National support, resources, and advocacy for all Australians living with diabetes.", type: "National Support", emoji: "🏥", color: COLORS.sunshine },
   { name: "T1D Exchange", url: "https://t1dexchange.org", description: "Registry and research platform connecting T1D patients with cutting-edge studies.", type: "Research Platform", emoji: "📊", color: COLORS.ocean },
