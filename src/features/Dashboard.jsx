@@ -110,6 +110,28 @@ export default function Dashboard({ profile, onNavigate }) {
   return (
     <div>
 
+      {/* ── COMMON QUESTIONS — recognition copy, first thing seen ── */}
+      <div className="dash-questions">
+        <div className="dash-questions-label">Common questions families ask</div>
+        <div className="dash-questions-list">
+          {[
+            { emoji: "🍕", q: "Why did glucose spike hours after dinner?" },
+            { emoji: "⚽", q: "Why did sport increase glucose instead of lowering it?" },
+            { emoji: "🌙", q: "Why did glucose rise overnight while my child was sleeping?" },
+            { emoji: "📉", q: "Why did glucose drop hours after exercise finished?" },
+            { emoji: "💉", q: "Why did insulin seem slow to work today?" },
+            { emoji: "🌅", q: "Why is glucose always higher in the morning?" },
+          ].map((item, i) => (
+            <button key={i} className="dash-question-item" onClick={() => onNavigate("explainer")}>
+              <span className="dash-q-emoji">{item.emoji}</span>
+              <span className="dash-q-text">{item.q}</span>
+              <span className="dash-q-arrow">→</span>
+            </button>
+          ))}
+        </div>
+        <div className="dash-questions-cta">These are very common questions. Tap any to explore an explanation.</div>
+      </div>
+
       {/* ── SECTION A: THREE CORE ACTIONS — first thing seen ── */}
       <div className="home-actions">
         <div className="home-actions-headline">

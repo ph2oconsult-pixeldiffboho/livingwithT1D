@@ -3353,3 +3353,30 @@ body {
   padding: 0; transition: color 0.15s;
 }
 .hero-cgm-link:hover { color: #FFD166; }
+
+/* ══════════════════════════════════════════════════════════
+   DASHBOARD — COMMON QUESTIONS
+═══════════════════════════════════════════════════════════ */
+.dash-questions {
+  background: white; border-radius: 16px; padding: 20px;
+  margin-bottom: 16px; border: 1px solid #E8E4DF;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.dash-questions-label {
+  font-size: 0.72rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 1.5px; color: #8A9BB0; margin-bottom: 12px;
+}
+.dash-questions-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.dash-question-item {
+  display: flex; align-items: center; gap: 10px;
+  background: #F7F3EE; border: none; border-radius: 10px;
+  padding: 11px 14px; cursor: pointer; text-align: left; width: 100%;
+  font-family: 'Nunito', sans-serif; transition: background 0.12s;
+}
+.dash-question-item:hover { background: #EEF8F4; }
+.dash-q-emoji { font-size: 1.1rem; flex-shrink: 0; }
+.dash-q-text { flex: 1; font-size: 0.88rem; font-weight: 700; color: #1A3A4A; line-height: 1.4; }
+.dash-q-arrow { color: #2E86AB; font-weight: 900; font-size: 0.9rem; flex-shrink: 0; }
+.dash-questions-cta {
+  font-size: 0.78rem; color: #8A9BB0; font-style: italic; text-align: center;
+}
