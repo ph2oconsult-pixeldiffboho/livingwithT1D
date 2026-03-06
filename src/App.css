@@ -3387,3 +3387,20 @@ body {
 .dash-questions-cta {
   font-size: 0.78rem; color: #8A9BB0; font-style: italic; text-align: center;
 }
+
+/* Hero CGM upload button — prominent */
+.hero-cgm-upload-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: white; color: #1A3A4A;
+  border: none; border-radius: 12px;
+  padding: 14px 24px; cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem; font-weight: 900;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-bottom: 4px;
+}
+.hero-cgm-upload-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+}

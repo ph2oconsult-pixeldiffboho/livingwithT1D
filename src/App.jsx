@@ -455,25 +455,11 @@ export default function App() {
 
         <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
 
-        {/* Example explanation card */}
-        <div className="hero-example">
-          <div className="hero-example-label">Here's what the analysis looks like</div>
-          <div className="hero-example-card">
-            <div className="hero-example-detected">Pattern detected: Delayed spike after meal</div>
-            <div className="hero-example-reasons-label">Possible reasons</div>
-            <div className="hero-example-reasons">
-              <div className="hero-example-reason"><span>🍕</span> High-fat meal slowing digestion</div>
-              <div className="hero-example-reason"><span>💉</span> Insulin given after eating</div>
-              <div className="hero-example-reason"><span>⚽</span> Reduced activity in the evening</div>
-            </div>
-          </div>
-        </div>
-
-        {/* CGM — quiet footer, not the hero */}
+        {/* CGM upload — the main CTA at the bottom of hero */}
         <div className="hero-cgm-footer">
-          <span className="hero-cgm-label">Have a confusing glucose pattern?</span>
-          <button className="hero-cgm-link" onClick={() => { switchTab("explainer"); setTimeout(() => { document.querySelector(".content")?.scrollIntoView({ behavior: "smooth" }); }, 80); }}>
-            📸 Upload your CGM graph and learn why it happened →
+          <div className="hero-cgm-label">Have a confusing glucose pattern?</div>
+          <button className="hero-cgm-upload-btn" onClick={() => { switchTab("explainer"); setTimeout(() => { document.querySelector(".content")?.scrollIntoView({ behavior: "smooth" }); }, 80); }}>
+            <span>📸</span> Upload your CGM graph →
           </button>
           <p className="hero-privacy">🔒 Not stored or shared · Educational only — not medical advice</p>
         </div>
