@@ -975,8 +975,9 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         <div className="tool-examples-grid">
           {[
             { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect", demo: 0 },
-            { src: "/soccer-effect-example.png", alt: "Soccer training CGM graph", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike", demo: 1 },
+            { src: "/soccer-effect-example.png", alt: "Soccer training glucose rise", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike", demo: 1 },
             { src: "/overnight-effect-example.png", alt: "Overnight glucose rise CGM graph", caption: "🌙 Steady rise during sleep — dawn phenomenon", tag: "Overnight rise", demo: 2 },
+            { src: "/soccer-drop-example.png", alt: "Glucose drop during soccer training", caption: "📉 Glucose falling during sport — hypo risk", tag: "Exercise drop", demo: 3 },
           ].map((ex, i) => (
             <div key={i} className="tool-example-card" onClick={() => loadDemo(DEMOS[ex.demo])}>
               <img src={ex.src} alt={ex.alt} className="tool-example-img" />

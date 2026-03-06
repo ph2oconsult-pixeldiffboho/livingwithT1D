@@ -3466,7 +3466,7 @@ body {
   letter-spacing: 1px; color: #8A9BB0; margin-bottom: 10px;
 }
 .tool-examples-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;
 }
 @media (max-width: 420px) { .tool-examples-grid { grid-template-columns: 1fr; } }
 .tool-example-card {
