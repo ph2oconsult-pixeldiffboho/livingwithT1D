@@ -1060,7 +1060,6 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
       </div>
     </div>
   );
-  );
 
   // ── Step: Screenshot Result ────────────────────────────────────────────────
   if (step === "screenshot-result") return (
