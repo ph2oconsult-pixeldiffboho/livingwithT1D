@@ -54,9 +54,9 @@ export default function DisclaimerPage({ onNavigate }) {
 
       {/* Who built this */}
       <Section emoji="👨‍👧" title="Who built this" color={COLORS.coral}>
-        <p>This app was built by a parent whose daughter was diagnosed with Type 1 Diabetes. It grew from our family's experience of navigating T1D — the confusion, the learning, and eventually the confidence that comes with understanding.</p>
+        <p>This app was built by a parent whose daughter was diagnosed with Type 1 Diabetes. It grew from our family's experience of navigating type 1 diabetes — the confusion, the learning, and eventually the confidence that comes with understanding.</p>
         <p>Our daughter now works with <strong>Breakthrough T1D</strong> (formerly JDRF), supporting the search for better treatments and ultimately a cure. This project exists because we wish a resource like this had existed when we were first diagnosed.</p>
-        <p>We are not medical professionals. We are a family, sharing what we learned — and connecting families with the best available educational resources. We build this alongside the T1D community, not in place of the expertise of diabetes care teams.</p>
+        <p>We are not medical professionals. We are a family, sharing what we learned — and connecting families with the best available educational resources. We build this alongside the type 1 diabetes community, not in place of the expertise of diabetes care teams.</p>
       </Section>
 
       {/* Contact */}

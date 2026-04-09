@@ -91,7 +91,7 @@ const STORIES = [
     title: "How Insulin Works",
     color: COLORS.ocean,
     childStory: "After eating, glucose entered your blood. Then insulin arrived — like a key unlocking a door — letting the glucose into your cells. That's how your body gets energy from food.",
-    parentNote: "Basic insulin mechanism: insulin binds to cell receptors, enabling glucose uptake. In T1D, exogenous insulin replaces what the pancreas can no longer produce.",
+    parentNote: "Basic insulin mechanism: insulin binds to cell receptors, enabling glucose uptake. In type 1 diabetes, exogenous insulin replaces what the pancreas can no longer produce.",
     question: "What does insulin do in your body?",
     options: [
       { id: "key",      emoji: "🔑", label: "Acts like a key to unlock cells", correct: true,  explanation: "Perfect! Insulin is like a key that unlocks your cells so glucose can get inside and give you energy. Without that key, glucose just floats around in the blood." },
@@ -117,7 +117,7 @@ const STORIES = [
       { id: "exhaust",  emoji: "💨", label: "It's the exhaust",           correct: false, explanation: "Ha! Food is the fuel that goes IN, not the exhaust that comes out. Your body uses it for energy." },
     ],
     badge: "engine-master",
-    metaphor: { title: "The Amazing Engine", body: "Food = fuel ⛽  |  Insulin = key 🔑  |  Exercise = burning fuel 🔥\n\nWhen everything works together, your engine runs beautifully. With T1D, you just help by providing the key (insulin) yourself — which actually makes you a really amazing engineer!" },
+    metaphor: { title: "The Amazing Engine", body: "Food = fuel ⛽  |  Insulin = key 🔑  |  Exercise = burning fuel 🔥\n\nWhen everything works together, your engine runs beautifully. With type 1 diabetes, you just help by providing the key (insulin) yourself — which actually makes you a really amazing engineer!" },
   },
 ];
 

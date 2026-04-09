@@ -65,13 +65,13 @@ const COLORS = {
 };
 
 const inspiringPeople = [
-  { name: "Nick Jonas", field: "Musician & Actor", diagnosed: "Age 13", quote: "T1D doesn't define me — it's just part of my story.", emoji: "🎵", color: COLORS.ocean },
+  { name: "Nick Jonas", field: "Musician & Actor", diagnosed: "Age 13", quote: "type 1 diabetes doesn't define me — it's just part of my story.", emoji: "🎵", color: COLORS.ocean },
   { name: "James Norton", field: "Actor (Happy Valley, Grantchester)", diagnosed: "Childhood", quote: "It's just something I manage — it's never stopped me doing anything.", emoji: "🎭", color: COLORS.lavender },
   { name: "Alexander Zverev", field: "Professional Tennis Player", diagnosed: "Age 4", quote: "I've had diabetes my whole life. It's never stopped me competing at the very top.", emoji: "🎾", color: COLORS.mint },
   { name: "Halle Berry", field: "Oscar-Winning Actress", diagnosed: "Age 22", quote: "Diabetes has actually made me healthier than I've ever been in my entire life.", emoji: "🌟", color: COLORS.coral },
   { name: "Theresa May", field: "Former UK Prime Minister", diagnosed: "Age 56", quote: "Having diabetes doesn't stop you from doing the things you want to do in life.", emoji: "🇬🇧", color: COLORS.ocean },
-  { name: "Sarah Klau", field: "Australian Netball Player", diagnosed: "Childhood", quote: "Managing T1D is just part of my routine — it hasn't held me back from representing my country.", emoji: "🏐", color: COLORS.sunshine },
-  { name: "Sonia Sotomayor", field: "US Supreme Court Justice", diagnosed: "Age 7", quote: "I was born to do this. T1D never slowed me down.", emoji: "⚖️", color: COLORS.lavender },
+  { name: "Sarah Klau", field: "Australian Netball Player", diagnosed: "Childhood", quote: "Managing type 1 diabetes is just part of my routine — it hasn't held me back from representing my country.", emoji: "🏐", color: COLORS.sunshine },
+  { name: "Sonia Sotomayor", field: "US Supreme Court Justice", diagnosed: "Age 7", quote: "I was born to do this. Type 1 diabetes never slowed me down.", emoji: "⚖️", color: COLORS.lavender },
   { name: "Jay Cutler", field: "NFL Quarterback", diagnosed: "Age 25", quote: "Managing diabetes is just part of my daily routine.", emoji: "🏈", color: COLORS.mint },
   { name: "Mary Tyler Moore", field: "Actress & Activist", diagnosed: "Age 33", quote: "You have to believe in yourself when no one else does.", emoji: "🎬", color: COLORS.coral },
   { name: "Elliott Yamin", field: "American Idol Star", diagnosed: "Age 16", quote: "Music is my medicine. Diabetes never silenced my voice.", emoji: "🎤", color: COLORS.ocean },
@@ -95,16 +95,16 @@ const childModules = [
   },
   {
     id: "coping", title: "It's okay to feel big feelings", emoji: "💙", color: COLORS.lavender, ageGroup: "All ages",
-    description: "T1D can bring up lots of emotions. All of them are completely normal.",
-    content: `Finding out your child has type 1 diabetes can feel overwhelming. You might feel:\n\n😢 **Sad** — It's okay to grieve. This is a big change.\n😡 **Angry** — "Why me?" is a completely fair question.\n😰 **Scared** — New things can feel scary, but you'll learn to manage them.\n😌 **Hopeful** — Millions of people live amazing lives with T1D!\n\nTalk to your parents, a counselor, or another T1D kid. You are **never** alone in this. There are whole communities of T1D families who understand exactly what you're going through. 🤝`,
-    activity: "Write a letter to your future self — a version of you who has learned to live brilliantly with T1D.",
+    description: "Type 1 diabetes can bring up lots of emotions. All of them are completely normal.",
+    content: `Finding out your child has type 1 diabetes can feel overwhelming. You might feel:\n\n😢 **Sad** — It's okay to grieve. This is a big change.\n😡 **Angry** — "Why me?" is a completely fair question.\n😰 **Scared** — New things can feel scary, but you'll learn to manage them.\n😌 **Hopeful** — Millions of people live amazing lives with type 1 diabetes!\n\nTalk to your parents, a counselor, or another child with type 1 diabetes. You are **never** alone in this. There are whole communities of type 1 diabetes families who understand exactly what you're going through. 🤝`,
+    activity: "Write a letter to your future self — a version of you who has learned to live brilliantly with type 1 diabetes.",
     funFact: "Over 8.4 million people worldwide live with type 1 diabetes. That's a huge community rooting for you! 🌍",
   },
   {
-    id: "daily-life", title: "T1D in my daily life", emoji: "☀️", color: COLORS.mint, ageGroup: "Ages 8+",
+    id: "daily-life", title: "Type 1 diabetes in my daily life", emoji: "☀️", color: COLORS.mint, ageGroup: "Ages 8+",
     description: "How to handle school, sports, sleepovers and everything in between.",
-    content: `T1D comes with you everywhere — and that's actually okay! Here's how to handle some common situations:\n\n🏫 **At school**: Tell a trusted teacher. Keep snacks and your kit nearby. You have the right to check your blood sugar anytime.\n\n⚽ **Playing sports**: Exercise can lower blood sugar — have snacks ready, let your coach know, and wear your medical ID.\n\n🌙 **Sleepovers**: Talk to your parents and your friend's parents beforehand. Set a nighttime alarm to check your levels.\n\n🎂 **Parties & treats**: You can still eat birthday cake! You'll just learn how to balance it with insulin. Nothing is fully off limits.`,
-    activity: "Create a 'T1D Kit' checklist for your school bag — what do you need every day?",
+    content: `Type 1 diabetes comes with you everywhere — and that's actually okay! Here's how to handle some common situations:\n\n🏫 **At school**: Tell a trusted teacher. Keep snacks and your kit nearby. You have the right to check your blood sugar anytime.\n\n⚽ **Playing sports**: Exercise can lower blood sugar — have snacks ready, let your coach know, and wear your medical ID.\n\n🌙 **Sleepovers**: Talk to your parents and your friend's parents beforehand. Set a nighttime alarm to check your levels.\n\n🎂 **Parties & treats**: You can still eat birthday cake! You'll just learn how to balance it with insulin. Nothing is fully off limits.`,
+    activity: "Create a 'diabetes kit' checklist for your school bag — what do you need every day?",
     funFact: "Many athletes with type 1 diabetes have competed in the Olympics and professional sports! 🏅",
   },
 ];
@@ -114,33 +114,33 @@ const parentModules = [
     id: "parent-understanding", title: "Understanding type 1 diabetes: The Science", icon: "🔬", color: COLORS.ocean,
     description: "What type 1 diabetes actually is — and crucially, what it isn't.",
     content: `type 1 diabetes is an **autoimmune condition** where the body's immune system mistakenly destroys the beta cells in the pancreas that produce insulin. Without insulin, glucose cannot enter cells and accumulates in the bloodstream.\n\n**This is NOT:**\n• Caused by eating too much sugar\n• A lifestyle disease (that is Type 2)\n• Something your child or you caused\n• Curable through diet alone\n\n**This IS:**\n• Manageable with insulin therapy, monitoring, and lifestyle awareness\n• A condition thousands of children thrive with every single day\n• Something your whole family will adapt to — and you will adapt.\n\nCurrent treatment involves insulin delivery (via injections or pump) and continuous blood glucose monitoring. Technology has made this more manageable than ever before.`,
-    keyTakeaway: "T1D is manageable. Your child can live a full, extraordinary life.",
+    keyTakeaway: "Type 1 diabetes is manageable. Your child can live a full, extraordinary life.",
   },
   {
     id: "parent-emotional", title: "Supporting your child emotionally", icon: "❤️", color: COLORS.coral,
     description: "How to be present without increasing fear or anxiety.",
-    content: `The diagnosis is a grief process — for you AND your child. Research shows that parental anxiety directly affects a child's adaptation to T1D. Here's how to help:\n\n**DO:**\n✅ Acknowledge their feelings without minimizing them\n✅ Use calm, factual language about T1D management\n✅ Celebrate their resilience and small wins\n✅ Involve them in age-appropriate decisions about their care\n✅ Connect with other type 1 diabetes families — peer support is invaluable\n\n**AVOID:**\n❌ Projecting your own fears onto them\n❌ Over-monitoring to the point of anxiety\n❌ Making T1D the center of every family conversation\n❌ Treating them as fragile — they are strong!\n\nPsychological support for both child and parent is a legitimate and important part of T1D care.`,
+    content: `The diagnosis is a grief process — for you AND your child. Research shows that parental anxiety directly affects a child's adaptation to type 1 diabetes. Here's how to help:\n\n**DO:**\n✅ Acknowledge their feelings without minimizing them\n✅ Use calm, factual language about type 1 diabetes management\n✅ Celebrate their resilience and small wins\n✅ Involve them in age-appropriate decisions about their care\n✅ Connect with other type 1 diabetes families — peer support is invaluable\n\n**AVOID:**\n❌ Projecting your own fears onto them\n❌ Over-monitoring to the point of anxiety\n❌ Making type 1 diabetes the center of every family conversation of every family conversation\n❌ Treating them as fragile — they are strong!\n\nPsychological support for both child and parent is a legitimate and important part of type 1 diabetes care.`,
     keyTakeaway: "Your calm is their calm. Your resilience models theirs.",
   },
   {
     id: "parent-school", title: "Navigating school & social life", icon: "🏫", color: COLORS.mint,
     description: "Advocating for your child while fostering independence.",
-    content: `**At School:**\nWork with the school to create a **Diabetes Medical Management Plan (DMMP)**. This legally ensures your child gets appropriate support. Key inclusions:\n• Freedom to check blood sugar and treat lows immediately\n• Access to snacks without permission delays\n• A trained staff member for emergencies\n• Clear communication protocols with you\n\n**Building Independence:**\nAge-appropriate independence in diabetes management is a health outcome in itself. Children who have ownership over their care tend to have better long-term outcomes. Start small:\n• Ages 6–8: Recognize symptoms, tell adults\n• Ages 8–12: Participate in carb counting, understand their kit\n• Ages 12+: Growing autonomy with parental oversight\n\n**Social situations:**\nCoach your child on how to briefly explain T1D to peers. Most children are curious, not unkind. Normalizing it early makes social life much easier.`,
+    content: `**At School:**\nWork with the school to create a **Diabetes Medical Management Plan (DMMP)**. This legally ensures your child gets appropriate support. Key inclusions:\n• Freedom to check blood sugar and treat lows immediately\n• Access to snacks without permission delays\n• A trained staff member for emergencies\n• Clear communication protocols with you\n\n**Building Independence:**\nAge-appropriate independence in diabetes management is a health outcome in itself. Children who have ownership over their care tend to have better long-term outcomes. Start small:\n• Ages 6–8: Recognize symptoms, tell adults\n• Ages 8–12: Participate in carb counting, understand their kit\n• Ages 12+: Growing autonomy with parental oversight\n\n**Social situations:**\nCoach your child on how to briefly explain type 1 diabetes to peers. Most children are curious, not unkind. Normalizing it early makes social life much easier.`,
     keyTakeaway: "Advocate fiercely AND foster independence — both are acts of love.",
   },
   {
     id: "parent-tech", title: "Technology & Management Tools", icon: "📱", color: COLORS.lavender,
     description: "The remarkable technology that helps manage type 1 diabetes today.",
-    content: `T1D management has transformed remarkably in recent decades:\n\n**Continuous Glucose Monitors (CGMs)**\nDevices like Dexcom G7 and Libre 3 check blood sugar every few minutes, sending alerts to your phone. No more constant finger pricks.\n\n**Insulin Pumps**\nDelivers continuous insulin through a small cannula. Some systems like Omnipod and Tandem t:slim X2 can communicate with CGMs for semi-automated dosing.\n\n**Closed-Loop / Hybrid Closed-Loop Systems**\nSometimes called an "artificial pancreas" — the CGM and pump communicate automatically to adjust insulin based on glucose trends. Life-changing for many families.\n\n**Apps & Data**\nApps allow parents to view their child's glucose levels remotely. This "share" feature provides peace of mind without constant intrusion.\n\n**Important**: Work with your endocrinology team to find the right combination for your child's age, activity level, and lifestyle.`,
+    content: `Type 1 diabetes management has transformed remarkably in recent decades:\n\n**Continuous Glucose Monitors (CGMs)**\nDevices like Dexcom G7 and Libre 3 check blood sugar every few minutes, sending alerts to your phone. No more constant finger pricks.\n\n**Insulin Pumps**\nDelivers continuous insulin through a small cannula. Some systems like Omnipod and Tandem t:slim X2 can communicate with CGMs for semi-automated dosing.\n\n**Closed-Loop / Hybrid Closed-Loop Systems**\nSometimes called an "artificial pancreas" — the CGM and pump communicate automatically to adjust insulin based on glucose trends. Life-changing for many families.\n\n**Apps & Data**\nApps allow parents to view their child's glucose levels remotely. This "share" feature provides peace of mind without constant intrusion.\n\n**Important**: Work with your endocrinology team to find the right combination for your child's age, activity level, and lifestyle.`,
     keyTakeaway: "The technology available today is extraordinary — and it keeps improving.",
   },
 ];
 
 const resources = [
   { name: "Breakthrough T1D", url: "https://www.breakthrought1d.org", description: "Leading funder of T1D research. Find clinical trials, latest breakthroughs, and family support programs.", type: "Research & Charity", emoji: "🔬", color: COLORS.ocean },
-  { name: "Beyond Type 1", url: "https://beyondtype1.org", description: "Peer support community, education resources, and tools for people living with T1D.", type: "Community & Education", emoji: "🤝", color: COLORS.coral },
+  { name: "Beyond Type 1", url: "https://beyondtype1.org", description: "Peer support community, education resources, and tools for people living with type 1 diabetes.", type: "Community & Education", emoji: "🤝", color: COLORS.coral },
   { name: "Breakthrough T1D Australia", url: "https://breakthrought1d.org.au", description: "Australian chapter of the global T1D research and advocacy organisation.", type: "Research & Advocacy", emoji: "🇦🇺", color: COLORS.mint },
-  { name: "Children with Diabetes", url: "https://childrenwithdiabetes.com", description: "The largest online community for kids, families, and adults with T1D.", type: "Family Community", emoji: "👨‍👩‍👧", color: COLORS.lavender },
+  { name: "Children with Diabetes", url: "https://childrenwithdiabetes.com", description: "The largest online community for kids, families, and adults with type 1 diabetes.", type: "Family Community", emoji: "👨‍👩‍👧", color: COLORS.lavender },
   { name: "Diabetes Australia", url: "https://www.diabetesaustralia.com.au", description: "National support, resources, and advocacy for all Australians living with diabetes.", type: "National Support", emoji: "🏥", color: COLORS.sunshine },
   { name: "T1D Exchange", url: "https://t1dexchange.org", description: "Registry and research platform connecting T1D patients with cutting-edge studies.", type: "Research Platform", emoji: "📊", color: COLORS.ocean },
 ];
@@ -163,7 +163,7 @@ const treatments = [
   {
     title: "Continuous Glucose Monitors (CGMs)", emoji: "📡", color: COLORS.coral,
     summary: "Small wearable sensors that check blood glucose every few minutes — day and night.",
-    detail: `CGMs have transformed type 1 diabetes management by providing real-time glucose data, trend arrows, and alerts.\n\n**Dexcom G7**: Worn on the arm, lasts 10 days, streams to phone and smartwatch. Highly accurate.\n\n**Abbott FreeStyle Libre 3**: Smaller sensor, 14-day wear, real-time alerts. Very popular in Australia.\n\n**Medtronic Guardian**: Integrates with Medtronic pumps for closed-loop systems.\n\n**Accessibility in Australia**\nFrom July 2022, CGMs are **fully subsidised** under the NDSS for all Australians with T1D under 21. Adults with T1D may also access subsidised CGMs — check ndss.com.au for current eligibility criteria, as this is expanding.`,
+    detail: `CGMs have transformed type 1 diabetes management by providing real-time glucose data, trend arrows, and alerts.\n\n**Dexcom G7**: Worn on the arm, lasts 10 days, streams to phone and smartwatch. Highly accurate.\n\n**Abbott FreeStyle Libre 3**: Smaller sensor, 14-day wear, real-time alerts. Very popular in Australia.\n\n**Medtronic Guardian**: Integrates with Medtronic pumps for closed-loop systems.\n\n**Accessibility in Australia**\nFrom July 2022, CGMs are **fully subsidised** under the NDSS for all Australians with type 1 diabetes under 21. Adults with type 1 diabetes may also access subsidised CGMs — check ndss.com.au for current eligibility criteria, as this is expanding.`,
   },
   {
     title: "Closed-Loop Systems ('Artificial Pancreas')", emoji: "🤖", color: COLORS.mint,
@@ -181,7 +181,7 @@ const researchOpportunities = [
   { name: "Breakthrough T1D Clinical Trials", url: "https://www.breakthrought1d.org/t1d-resources/clinical-trials/", desc: "Search for open trials specifically funded and vetted by Breakthrough T1D. Includes prevention, cure, and management studies.", emoji: "🧬", color: COLORS.ocean, who: "Children & Adults" },
   { name: "ANZCTR – Australian Clinical Trials", url: "https://www.anzctr.org.au", desc: "The Australian New Zealand Clinical Trials Registry. Search 'type 1 diabetes' for all open studies across Australia.", emoji: "🇦🇺", color: COLORS.mint, who: "All ages, Australia" },
   { name: "T1D Exchange Registry", url: "https://t1dexchange.org/registry/", desc: "Join the world's largest T1D research registry. Your data helps researchers understand real-world outcomes.", emoji: "📊", color: COLORS.coral, who: "Children & Adults" },
-  { name: "TrialNet – Prevention Studies", url: "https://www.trialnet.org", desc: "International network studying T1D prevention and delay. Offers free screening for relatives of people with T1D — important for siblings.", emoji: "🔍", color: COLORS.lavender, who: "Relatives of T1D patients" },
+  { name: "TrialNet – Prevention Studies", url: "https://www.trialnet.org", desc: "International network studying T1D prevention and delay. Offers free screening for relatives of people with type 1 diabetes — important for siblings.", emoji: "🔍", color: COLORS.lavender, who: "Relatives of people with type 1 diabetes" },
   { name: "Diabetes Australia Research", url: "https://www.diabetesaustralia.com.au/research/", desc: "Australian-specific research opportunities and grants. Supports both patient participation and community-based studies.", emoji: "🏥", color: COLORS.sunshine, who: "Australian families" },
   { name: "ClinicalTrials.gov", url: "https://clinicaltrials.gov/search?cond=Type+1+Diabetes", desc: "The world's most comprehensive clinical trials database. Filter by age, location, and phase to find opportunities near you.", emoji: "🌐", color: COLORS.ocean, who: "Global — all ages" },
 ];
@@ -189,7 +189,7 @@ const researchOpportunities = [
 const seedMessages = [
   { id: 1, author: "Sarah M.", avatar: "👩", role: "Parent", time: "2 days ago", text: "Just joined this community after my 8-year-old was diagnosed last month. Still processing everything but finding so much comfort reading through these posts. Thank you all. 💙" },
   { id: 2, author: "James T.", avatar: "👨", role: "Parent", time: "2 days ago", text: "Welcome Sarah. We were exactly where you are 18 months ago. It gets so much easier. The first few weeks are the hardest — reach out anytime." },
-  { id: 3, author: "Lily (age 14)", avatar: "👧", role: "T1D Warrior", time: "1 day ago", text: "Hi! I've had T1D since I was 6. I want any newly diagnosed kids reading this to know — you will be absolutely fine. I play netball, go to sleepovers, eat birthday cake. It becomes normal. 🎉" },
+  { id: 3, author: "Lily (age 14)", avatar: "👧", role: "type 1 diabetes advocate", time: "1 day ago", text: "Hi! I've had type 1 diabetes since I was 6. I want any newly diagnosed kids reading this to know — you will be absolutely fine. I play netball, go to sleepovers, eat birthday cake. It becomes normal. 🎉" },
   { id: 4, author: "Rachel K.", avatar: "👩‍⚕️", role: "Diabetes Educator", time: "1 day ago", text: "Such a wonderful thread. For any parents feeling overwhelmed by the numbers and technology — please remember, no one expects perfection. We aim for 'good enough' most days, not perfect. That's genuinely the clinical advice! 😊" },
   { id: 5, author: "Tom B.", avatar: "👦", role: "Parent", time: "20 hours ago", text: "Quick question for the group — how do you handle the school canteen situation? My son (10) feels embarrassed counting carbs in front of friends." },
   { id: 6, author: "Maria S.", avatar: "👩", role: "Parent", time: "18 hours ago", text: "Tom — we pre-loaded his most common lunch choices into the app so he can just tap and go. Looks exactly like what his friends are doing on their phones! Made a huge difference to his confidence." },
@@ -219,7 +219,7 @@ function ForumTab() {
     setMessages([...messages, {
       id: messages.length + 1,
       author: name.trim(),
-      avatar: role === "T1D Warrior" ? "🌟" : "💬",
+      avatar: role === "type 1 diabetes advocate" ? "🌟" : "💬",
       role, time: "Just now", text: text.trim(),
     }]);
     setText(""); setName(""); setPosted(true);
@@ -256,7 +256,7 @@ function ForumTab() {
           <input className="forum-input" placeholder="Your name or first name" value={name} onChange={e => setName(e.target.value)} />
           <select className="forum-select" value={role} onChange={e => setRole(e.target.value)}>
             <option>Parent</option>
-            <option>T1D Warrior</option>
+            <option>Type 1 diabetes advocate</option>
             <option>Family Member</option>
             <option>Healthcare Professional</option>
             <option>Other</option>
@@ -277,7 +277,7 @@ function MentalHealthTab() {
     <>
       <div className="section-header">
         <h2>🧠 Mental Health & Wellbeing</h2>
-        <p>T1D affects the whole family emotionally — not just physically. Seeking support is a sign of strength, not struggle.</p>
+        <p>Type 1 diabetes affects the whole family emotionally — not just physically. Seeking support is a sign of strength, not struggle.</p>
       </div>
       <div className="mh-banner">
         <div style={{ fontSize: "2rem", marginBottom: 12 }}>💙</div>
@@ -826,7 +826,7 @@ export default function App() {
             </div>
 
             <div className="clin-built-by">
-              <div className="clin-section-title">Built by a T1D family</div>
+              <div className="clin-section-title">Built by a type 1 diabetes family</div>
               <p className="clin-body">This platform was created by a parent whose daughter lives with type 1 diabetes. Our family's experience navigating diagnosis, CGM patterns, school management, and sport inspired us to build the resource we wished had existed when we started.</p>
               <p className="clin-body">Our daughter is involved with Breakthrough T1D, and we remain closely connected to the T1D community. This is a community resource, not a commercial product.</p>
             </div>
@@ -917,9 +917,9 @@ export default function App() {
             </div>
             <div className="info-banner">
               <div style={{ fontSize: "1.5rem", marginBottom: 8 }}>🌍</div>
-              <div style={{ fontWeight: 800, fontSize: "1rem", color: COLORS.deep, marginBottom: 8 }}>T1D doesn't choose ordinary people</div>
+              <div style={{ fontWeight: 800, fontSize: "1rem", color: COLORS.deep, marginBottom: 8 }}>Type 1 diabetes doesn't choose ordinary people</div>
               <div style={{ color: "#4A6070", fontSize: "0.9rem", lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>
-                The list of people thriving with type 1 diabetes spans every field. Your child joins a remarkable community who prove every day that T1D is a companion — not a ceiling.
+                The list of people thriving with type 1 diabetes spans every field. Your child joins a remarkable community who prove every day that type 1 diabetes is a companion — not a ceiling.
               </div>
             </div>
           </>
@@ -957,7 +957,7 @@ export default function App() {
               <p>When my daughter was diagnosed, we had to learn everything from the beginning — just like you may be doing now. We experienced the same uncertainty, the same late nights checking glucose, the same constant questions about whether we were doing the right thing.</p>
               <p>But we also watched something remarkable happen.</p>
               <p>Our daughter grew stronger through the experience. Instead of defining her, type 1 diabetes became part of what shaped her determination and purpose.</p>
-              <p><strong>Today she works with Breakthrough T1D</strong>, helping advance research and support for people living with T1D.</p>
+              <p><strong>Today she works with Breakthrough T1D</strong>, helping advance research and support for people living with type 1 diabetes.</p>
               <div className="letter-divider">— ✦ —</div>
               <p>This project was created because we remember how difficult those early months were.</p>
               <p>The goal is simple: to help families understand the everyday decisions that come with type 1 diabetes — and to feel more confident navigating them.</p>
