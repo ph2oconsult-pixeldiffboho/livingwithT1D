@@ -12,6 +12,7 @@ import Dashboard from "./features/Dashboard";
 import DisclaimerPage from "./features/DisclaimerPage";
 import PatternProfile from "./features/PatternProfile";
 import GlucoseExplorer from "./features/GlucoseExplorer";
+import TeenPage from "./features/TeenPage";
 import SickDayRules from "./features/SickDayRules";
 
 const HERO_EXAMPLES = [
@@ -23,7 +24,7 @@ const HERO_EXAMPLES = [
   {
     src: "/soccer-effect-example.png",
     alt: "CGM graph showing glucose rise after soccer training",
-    caption: "Glucose rose 4 hours after soccer training — adrenaline spike",
+    caption: "Glucose rose 4 hours after soccer training — exercise effect",
   },
 ];
 
@@ -81,44 +82,44 @@ const childModules = [
   {
     id: "what-is-t1d", title: "What's happening in my body?", emoji: "🫀", color: COLORS.ocean, ageGroup: "All ages",
     description: "A friendly journey through how insulin works — with simple words.",
-    content: `Your body has a special organ called the **pancreas**. In most people, it makes a helpful molecule called **insulin** — like a tiny key 🔑 that lets sugar into your cells for energy.\n\nWith Type 1 Diabetes, the body's own defense system accidentally attacks the cells that make insulin. It's not anyone's fault — not yours, not your parents'. It just happens.\n\nNow you get to be your own superhero — checking your blood sugar and giving your body the insulin it needs! 💪`,
+    content: `Your body has a special organ called the **pancreas**. In most people, it makes a helpful molecule called **insulin** — like a tiny key 🔑 that lets sugar into your cells for energy.\n\nWith type 1 diabetes, the body's own defense system accidentally attacks the cells that make insulin. It's not anyone's fault — not yours, not your parents'. It just happens.\n\nNow you get to be your own superhero — checking your blood sugar and giving your body the insulin it needs! 💪`,
     activity: "Draw your pancreas and give it a superhero cape!",
     funFact: "Your pancreas is about the size of your hand — pretty small for such an important job! 🖐️",
   },
   {
     id: "blood-sugar", title: "Understanding my blood sugar", emoji: "📊", color: COLORS.coral, ageGroup: "Ages 6+",
     description: "Learn what blood sugar is, why it matters, and what the numbers mean.",
-    content: `**Blood sugar** (also called blood glucose) is the amount of sugar floating in your blood. You need just the right amount — not too much, not too little!\n\n🟢 **In range** (about 70–180 mg/dL): Feels great! You have energy to play, think and laugh.\n\n🔴 **Too low (Hypo)**: You might feel shaky, hungry, or dizzy. Quick fix: eat some fast sugar like juice or glucose tablets!\n\n🟡 **Too high (Hyper)**: You might feel tired or need to go to the bathroom a lot. Insulin helps bring it back down.`,
+    content: `**Blood sugar** (also called blood glucose) is the amount of sugar floating in your blood. You need just the right amount — not too much, not too little!\n\n🟢 **In range** (about 4–10 mmol/L): Feels great! You have energy to play, think and laugh.\n\n🔴 **Too low (Hypo)**: You might feel shaky, hungry, or dizzy. Quick fix: eat some fast sugar like juice or glucose tablets!\n\n🟡 **Too high (Hyper)**: You might feel tired or need to go to the bathroom a lot. Insulin helps bring it back down.`,
     activity: "Keep a 3-day 'mood and blood sugar' journal. Do you notice any patterns?",
     funFact: "Your brain uses 20% of all the sugar in your blood — it's a super hungry organ! 🧠",
   },
   {
     id: "coping", title: "It's okay to feel big feelings", emoji: "💙", color: COLORS.lavender, ageGroup: "All ages",
     description: "T1D can bring up lots of emotions. All of them are completely normal.",
-    content: `Finding out you have T1D can feel overwhelming. You might feel:\n\n😢 **Sad** — It's okay to grieve. This is a big change.\n😡 **Angry** — "Why me?" is a completely fair question.\n😰 **Scared** — New things can feel scary, but you'll learn to manage them.\n😌 **Hopeful** — Millions of people live amazing lives with T1D!\n\nTalk to your parents, a counselor, or another T1D kid. You are **never** alone in this. There are whole communities of T1D families who understand exactly what you're going through. 🤝`,
+    content: `Finding out your child has type 1 diabetes can feel overwhelming. You might feel:\n\n😢 **Sad** — It's okay to grieve. This is a big change.\n😡 **Angry** — "Why me?" is a completely fair question.\n😰 **Scared** — New things can feel scary, but you'll learn to manage them.\n😌 **Hopeful** — Millions of people live amazing lives with T1D!\n\nTalk to your parents, a counselor, or another T1D kid. You are **never** alone in this. There are whole communities of T1D families who understand exactly what you're going through. 🤝`,
     activity: "Write a letter to your future self — a version of you who has learned to live brilliantly with T1D.",
-    funFact: "Over 8.4 million people worldwide live with T1D. That's a huge community rooting for you! 🌍",
+    funFact: "Over 8.4 million people worldwide live with type 1 diabetes. That's a huge community rooting for you! 🌍",
   },
   {
     id: "daily-life", title: "T1D in my daily life", emoji: "☀️", color: COLORS.mint, ageGroup: "Ages 8+",
     description: "How to handle school, sports, sleepovers and everything in between.",
     content: `T1D comes with you everywhere — and that's actually okay! Here's how to handle some common situations:\n\n🏫 **At school**: Tell a trusted teacher. Keep snacks and your kit nearby. You have the right to check your blood sugar anytime.\n\n⚽ **Playing sports**: Exercise can lower blood sugar — have snacks ready, let your coach know, and wear your medical ID.\n\n🌙 **Sleepovers**: Talk to your parents and your friend's parents beforehand. Set a nighttime alarm to check your levels.\n\n🎂 **Parties & treats**: You can still eat birthday cake! You'll just learn how to balance it with insulin. Nothing is fully off limits.`,
     activity: "Create a 'T1D Kit' checklist for your school bag — what do you need every day?",
-    funFact: "Many T1D athletes have competed in the Olympics and professional sports! 🏅",
+    funFact: "Many athletes with type 1 diabetes have competed in the Olympics and professional sports! 🏅",
   },
 ];
 
 const parentModules = [
   {
-    id: "parent-understanding", title: "Understanding T1D: The Science", icon: "🔬", color: COLORS.ocean,
-    description: "What T1D actually is — and crucially, what it isn't.",
-    content: `Type 1 Diabetes is an **autoimmune condition** where the body's immune system mistakenly destroys the beta cells in the pancreas that produce insulin. Without insulin, glucose cannot enter cells and accumulates in the bloodstream.\n\n**This is NOT:**\n• Caused by eating too much sugar\n• A lifestyle disease (that is Type 2)\n• Something your child or you caused\n• Curable through diet alone\n\n**This IS:**\n• Manageable with insulin therapy, monitoring, and lifestyle awareness\n• A condition thousands of children thrive with every single day\n• Something your whole family will adapt to — and you will adapt.\n\nCurrent treatment involves insulin delivery (via injections or pump) and continuous blood glucose monitoring. Technology has made this more manageable than ever before.`,
+    id: "parent-understanding", title: "Understanding type 1 diabetes: The Science", icon: "🔬", color: COLORS.ocean,
+    description: "What type 1 diabetes actually is — and crucially, what it isn't.",
+    content: `type 1 diabetes is an **autoimmune condition** where the body's immune system mistakenly destroys the beta cells in the pancreas that produce insulin. Without insulin, glucose cannot enter cells and accumulates in the bloodstream.\n\n**This is NOT:**\n• Caused by eating too much sugar\n• A lifestyle disease (that is Type 2)\n• Something your child or you caused\n• Curable through diet alone\n\n**This IS:**\n• Manageable with insulin therapy, monitoring, and lifestyle awareness\n• A condition thousands of children thrive with every single day\n• Something your whole family will adapt to — and you will adapt.\n\nCurrent treatment involves insulin delivery (via injections or pump) and continuous blood glucose monitoring. Technology has made this more manageable than ever before.`,
     keyTakeaway: "T1D is manageable. Your child can live a full, extraordinary life.",
   },
   {
     id: "parent-emotional", title: "Supporting your child emotionally", icon: "❤️", color: COLORS.coral,
     description: "How to be present without increasing fear or anxiety.",
-    content: `The diagnosis is a grief process — for you AND your child. Research shows that parental anxiety directly affects a child's adaptation to T1D. Here's how to help:\n\n**DO:**\n✅ Acknowledge their feelings without minimizing them\n✅ Use calm, factual language about T1D management\n✅ Celebrate their resilience and small wins\n✅ Involve them in age-appropriate decisions about their care\n✅ Connect with other T1D families — peer support is invaluable\n\n**AVOID:**\n❌ Projecting your own fears onto them\n❌ Over-monitoring to the point of anxiety\n❌ Making T1D the center of every family conversation\n❌ Treating them as fragile — they are strong!\n\nPsychological support for both child and parent is a legitimate and important part of T1D care.`,
+    content: `The diagnosis is a grief process — for you AND your child. Research shows that parental anxiety directly affects a child's adaptation to T1D. Here's how to help:\n\n**DO:**\n✅ Acknowledge their feelings without minimizing them\n✅ Use calm, factual language about T1D management\n✅ Celebrate their resilience and small wins\n✅ Involve them in age-appropriate decisions about their care\n✅ Connect with other type 1 diabetes families — peer support is invaluable\n\n**AVOID:**\n❌ Projecting your own fears onto them\n❌ Over-monitoring to the point of anxiety\n❌ Making T1D the center of every family conversation\n❌ Treating them as fragile — they are strong!\n\nPsychological support for both child and parent is a legitimate and important part of T1D care.`,
     keyTakeaway: "Your calm is their calm. Your resilience models theirs.",
   },
   {
@@ -129,7 +130,7 @@ const parentModules = [
   },
   {
     id: "parent-tech", title: "Technology & Management Tools", icon: "📱", color: COLORS.lavender,
-    description: "The remarkable technology that helps manage T1D today.",
+    description: "The remarkable technology that helps manage type 1 diabetes today.",
     content: `T1D management has transformed remarkably in recent decades:\n\n**Continuous Glucose Monitors (CGMs)**\nDevices like Dexcom G7 and Libre 3 check blood sugar every few minutes, sending alerts to your phone. No more constant finger pricks.\n\n**Insulin Pumps**\nDelivers continuous insulin through a small cannula. Some systems like Omnipod and Tandem t:slim X2 can communicate with CGMs for semi-automated dosing.\n\n**Closed-Loop / Hybrid Closed-Loop Systems**\nSometimes called an "artificial pancreas" — the CGM and pump communicate automatically to adjust insulin based on glucose trends. Life-changing for many families.\n\n**Apps & Data**\nApps allow parents to view their child's glucose levels remotely. This "share" feature provides peace of mind without constant intrusion.\n\n**Important**: Work with your endocrinology team to find the right combination for your child's age, activity level, and lifestyle.`,
     keyTakeaway: "The technology available today is extraordinary — and it keeps improving.",
   },
@@ -156,29 +157,29 @@ const mentalHealthLinks = [
 const treatments = [
   {
     title: "Insulin Therapy", emoji: "💉", color: COLORS.ocean,
-    summary: "The foundation of all T1D management. Everyone with T1D requires insulin to survive.",
+    summary: "The foundation of all type 1 diabetes management. Everyone with type 1 diabetes requires insulin to survive.",
     detail: `**Multiple Daily Injections (MDI)**\nThe traditional approach: fast-acting insulin with meals, plus long-acting background insulin once or twice daily. Affordable, widely available, and effective.\n\n**Insulin Pumps**\nA small wearable device delivering a continuous low dose of insulin, with extra doses for meals. Removes the need for multiple daily injections. Leading brands: Omnipod (tubeless) and Medtronic.\n\n**Common insulins**\nRapid-acting: Novorapid, Humalog, Fiasp. Long-acting: Lantus, Levemir, Tresiba.\n\n**Accessibility in Australia**\nThe National Diabetes Services Scheme (NDSS) subsidises insulin and consumables significantly. Speak to your endocrinologist and diabetes educator about accessing these subsidies from the point of diagnosis.`,
   },
   {
     title: "Continuous Glucose Monitors (CGMs)", emoji: "📡", color: COLORS.coral,
     summary: "Small wearable sensors that check blood glucose every few minutes — day and night.",
-    detail: `CGMs have transformed T1D management by providing real-time glucose data, trend arrows, and alerts.\n\n**Dexcom G7**: Worn on the arm, lasts 10 days, streams to phone and smartwatch. Highly accurate.\n\n**Abbott FreeStyle Libre 3**: Smaller sensor, 14-day wear, real-time alerts. Very popular in Australia.\n\n**Medtronic Guardian**: Integrates with Medtronic pumps for closed-loop systems.\n\n**Accessibility in Australia**\nFrom July 2022, CGMs are **fully subsidised** under the NDSS for all Australians with T1D under 21. Adults with T1D may also access subsidised CGMs — check ndss.com.au for current eligibility criteria, as this is expanding.`,
+    detail: `CGMs have transformed type 1 diabetes management by providing real-time glucose data, trend arrows, and alerts.\n\n**Dexcom G7**: Worn on the arm, lasts 10 days, streams to phone and smartwatch. Highly accurate.\n\n**Abbott FreeStyle Libre 3**: Smaller sensor, 14-day wear, real-time alerts. Very popular in Australia.\n\n**Medtronic Guardian**: Integrates with Medtronic pumps for closed-loop systems.\n\n**Accessibility in Australia**\nFrom July 2022, CGMs are **fully subsidised** under the NDSS for all Australians with T1D under 21. Adults with T1D may also access subsidised CGMs — check ndss.com.au for current eligibility criteria, as this is expanding.`,
   },
   {
     title: "Closed-Loop Systems ('Artificial Pancreas')", emoji: "🤖", color: COLORS.mint,
     summary: "CGM and pump communicate automatically to adjust insulin — the closest thing to a functioning pancreas.",
-    detail: `Hybrid closed-loop systems represent the biggest leap forward in T1D technology in decades.\n\n**How it works**: The CGM reads glucose every few minutes and sends data to the pump, which automatically adjusts insulin — increasing if glucose is rising, reducing if falling.\n\n**Leading systems available in Australia**\n• **Tandem t:slim X2 with Control-IQ**: Automatically adjusts and corrects. TGA approved.\n• **Medtronic MiniMed 780G**: Advanced algorithm with auto-correction boluses.\n• **Omnipod 5**: Tubeless pump with closed-loop capability via Dexcom G6.\n\n**DIY Looping**: Some families use open-source systems (Loop, AndroidAPS). Not officially approved but widely used — discuss with your care team.\n\n**Accessibility**: Pumps are subsidised through the NDSS Insulin Pump Program for eligible Australians. Ask your endocrinologist about the application process.`,
+    detail: `Hybrid closed-loop systems represent the biggest leap forward in type 1 diabetes technology in decades.\n\n**How it works**: The CGM reads glucose every few minutes and sends data to the pump, which automatically adjusts insulin — increasing if glucose is rising, reducing if falling.\n\n**Leading systems available in Australia**\n• **Tandem t:slim X2 with Control-IQ**: Automatically adjusts and corrects. TGA approved.\n• **Medtronic MiniMed 780G**: Advanced algorithm with auto-correction boluses.\n• **Omnipod 5**: Tubeless pump with closed-loop capability via Dexcom G6.\n\n**DIY Looping**: Some families use open-source systems (Loop, AndroidAPS). Not officially approved but widely used — discuss with your care team.\n\n**Accessibility**: Pumps are subsidised through the NDSS Insulin Pump Program for eligible Australians. Ask your endocrinologist about the application process.`,
   },
   {
     title: "Emerging & Future Treatments", emoji: "🔭", color: COLORS.lavender,
-    summary: "Exciting therapies in development that could transform — or even cure — T1D.",
+    summary: "Exciting therapies in development that could transform — or even cure — type 1 diabetes.",
     detail: `**Teplizumab (Tzield)**\nThe first drug approved to **delay the onset** of T1D in at-risk individuals — a landmark milestone in modifying the disease course. Approved by the FDA in 2022; under review in Australia.\n\n**Stem Cell Therapies**\nResearchers are working to grow new insulin-producing beta cells from stem cells. Vertex Pharmaceuticals has reported promising early clinical results.\n\n**Beta Cell Encapsulation**\nTransplanting beta cells in a protective capsule that shields them from the immune system — potentially removing the need for daily insulin.\n\n**Islet Cell Transplantation**\nAlready available at some centres in Australia for severe cases. Replaces destroyed beta cells, though immune suppression is currently required.\n\n**Smart Insulin**\nInsulin molecules that only activate when blood sugar is high. Still in clinical trials but could be game-changing.\n\nFollow Breakthrough T1D (breakthrought1d.org) for the latest updates on all these therapies.`,
   },
 ];
 
 const researchOpportunities = [
   { name: "Breakthrough T1D Clinical Trials", url: "https://www.breakthrought1d.org/t1d-resources/clinical-trials/", desc: "Search for open trials specifically funded and vetted by Breakthrough T1D. Includes prevention, cure, and management studies.", emoji: "🧬", color: COLORS.ocean, who: "Children & Adults" },
-  { name: "ANZCTR – Australian Clinical Trials", url: "https://www.anzctr.org.au", desc: "The Australian New Zealand Clinical Trials Registry. Search 'Type 1 Diabetes' for all open studies across Australia.", emoji: "🇦🇺", color: COLORS.mint, who: "All ages, Australia" },
+  { name: "ANZCTR – Australian Clinical Trials", url: "https://www.anzctr.org.au", desc: "The Australian New Zealand Clinical Trials Registry. Search 'type 1 diabetes' for all open studies across Australia.", emoji: "🇦🇺", color: COLORS.mint, who: "All ages, Australia" },
   { name: "T1D Exchange Registry", url: "https://t1dexchange.org/registry/", desc: "Join the world's largest T1D research registry. Your data helps researchers understand real-world outcomes.", emoji: "📊", color: COLORS.coral, who: "Children & Adults" },
   { name: "TrialNet – Prevention Studies", url: "https://www.trialnet.org", desc: "International network studying T1D prevention and delay. Offers free screening for relatives of people with T1D — important for siblings.", emoji: "🔍", color: COLORS.lavender, who: "Relatives of T1D patients" },
   { name: "Diabetes Australia Research", url: "https://www.diabetesaustralia.com.au/research/", desc: "Australian-specific research opportunities and grants. Supports both patient participation and community-based studies.", emoji: "🏥", color: COLORS.sunshine, who: "Australian families" },
@@ -229,7 +230,7 @@ function ForumTab() {
     <>
       <div className="section-header">
         <h2>💬 Community Forum</h2>
-        <p>A safe, warm space for T1D families to connect, share experiences, ask questions, and support one another. You are never alone.</p>
+        <p>A safe, warm space for type 1 diabetes families to connect, share experiences, ask questions, and support one another. You are never alone.</p>
       </div>
       <div className="forum-disclaimer">
         <strong>Community guidelines:</strong> This forum is a peer support space. Please be kind and respectful. For medical advice, always consult your endocrinology team.
@@ -282,7 +283,7 @@ function MentalHealthTab() {
         <div style={{ fontSize: "2rem", marginBottom: 12 }}>💙</div>
         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", marginBottom: 8 }}>Diabetes Distress is real — and common</div>
         <div style={{ fontSize: "0.9rem", lineHeight: 1.7, opacity: 0.9 }}>
-          Research shows that up to 45% of people with T1D experience significant diabetes-related distress — and parents face their own significant emotional burden. Feeling anxious, exhausted, or overwhelmed is a normal response to a genuinely demanding situation. The resources below are here for you.
+          Research shows that up to 45% of people with type 1 diabetes experience significant diabetes-related distress — and parents face their own significant emotional burden. Feeling anxious, exhausted, or overwhelmed is a normal response to a genuinely demanding situation. The resources below are here for you.
         </div>
       </div>
       <div className="resources-grid" style={{ marginBottom: 32 }}>
@@ -298,7 +299,7 @@ function MentalHealthTab() {
       <div className="mh-tips">
         <div style={{ fontWeight: 800, fontSize: "1rem", color: COLORS.deep, marginBottom: 16 }}>🌿 Evidence-based coping strategies</div>
         {[
-          { emoji: "🤝", tip: "Connect with other T1D families", detail: "Peer support consistently shows better emotional outcomes than professional support alone. Online and in-person communities make a profound difference." },
+          { emoji: "🤝", tip: "Connect with other type 1 diabetes families", detail: "Peer support consistently shows better emotional outcomes than professional support alone. Online and in-person communities make a profound difference." },
           { emoji: "📓", tip: "Don't aim for perfect diabetes management", detail: "Aiming for perfection causes burnout. Most endocrinologists are happy with 70% time-in-range — 'good enough' is genuinely the clinical goal." },
           { emoji: "🧘", tip: "Mindfulness & breathing techniques", detail: "Short daily mindfulness practices reduce diabetes distress. Apps like Headspace and Smiling Mind offer free programs specifically for families." },
           { emoji: "💬", tip: "Talk to a psychologist who understands chronic illness", detail: "Seek one via your diabetes care team, or ask Diabetes Australia for a referral to someone with chronic illness experience." },
@@ -329,7 +330,7 @@ function TreatmentsTab() {
     <>
       <div className="section-header">
         <h2>💊 Treatments & Accessibility</h2>
-        <p>A clear guide to current T1D treatments, what's available in Australia, and how to access subsidies and support.</p>
+        <p>A clear guide to current type 1 diabetes treatments, what's available in Australia, and how to access subsidies and support.</p>
       </div>
       <div className="ndss-banner">
         <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>🇦🇺</div>
@@ -376,13 +377,13 @@ function ResearchTab() {
     <>
       <div className="section-header">
         <h2>🔬 Participating in Research</h2>
-        <p>Every family who participates in T1D research helps bring a cure closer. Here's how to get involved — safely and confidently.</p>
+        <p>Every family who participates in type 1 diabetes research helps bring a cure closer. Here's how to get involved — safely and confidently.</p>
       </div>
       <div className="research-why">
         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", marginBottom: 16, color: COLORS.deep }}>Why participate?</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))", gap: 16, marginBottom: 8 }}>
           {[
-            { emoji: "🧬", text: "Help scientists understand T1D — potentially accelerating a cure" },
+            { emoji: "🧬", text: "Help scientists understand type 1 diabetes — potentially accelerating a cure" },
             { emoji: "💊", text: "Access cutting-edge treatments before they're widely available" },
             { emoji: "📊", text: "Contribute real-world data that changes clinical guidelines" },
             { emoji: "🤝", text: "Join a global community working toward the same goal" },
@@ -429,13 +430,17 @@ export default function App() {
   // Two nav tiers: primary (always visible) + secondary (overflow)
   const primaryTabs = [
     { id: "home",       label: "Home",       emoji: "🏠" },
-    { id: "explainer",  label: "Explain",    emoji: "🔎" },
     { id: "isnormal",   label: "Normal?",    emoji: "🤔" },
+    { id: "worried",    label: "Help now",    emoji: "🆘" },
+    { id: "explainer",  label: "Explain",    emoji: "🔎" },
     { id: "sickday",    label: "Sick Day",   emoji: "🤒" },
-    { id: "activity",   label: "Life Guide", emoji: "🏫" },
     { id: "learning",   label: "90 Days",    emoji: "🗓️" },
   ];
   const secondaryTabs = [
+    { id: "hypo",       label: "Hypo Guide",  emoji: "📉" },
+    { id: "numbers",    label: "My Numbers",  emoji: "🔢" },
+    { id: "teen",       label: "Teen Years",  emoji: "🧭" },
+    { id: "activity",   label: "Life Guide",  emoji: "🏫" },
     { id: "clinicians",  label: "For Clinicians", emoji: "🏥" },
     { id: "explorer",   label: "Explorer",   emoji: "🔍" },
     { id: "patterns",   label: "Patterns",   emoji: "📈" },
@@ -481,17 +486,22 @@ export default function App() {
       {activeTab === "home" && (
       <div className="hero">
         <div className="hero-name">Living Brilliantly with T1D</div>
-        <h1>Helping families understand life<br />with <span>Type 1 Diabetes</span></h1>
-        <p className="hero-connection">If your child has just been diagnosed, you are not alone.</p>
-        <p className="hero-sub">Learn why glucose behaves the way it does — from meals and sport to overnight patterns and illness.</p>
+        <h1>When something looks wrong<br />on the monitor — <span>we help you understand why</span></h1>
+        <p className="hero-connection">If your child has just been diagnosed, you are not alone. Most patterns have a clear explanation.</p>
+        <p className="hero-sub">From meals and sport to overnight rises and illness — this app helps families make sense of blood glucose.</p>
 
         <div className="hero-ctas">
           <button className="hero-cta-primary" onClick={() => switchTab("isnormal")}>Is this normal? →</button>
+          <button className="hero-cta-primary hero-cta-worried" onClick={() => switchTab("worried")}>I need help right now →</button>
+        </div>
+        <div className="hero-secondary-ctas">
+          <button className="hero-letter-btn" onClick={() => switchTab("explainer")}>Explain a pattern</button>
           <button className="hero-letter-btn" onClick={() => switchTab("activity")}>Real-life situations</button>
           <button className="hero-letter-btn" onClick={() => switchTab("sickday")}>Sick day rules</button>
         </div>
 
-        <p className="hero-byline">Created by a parent whose daughter lives with Type 1 Diabetes.</p>
+        <p className="hero-inclusion">Works with CGM graphs and finger prick readings.</p>
+        <p className="hero-byline">Created by a parent whose daughter lives with type 1 diabetes.</p>
 
         {/* CGM upload — the main CTA at the bottom of hero */}
         <div className="hero-cgm-footer">
@@ -563,6 +573,204 @@ export default function App() {
           <Dashboard profile={profile} onNavigate={switchTab} />
         )}
 
+        {activeTab === "worried" && (
+          <div>
+            <div className="section-header">
+              <h2>🆘 Help right now</h2>
+              <p>It's okay. You're in the right place. Let's work through this together.</p>
+            </div>
+
+            {/* Emergency first */}
+            <div className="worried-emergency">
+              <div className="worried-emergency-title">🚨 Is this an emergency?</div>
+              <p className="worried-emergency-body">Call 000 immediately if your child is:</p>
+              <div className="worried-emergency-signs">
+                {["Unconscious or very difficult to wake", "Having a seizure or convulsion", "Breathing rapidly or deeply", "Confused, pale, and unresponsive to you", "Vomiting and you suspect high ketones"].map((s, i) => (
+                  <div key={i} className="worried-sign"><span>🔴</span><span>{s}</span></div>
+                ))}
+              </div>
+              <button className="worried-sickday-btn" onClick={() => switchTab("sickday")}>
+                Open Emergency Guide →
+              </button>
+            </div>
+
+            {/* Not an emergency — what's happening */}
+            <div className="worried-calm">
+              <div className="worried-calm-title">If it's not an emergency — what are you seeing?</div>
+              <p className="worried-calm-sub">Tap what's happening right now:</p>
+              <div className="worried-situations">
+                {[
+                  { emoji: "📈", label: "Blood glucose is high and not coming down", tab: "isnormal" },
+                  { emoji: "📉", label: "Blood glucose is low or dropping fast", tab: "hypo" },
+                  { emoji: "🌙", label: "Unusual reading in the middle of the night", tab: "isnormal" },
+                  { emoji: "🍕", label: "Spike hours after a meal", tab: "isnormal" },
+                  { emoji: "⚡", label: "Blood glucose went UP after sport or exercise", tab: "isnormal" },
+                  { emoji: "⚽", label: "Blood glucose went LOW after sport or exercise", tab: "isnormal" },
+                  { emoji: "🤒", label: "Child is unwell and blood glucose is unpredictable", tab: "sickday" },
+                  { emoji: "🎢", label: "Blood glucose is all over the place today", tab: "isnormal" },
+                  { emoji: "🔢", label: "What do these numbers actually mean?", tab: "numbers" },
+                  { emoji: "🌱", label: "We are in the honeymoon phase — what should we expect?", tab: "isnormal" },
+                  { emoji: "🧭", label: "My teenager is disengaging from diabetes management", tab: "teen" },
+                ].map((s, i) => (
+                  <button key={i} className="worried-situation-btn" onClick={() => switchTab(s.tab)}>
+                    <span className="worried-sit-emoji">{s.emoji}</span>
+                    <span className="worried-sit-label">{s.label}</span>
+                    <span className="worried-sit-arrow">→</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Reassurance */}
+            <div className="worried-reassurance">
+              <div className="worried-reassurance-icon">💙</div>
+              <p>Most unusual blood glucose readings have a clear explanation. This app can help you understand what's likely happening — but always follow your instincts. If you're genuinely frightened, call your hospital's after-hours line or go to emergency.</p>
+            </div>
+
+            {/* Out of hours numbers */}
+            <div className="sdr-numbers-box">
+              <div className="sdr-numbers-title">📞 Out-of-hours help</div>
+              <div className="sdr-numbers-grid">
+                <div className="sdr-number-row"><span className="sdr-number-label">Australia emergency</span><span className="sdr-number-val">000</span></div>
+                <div className="sdr-number-row"><span className="sdr-number-label">Diabetes Australia helpline</span><span className="sdr-number-val">1300 136 588</span></div>
+                <div className="sdr-number-row"><span className="sdr-number-label">Your diabetes care team</span><span className="sdr-number-val">Add yours →</span></div>
+                <div className="sdr-number-row"><span className="sdr-number-label">Your hospital after-hours</span><span className="sdr-number-val">Add yours →</span></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── HYPO QUICK GUIDE ── */}
+        {activeTab === "hypo" && (
+          <div>
+            <div className="section-header">
+              <h2>📉 Low Blood Glucose — What to Do</h2>
+              <p>Quick, clear steps for treating a low. Save this page.</p>
+            </div>
+
+            <div className="hypo-hero">
+              <div className="hypo-hero-title">The 15-15 Rule</div>
+              <div className="hypo-hero-sub">Blood glucose below 4.0 mmol/L</div>
+              <div className="hypo-steps">
+                {[
+                  { num: "1", action: "Give 15g of fast-acting carbohydrates", detail: "4 glucose tablets · 150ml fruit juice · 6–7 jellybeans · 1 tube glucose gel · 3 teaspoons of sugar dissolved in water" },
+                  { num: "2", action: "Wait 15 minutes", detail: "Do not give more food yet. Give the glucose time to absorb. Stay with your child." },
+                  { num: "3", action: "Recheck blood glucose", detail: "If still below 4.0 mmol/L — repeat from step 1. If above 4.0 mmol/L — move to step 4." },
+                  { num: "4", action: "Give a follow-up snack", detail: "If the next meal is more than 30 minutes away, offer a small snack with slow-release carbohydrate and protein. Example: crackers and cheese, or toast with peanut butter." },
+                ].map(s => (
+                  <div key={s.num} className="hypo-step">
+                    <div className="hypo-step-num">{s.num}</div>
+                    <div>
+                      <div className="hypo-step-action">{s.action}</div>
+                      <div className="hypo-step-detail">{s.detail}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="hypo-section">
+              <div className="hypo-section-title">Signs of a low to look for</div>
+              <div className="hypo-symptoms">
+                {[
+                  { emoji: "😰", sign: "Pale, sweaty skin" },
+                  { emoji: "🤝", sign: "Shaking or trembling" },
+                  { emoji: "😠", sign: "Irritable, tearful, or mood change" },
+                  { emoji: "😶", sign: "Glazed look, difficulty concentrating" },
+                  { emoji: "🤤", sign: "Hungry, dizzy, or headache" },
+                  { emoji: "😵", sign: "Confusion or slurred speech — more severe" },
+                ].map((s, i) => (
+                  <div key={i} className="hypo-symptom"><span>{s.emoji}</span><span>{s.sign}</span></div>
+                ))}
+              </div>
+              <p className="hypo-note">Some children show no obvious symptoms — especially during sleep. This is why overnight CGM alerts matter.</p>
+            </div>
+
+            <div className="hypo-severe">
+              <div className="hypo-severe-title">If your child cannot swallow — CALL 000</div>
+              <p className="hypo-severe-body">Unconscious, seizing, or unable to swallow safely — do not give food or drink. Use glucagon and call 000 immediately.</p>
+              <div className="hypo-glucagon">
+                <div className="hypo-glucagon-row"><strong>Baqsimi (nasal):</strong> Insert tip into one nostril, press plunger firmly.</div>
+                <div className="hypo-glucagon-row"><strong>GlucaGen (injection):</strong> Follow kit instructions. Place child on their side.</div>
+              </div>
+              <button className="worried-sickday-btn" style={{ marginTop: 14 }} onClick={() => switchTab("sickday")}>Open full Emergency Guide →</button>
+            </div>
+
+            <div className="hypo-section">
+              <div className="hypo-section-title">After the low has resolved</div>
+              <div className="hypo-after">
+                {["Note the time, blood glucose reading, and what treatment was given",
+                  "Think about what may have caused it — missed snack, more activity, insulin timing",
+                  "If lows are happening regularly, contact your diabetes care team to review insulin doses",
+                  "Do not over-treat — too much food after a low often causes a rebound high"].map((item, i) => (
+                  <div key={i} className="hypo-after-item"><span className="hypo-after-bullet">✓</span><span>{item}</span></div>
+                ))}
+              </div>
+            </div>
+
+            <div className="sdr-disclaimer">Educational resource only. Always follow the specific hypo management plan provided by your diabetes care team. In an emergency, call 000.</div>
+          </div>
+        )}
+
+        {/* ── UNDERSTANDING YOUR NUMBERS ── */}
+        {activeTab === "numbers" && (
+          <div>
+            <div className="section-header">
+              <h2>🔢 Understanding Your Numbers</h2>
+              <p>What do blood glucose readings actually mean? A plain-language guide for newly diagnosed families.</p>
+            </div>
+
+            <div className="nums-ranges">
+              {[
+                { range: "Below 4.0", label: "Low — treat immediately", color: "#C0392B", bg: "#FFF0F0", border: "#E74C3C", emoji: "📉", what: "Treat with fast-acting carbohydrates now. Follow the 15-15 rule.", action: "Act now" },
+                { range: "4.0 – 6.9", label: "In range — lower end", color: "#27AE60", bg: "#F0FFF5", border: "#56C596", emoji: "✅", what: "Good. This is where you want blood glucose to be. No action needed.", action: "All good" },
+                { range: "7.0 – 10.0", label: "In range — ideal target", color: "#27AE60", bg: "#EEF8F4", border: "#56C596", emoji: "✅", what: "This is the target range for most children with type 1 diabetes.", action: "Target zone" },
+                { range: "10.1 – 13.9", label: "Above range", color: "#E67E22", bg: "#FFF8F0", border: "#E67E22", emoji: "📈", what: "Higher than ideal. Monitor closely. Think about what may have caused it.", action: "Monitor" },
+                { range: "14.0 – 15.9", label: "High", color: "#E67E22", bg: "#FFF3E8", border: "#E67E22", emoji: "⚠️", what: "Check ketones if persisting more than 2 hours. Contact your diabetes care team if not coming down.", action: "Check ketones" },
+                { range: "16.0 and above", label: "Very high", color: "#C0392B", bg: "#FFF0F0", border: "#C0392B", emoji: "🚨", what: "Check ketones immediately. If ketones are moderate or large, go to emergency.", action: "Urgent" },
+              ].map((r, i) => (
+                <div key={i} className="nums-range-card" style={{ background: r.bg, borderColor: r.border }}>
+                  <div className="nums-range-header">
+                    <span className="nums-emoji">{r.emoji}</span>
+                    <div style={{ flex: 1 }}>
+                      <div className="nums-range-val" style={{ color: r.color }}>{r.range} mmol/L</div>
+                      <div className="nums-range-label">{r.label}</div>
+                    </div>
+                    <span className="nums-action-badge" style={{ background: r.color }}>{r.action}</span>
+                  </div>
+                  <p className="nums-what">{r.what}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="nums-tir">
+              <div className="nums-tir-title">What is time in range?</div>
+              <p>Time in range (TIR) is the percentage of the day your child spend between 4.0 and 10.0 mmol/L. Most diabetes care teams aim for 70% or more — that is at least 17 hours out of every 24.</p>
+              <p style={{ marginTop: 10 }}>On a good week, some days will be better than others. That is completely normal. TIR is a weekly average, not a daily report card.</p>
+              <div className="nums-tir-bar"><div className="nums-tir-fill">70% target</div></div>
+            </div>
+
+            <div className="nums-facts">
+              <div className="nums-facts-title">Things every newly diagnosed family should know</div>
+              {[
+                { emoji: "📈", fact: "Blood glucose changes constantly — before and after meals, during exercise, overnight, and with illness. A single high or low reading is not a crisis." },
+                { emoji: "🎯", fact: "The goal is not perfect blood glucose. The goal is understanding what is happening and feeling more confident over time." },
+                { emoji: "💉", fact: "Rapid-acting insulin peaks in 1–2 hours. Background insulin works over 12–24 hours. Timing matters enormously." },
+                { emoji: "🌙", fact: "Blood glucose often rises overnight during childhood — especially between 2 AM and 6 AM. This is the dawn phenomenon. It is normal and expected." },
+                { emoji: "⚽", fact: "Exercise can raise or lower blood glucose depending on the type, intensity, and timing. Both responses are normal." },
+                { emoji: "😰", fact: "Stress, illness, and growth spurts all raise blood glucose — even without eating. This is not poor management. It is the nature of the condition." },
+              ].map((f, i) => (
+                <div key={i} className="nums-fact">
+                  <span className="nums-fact-emoji">{f.emoji}</span>
+                  <span className="nums-fact-text">{f.fact}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="sdr-disclaimer">Educational resource only. Target ranges may vary based on your child age, history, and individual care plan. Always follow the guidance of your diabetes care team.</div>
+          </div>
+        )}
+
         {activeTab === "clinicians" && (
           <div>
             <div className="section-header">
@@ -572,7 +780,7 @@ export default function App() {
 
             <div className="clin-what-it-is">
               <div className="clin-section-title">What this platform is</div>
-              <p className="clin-body">Living Brilliantly with T1D is a free educational learning companion for families navigating Type 1 Diabetes. It is designed to help families understand <em>why</em> glucose behaves the way it does — not to replace clinical guidance or support treatment decisions.</p>
+              <p className="clin-body">Living Brilliantly with T1D is a free educational learning companion for families navigating type 1 diabetes. It is designed to help families understand <em>why</em> glucose behaves the way it does — not to replace clinical guidance or support treatment decisions.</p>
               <div className="clin-pillars">
                 {[
                   { emoji: "📚", title: "Educational only", desc: "All content explains glucose behaviour in plain language. No dosing advice, no treatment recommendations." },
@@ -619,7 +827,7 @@ export default function App() {
 
             <div className="clin-built-by">
               <div className="clin-section-title">Built by a T1D family</div>
-              <p className="clin-body">This platform was created by a parent whose daughter lives with Type 1 Diabetes. Our family's experience navigating diagnosis, CGM patterns, school management, and sport inspired us to build the resource we wished had existed when we started.</p>
+              <p className="clin-body">This platform was created by a parent whose daughter lives with type 1 diabetes. Our family's experience navigating diagnosis, CGM patterns, school management, and sport inspired us to build the resource we wished had existed when we started.</p>
               <p className="clin-body">Our daughter is involved with Breakthrough T1D, and we remain closely connected to the T1D community. This is a community resource, not a commercial product.</p>
             </div>
 
@@ -635,7 +843,7 @@ export default function App() {
           <>
             <div className="section-header">
               <h2>🌟 Learning together</h2>
-              <p>Fun, honest, and age-appropriate modules to help your child understand T1D — and feel truly empowered.</p>
+              <p>Fun, honest, and age-appropriate modules to help your child understand type 1 diabetes — and feel truly empowered.</p>
             </div>
             <div className="modules-grid">
               {childModules.map(mod => (
@@ -711,7 +919,7 @@ export default function App() {
               <div style={{ fontSize: "1.5rem", marginBottom: 8 }}>🌍</div>
               <div style={{ fontWeight: 800, fontSize: "1rem", color: COLORS.deep, marginBottom: 8 }}>T1D doesn't choose ordinary people</div>
               <div style={{ color: "#4A6070", fontSize: "0.9rem", lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>
-                The list of people thriving with T1D spans every field. Your child joins a remarkable community who prove every day that T1D is a companion — not a ceiling.
+                The list of people thriving with type 1 diabetes spans every field. Your child joins a remarkable community who prove every day that T1D is a companion — not a ceiling.
               </div>
             </div>
           </>
@@ -720,15 +928,15 @@ export default function App() {
         {activeTab === "sickday"   && <SickDayRules />}
         {activeTab === "explorer"  && <GlucoseExplorer />}
         {activeTab === "patterns"  && <GlucosePatterns />}
-        {activeTab === "learning"  && <LearningPath />}
+        {activeTab === "learning"  && <LearningPath profile={profile} />}
         {activeTab === "letter" && (
           <div className="open-letter">
             <div className="letter-header">
               <div className="letter-eyebrow">💌 An open letter</div>
-              <h2>To parents of a child newly diagnosed with Type 1 Diabetes</h2>
+              <h2>To parents of a child newly diagnosed with type 1 diabetes</h2>
             </div>
             <div className="letter-body">
-              <p className="letter-lead">If your child has just been diagnosed with Type 1 Diabetes, your world may feel like it has changed overnight.</p>
+              <p className="letter-lead">If your child has just been diagnosed with type 1 diabetes, your world may feel like it has changed overnight.</p>
               <p>Suddenly there are new words, new routines, and more decisions than you ever imagined.</p>
               <div className="letter-list">
                 <span>Carb counting.</span>
@@ -743,16 +951,16 @@ export default function App() {
               <p>Over time, the things that seem impossible today will slowly become part of your family's rhythm.</p>
               <p>You will learn how food affects glucose. You will learn how exercise changes things. You will learn how to manage the unexpected highs and lows.</p>
               <p>And your child will learn too.</p>
-              <p>Children living with Type 1 Diabetes develop an extraordinary awareness of their own bodies. They grow in resilience, independence, and strength.</p>
+              <p>Children living with type 1 diabetes develop an extraordinary awareness of their own bodies. They grow in resilience, independence, and strength.</p>
               <div className="letter-divider">— ✦ —</div>
               <p>I know this because our family has walked this path.</p>
               <p>When my daughter was diagnosed, we had to learn everything from the beginning — just like you may be doing now. We experienced the same uncertainty, the same late nights checking glucose, the same constant questions about whether we were doing the right thing.</p>
               <p>But we also watched something remarkable happen.</p>
-              <p>Our daughter grew stronger through the experience. Instead of defining her, Type 1 Diabetes became part of what shaped her determination and purpose.</p>
+              <p>Our daughter grew stronger through the experience. Instead of defining her, type 1 diabetes became part of what shaped her determination and purpose.</p>
               <p><strong>Today she works with Breakthrough T1D</strong>, helping advance research and support for people living with T1D.</p>
               <div className="letter-divider">— ✦ —</div>
               <p>This project was created because we remember how difficult those early months were.</p>
-              <p>The goal is simple: to help families understand the everyday decisions that come with Type 1 Diabetes — and to feel more confident navigating them.</p>
+              <p>The goal is simple: to help families understand the everyday decisions that come with type 1 diabetes — and to feel more confident navigating them.</p>
               <p>No tool or guide will ever remove the condition entirely. But knowledge, experience, and support can make the journey much easier.</p>
               <div className="letter-closing">
                 <p>If you are at the beginning of this path, please remember:</p>
@@ -768,10 +976,15 @@ export default function App() {
         )}
         {activeTab === "explainer" && <ExplainMyGlucose />}
         {activeTab === "simulator" && <ScenarioSimulator />}
-        {activeTab === "isnormal"  && <IsThisNormal />}
+        {activeTab === "isnormal"  && <IsThisNormal onNavigate={switchTab} />}
         {activeTab === "activity"  && <SchoolActivityCompanion />}
 
         {activeTab === "mental" && <MentalHealthTab />}
+
+        {/* ── TEEN YEARS — SUPPORTING ADOLESCENT INDEPENDENCE ── */}
+        {activeTab === "teen" && (
+          <TeenPage switchTab={switchTab} />
+        )}
         {activeTab === "research" && <ResearchTab />}
         {activeTab === "forum" && <ForumTab />}
 
@@ -811,7 +1024,7 @@ export default function App() {
             <div className="stay-current">
               <div style={{ fontWeight: 800, marginBottom: 6, color: COLORS.deep }}>🔔 Stay current</div>
               <div style={{ fontSize: "0.9rem", color: "#4A6070", lineHeight: 1.6 }}>
-                T1D research is advancing rapidly. Breakthrough T1D and Diabetes Australia both publish regular updates on clinical trials, new therapies, and technology approvals. Bookmark their news pages and sign up for newsletters to stay informed.
+                Type 1 diabetes research is advancing rapidly. Breakthrough T1D and Diabetes Australia both publish regular updates on clinical trials, new therapies, and technology approvals. Bookmark their news pages and sign up for newsletters to stay informed.
               </div>
             </div>
           </>
@@ -838,7 +1051,7 @@ export default function App() {
       </div>
 
       <div className="footer">
-        <p>💙 A learning companion for families living with Type 1 Diabetes</p>
+        <p>💙 A learning companion for families living with type 1 diabetes</p>
         <div className="footer-links">
           <button className="footer-link" onClick={() => switchTab("disclaimer")}>Disclaimer & Privacy</button>
           <span>·</span>

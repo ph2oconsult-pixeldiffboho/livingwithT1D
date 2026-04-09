@@ -3,6 +3,7 @@ import { useState } from "react";
 const COLORS = { ocean: "#2E86AB", coral: "#F46036", mint: "#56C596", sunshine: "#FFD166", lavender: "#9B8EC4", deep: "#1A3A4A", muted: "#8A9BB0" };
 
 const greetings = {
+  honeymoon: { label: "Honeymoon phase", message: "Your child's body is still producing some insulin. This is a valuable time to learn — use it to build understanding before full insulin management begins.", color: "#56C596", emoji: "🌱" },
   new:    { label: "Newly diagnosed",    message: "The first weeks are the hardest. Start with the basics — take it one day at a time.", color: COLORS.coral,   emoji: "💙" },
   recent: { label: "Recently diagnosed", message: "You're through the initial shock. Now is the perfect time to deepen your understanding.", color: COLORS.ocean,   emoji: "📈" },
   year:   { label: "Within a year",      message: "You've built real experience. The tools below will help you go deeper.", color: COLORS.mint,    emoji: "🌱" },
@@ -10,8 +11,9 @@ const greetings = {
 };
 
 const treatmentTips = {
+  honeymoon:  "🌱 In the honeymoon phase, your child's pancreas is still producing some insulin. Blood glucose may be easier to manage right now — but this is the ideal time to understand how insulin works, what patterns to expect, and how to prepare for full management ahead.",
   injections: "💉 On injections (MDI) — the timing of your rapid-acting insulin relative to meals is one of the most important variables to master.",
-  pump:       "⚙️ On a pump — you have flexibility with basal rates. The 'Explain My Glucose' tool can help spot patterns worth discussing with your team.",
+  pump:       "⚙️ On a pump — you have flexibility with background insulin (basal) rates. The 'Explain My Glucose' tool can help spot patterns worth discussing with your team.",
   loop:       "🤖 On a closed-loop system — the algorithm handles a lot, but understanding why it's making decisions builds confidence enormously.",
   unsure:     "📖 Still learning your treatment — start with the First 90 Days learning path. It walks through everything step by step.",
 };
@@ -26,10 +28,10 @@ const ageTips = {
 // Section C — 6 situation tiles
 const SITUATIONS = [
   { emoji: "🍕", label: "Pizza night",      sub: "Why the spike comes 3–5 hours later", tab: "activity", scenario: "pizza" },
-  { emoji: "⚽", label: "Sport day",         sub: "Exercise spikes + overnight lows", tab: "activity", scenario: "sport" },
+  { emoji: "⚽", label: "Sports day",         sub: "Exercise spikes + overnight lows", tab: "activity", scenario: "sport" },
   { emoji: "🌙", label: "Overnight rise",    sub: "The dawn phenomenon explained", tab: "isnormal", scenario: "overnight" },
   { emoji: "🎂", label: "Birthday party",    sub: "Cake, juice, excitement — what to expect", tab: "activity", scenario: "party" },
-  { emoji: "🤒", label: "Sick day",          sub: "Why illness raises glucose even without food", tab: "activity", scenario: "sick" },
+  { emoji: "🤒", label: "Sick day",          sub: "Why illness raises blood glucose even without food", tab: "activity", scenario: "sick" },
   { emoji: "🏫", label: "School lunch",      sub: "Carb counting, timing, and independence", tab: "activity", scenario: "school" },
 ];
 
@@ -40,22 +42,44 @@ const HOW_STEPS = [
   { num: "3", emoji: "💪", title: "Build confidence over time", desc: "Each explanation adds to your family's understanding. Patterns that once felt frightening start to make sense." },
 ];
 
-const secondaryFeatures = [
-  { tab: "profile",    emoji: "🗂️", title: "My Pattern Profile",    desc: "Your personal glucose behaviour map, built from every analysis you run.", color: COLORS.ocean },
-  { tab: "patterns",   emoji: "📈", title: "10 Glucose Patterns",   desc: "The most searched glucose behaviours, explained clearly.", color: COLORS.lavender },
-  { tab: "simulator",  emoji: "🎮", title: "What Happens If…",       desc: "Simulate situations before they happen — sport, sick days, parties.", color: COLORS.sunshine },
-  { tab: "learning",   emoji: "🗓️", title: "First 90 Days",          desc: "A structured 6-week learning path. Track your progress.", color: COLORS.ocean },
-  { tab: "clinicians",  emoji: "🏥", title: "For Clinicians",             desc: "Information for diabetes educators and healthcare teams considering this resource.", color: COLORS.ocean },
-  { tab: "sickday",    emoji: "🤒", title: "Sick Day Rules",            desc: "What to do when your child is unwell. Includes emergency guide for hypos and DKA.", color: COLORS.coral },
-  { tab: "explorer",   emoji: "🔍", title: "Glucose Explorer",          desc: "Stories, guessing games and badges. Kids learn why glucose behaves the way it does.", color: COLORS.mint },
-  { tab: "child",      emoji: "🌟", title: "For Kids",               desc: "Age-appropriate modules to help your child understand T1D.", color: COLORS.coral },
-  { tab: "parent",     emoji: "❤️", title: "Parent Education",        desc: "Evidence-based guides for school, emotions, and technology.", color: COLORS.mint },
-  { tab: "treatments", emoji: "💊", title: "Treatments & Access",     desc: "CGMs, pumps, closed-loop systems, NDSS subsidies.", color: COLORS.lavender },
-  { tab: "mental",     emoji: "🧠", title: "Mental Health",           desc: "Emotional support and crisis links for the whole family.", color: COLORS.ocean },
-  { tab: "inspiring",  emoji: "✨", title: "Inspiring Lives",         desc: "Athletes, leaders, and artists who thrive with T1D.", color: COLORS.coral },
-  { tab: "research",   emoji: "🔬", title: "Research",               desc: "Find clinical trials and studies your family can participate in.", color: COLORS.mint },
-  { tab: "forum",      emoji: "💬", title: "Community Forum",         desc: "Connect with other T1D families. Ask questions, share stories.", color: COLORS.lavender },
-  { tab: "resources",  emoji: "📚", title: "Resources",              desc: "Breakthrough T1D Australia, Diabetes Australia and more.", color: COLORS.sunshine },
+const featureGroups = [
+  {
+    id: "right-now",
+    label: "🆘 For right now",
+    sub: "When you need an answer tonight",
+    features: [
+      { tab: "hypo",     emoji: "📉", title: "Hypo Quick Guide",           desc: "The 15-15 rule, symptoms, glucagon, and what to do after a low.", color: COLORS.coral },
+      { tab: "numbers",  emoji: "🔢", title: "Understanding Your Numbers",  desc: "What do blood glucose readings mean? Ranges, targets, and what to do.", color: COLORS.ocean },
+      { tab: "sickday",  emoji: "🤒", title: "Sick Day Rules",              desc: "What to do when your child is unwell. Includes emergency guide for DKA.", color: COLORS.coral },
+      { tab: "isnormal", emoji: "🤔", title: "Is This Normal?",             desc: "Six common patterns explained — overnight rises, exercise drops, morning highs.", color: COLORS.lavender },
+    ],
+  },
+  {
+    id: "to-learn",
+    label: "📖 To understand",
+    sub: "Build knowledge at your own pace",
+    features: [
+      { tab: "learning",  emoji: "🗓️", title: "First 90 Days",              desc: "A structured 6-week learning path covering glucose, meals, exercise, and school.", color: COLORS.ocean },
+      { tab: "patterns",  emoji: "📈", title: "10 Glucose Patterns",        desc: "The most common blood glucose behaviours, explained clearly.", color: COLORS.lavender },
+      { tab: "explainer", emoji: "🔎", title: "Explain My Glucose",         desc: "Upload a CGM graph or try a demo to get a plain-language explanation.", color: COLORS.ocean },
+      { tab: "profile",   emoji: "🗂️", title: "My Pattern Profile",         desc: "Your personal glucose behaviour map, built from every analysis you run.", color: COLORS.ocean },
+    ],
+  },
+  {
+    id: "to-explore",
+    label: "✨ To explore",
+    sub: "When you're ready to go deeper",
+    features: [
+      { tab: "teen",       emoji: "🧭", title: "Teen Years",               desc: "Supporting a teenager with type 1 diabetes through puberty and growing independence.", color: COLORS.lavender },
+      { tab: "explorer",   emoji: "🔍", title: "Glucose Explorer",           desc: "Stories, guessing games and badges. Kids learn why glucose behaves the way it does.", color: COLORS.mint },
+      { tab: "simulator",  emoji: "🎮", title: "What Happens If…",           desc: "Simulate situations before they happen — sport, sick days, parties.", color: COLORS.sunshine },
+      { tab: "treatments", emoji: "💊", title: "Treatments & Access",        desc: "CGMs, pumps, closed-loop systems, NDSS subsidies.", color: COLORS.lavender },
+      { tab: "mental",     emoji: "🧠", title: "Mental Health",              desc: "Emotional support and crisis links for the whole family.", color: COLORS.ocean },
+      { tab: "inspiring",  emoji: "✨", title: "Inspiring Lives",            desc: "Athletes, leaders, and artists who thrive with type 1 diabetes.", color: COLORS.coral },
+      { tab: "resources",  emoji: "📚", title: "Resources",                  desc: "Breakthrough T1D Australia, Diabetes Australia and more.", color: COLORS.sunshine },
+      { tab: "clinicians", emoji: "🏥", title: "For Clinicians",             desc: "Information for healthcare teams considering this resource.", color: COLORS.ocean },
+    ],
+  },
 ];
 
 // Persistent feedback widget
@@ -100,6 +124,8 @@ export default function Dashboard({ profile, onNavigate }) {
 
   const startHere = (() => {
     if (!profile) return null;
+    if (profile.treatment === "honeymoon")
+      return { tab: "learning", label: "Your First 90 Days", reason: "The honeymoon phase is the perfect time to build understanding. This structured path covers everything you'll need when full insulin management begins.", emoji: "🗓️" };
     if (profile.timeSince === "new" || profile.timeSince === "recent")
       return { tab: "learning", label: "Your First 90 Days", reason: "A structured week-by-week path — the ideal start for newly diagnosed families.", emoji: "🗓️" };
     if (profile.timeSince === "year")
@@ -110,33 +136,68 @@ export default function Dashboard({ profile, onNavigate }) {
   return (
     <div>
 
-      {/* ── COMMON QUESTIONS — recognition copy, first thing seen ── */}
+      {/* ── "IT GETS EASIER" — shown only for newly diagnosed / early families ── */}
+      {(profile?.timeSince === "new" || profile?.timeSince === "recent" || profile?.treatment === "honeymoon") && (
+        <div className="gets-easier-banner">
+          <div className="gets-easier-icon">💙</div>
+          <div>
+            <div className="gets-easier-headline">It gets easier.</div>
+            <p className="gets-easier-body">Not because the condition changes — but because you do. Every pattern you recognise, every question you answer, every night you get through builds knowledge that makes the next one less frightening. You are already doing the hardest part.</p>
+          </div>
+        </div>
+      )}
+
+      {/* ── COMMON QUESTIONS — tailored by treatment ── */}
       <div className="dash-questions">
-        <div className="dash-questions-label">Common questions families ask</div>
+        <div className="dash-questions-label">
+          {profile?.treatment === "honeymoon" ? "Questions honeymoon families ask"
+            : (profile?.timeSince === "years" || profile?.timeSince === "year") ? "Questions experienced families ask"
+            : "Common questions families ask"}
+        </div>
         <div className="dash-questions-list">
-          {[
-            { emoji: "🍕", q: "Why did glucose spike hours after dinner?" },
-            { emoji: "⚽", q: "Why did sport increase glucose instead of lowering it?" },
-            { emoji: "🌙", q: "Why did glucose rise overnight while my child was sleeping?" },
-            { emoji: "📉", q: "Why did glucose drop hours after exercise finished?" },
-            { emoji: "💉", q: "Why did insulin seem slow to work today?" },
-            { emoji: "🌅", q: "Why is glucose always higher in the morning?" },
-          ].map((item, i) => (
-            <button key={i} className="dash-question-item" onClick={() => onNavigate("explainer")}>
+          {(profile?.treatment === "honeymoon" ? [
+            { emoji: "🌱", q: "What is the honeymoon phase and how long will it last?", tab: "isnormal" },
+            { emoji: "💉", q: "My child barely needs insulin right now — is that normal?", tab: "isnormal" },
+            { emoji: "📖", q: "What should we be learning while things are stable?", tab: "learning" },
+            { emoji: "🔢", q: "What do these blood glucose numbers mean?", tab: "numbers" },
+            { emoji: "😰", q: "When the honeymoon ends, will it be harder to manage?", tab: "isnormal" },
+            { emoji: "🤔", q: "Is there anything we can do to make the honeymoon last longer?", tab: "isnormal" },
+          ] : (profile?.timeSince === "years" || profile?.timeSince === "year") ? [
+            { emoji: "📊", q: "Why has time in range dropped since puberty started?", tab: "isnormal" },
+            { emoji: "🧭", q: "How do I support my teenager's independence without losing oversight?", tab: "teen" },
+            { emoji: "😤", q: "My teenager is disengaging from management — what do I do?", tab: "teen" },
+            { emoji: "🔬", q: "Why does the same meal produce different results every day?", tab: "isnormal" },
+            { emoji: "💉", q: "Why does insulin seem to work less well than it used to?", tab: "isnormal" },
+            { emoji: "🌙", q: "Why are overnight readings so much harder to manage now?", tab: "explainer" },
+          ] : [
+            { emoji: "🍕", q: "Why did blood glucose spike hours after dinner?", tab: "explainer" },
+            { emoji: "⚽", q: "Why did sport increase blood glucose instead of lowering it?", tab: "explainer" },
+            { emoji: "🌙", q: "Why did blood glucose rise overnight while my child was sleeping?", tab: "explainer" },
+            { emoji: "📉", q: "Why did blood glucose drop hours after exercise finished?", tab: "explainer" },
+            { emoji: "💉", q: "Why did insulin seem slow to work today?", tab: "explainer" },
+            { emoji: "🌅", q: "Why is blood glucose always higher in the morning?", tab: "explainer" },
+          ]).map((item, i) => (
+            <button key={i} className="dash-question-item" onClick={() => onNavigate(item.tab)}>
               <span className="dash-q-emoji">{item.emoji}</span>
               <span className="dash-q-text">{item.q}</span>
               <span className="dash-q-arrow">→</span>
             </button>
           ))}
         </div>
-        <div className="dash-questions-cta">These are very common questions. Tap any to explore an explanation.</div>
+        <div className="dash-questions-cta">
+          {profile?.treatment === "honeymoon"
+            ? "These are the questions honeymoon families think about most. Tap any to explore."
+            : (profile?.timeSince === "years" || profile?.timeSince === "year")
+            ? "These reflect where experienced families often are. Tap any to explore."
+            : "These are very common questions. Tap any to explore an explanation."}
+        </div>
       </div>
 
       {/* ── SECTION A: THREE CORE ACTIONS — first thing seen ── */}
       <div className="home-actions">
         <div className="home-actions-headline">
           <h2>A learning companion for families navigating Type 1 Diabetes.</h2>
-          <p>Understand why glucose behaves the way it does — meals, sport, nights, illness.</p>
+          <p>Understand why blood glucose behaves the way it does — meals, sport, nights, illness.</p>
         </div>
         <div className="home-actions-grid">
           <button className="home-action-btn primary-action" onClick={() => onNavigate("explainer")}>
@@ -169,7 +230,7 @@ export default function Dashboard({ profile, onNavigate }) {
           <span className="trust-dot">·</span>
           <button className="trust-link" onClick={() => onNavigate("disclaimer")}>Disclaimer & Privacy</button>
           <span className="trust-dot">·</span>
-          <span>Built from lived experience with T1D</span>
+          <span>Built from lived experience with type 1 diabetes</span>
         </div>
       </div>
 
@@ -210,7 +271,7 @@ export default function Dashboard({ profile, onNavigate }) {
               alt="A father and daughter — the family behind Living Brilliantly with T1D"
               className="founder-photo-img"
             />
-            <div className="founder-photo-caption">When our daughter was diagnosed with Type 1 Diabetes, we began a journey of learning, resilience, and growth. This project was created to help other families navigate the same path.</div>
+            <div className="founder-photo-caption">When our daughter was diagnosed with type 1 diabetes, we began a journey of learning, resilience, and growth. This project was created to help other families navigate the same path.</div>
           </div>
 
           {/* Right: story */}
@@ -226,7 +287,7 @@ export default function Dashboard({ profile, onNavigate }) {
               Over time, something remarkable happened. Instead of defining her, diabetes became part of what shaped her resilience and purpose. <strong>Today she works for Breakthrough T1D</strong>, helping advance the search for better treatments and ultimately a cure.
             </p>
             <p className="founder-body">
-              This project grew out of that journey — built to help other families understand what we had to learn the hard way, and to feel more confident in the everyday decisions that come with T1D.
+              This project grew out of that journey — built to help other families understand what we had to learn the hard way, and to feel more confident in the everyday decisions that come with type 1 diabetes.
             </p>
             <div className="founder-actions">
               <button className="founder-cta" onClick={() => onNavigate("letter")}>
@@ -286,19 +347,24 @@ export default function Dashboard({ profile, onNavigate }) {
         <div className="ec-note">Free. No email required. Educational only — not medical advice.</div>
       </div>
 
-      {/* ── ALL FEATURES ── */}
-      <div style={{ marginBottom: 10 }}>
-        <div className="section-divider-label">📚 All features</div>
-      </div>
-      <div className="modules-grid">
-        {secondaryFeatures.map(f => (
-          <div key={f.tab} className="module-card" style={{ "--card-color": f.color }} onClick={() => onNavigate(f.tab)}>
-            <span className="module-emoji">{f.emoji}</span>
-            <h3>{f.title}</h3>
-            <p>{f.desc}</p>
+      {/* ── ALL FEATURES — GROUPED ── */}
+      {featureGroups.map(group => (
+        <div key={group.id} style={{ marginBottom: 28 }}>
+          <div className="feature-group-header">
+            <div className="feature-group-label">{group.label}</div>
+            <div className="feature-group-sub">{group.sub}</div>
           </div>
-        ))}
-      </div>
+          <div className="modules-grid">
+            {group.features.map(f => (
+              <div key={f.tab} className="module-card" style={{ "--card-color": f.color }} onClick={() => onNavigate(f.tab)}>
+                <span className="module-emoji">{f.emoji}</span>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
 
       {/* ── SECTION E: SAFETY STRIP ── */}
       <div className="safety-strip">

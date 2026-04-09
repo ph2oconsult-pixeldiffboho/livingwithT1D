@@ -40,7 +40,7 @@ const STORIES = [
     title: "The Soccer Surprise",
     color: COLORS.mint,
     childStory: "During soccer practice your glucose was steady. But hours later — even after you finished playing — your glucose started to drop. Your muscles were still using energy long after the game!",
-    parentNote: "Delayed post-exercise hypoglycaemia: muscles continue absorbing glucose to replenish glycogen stores for up to 12 hours after aerobic exercise.",
+    parentNote: "Delayed post-exercise hypoglycaemia: muscles continue absorbing glucose to replenish glycogen stores for up to 12 hours after exercise.",
     question: "Why did glucose drop so much later?",
     options: [
       { id: "muscles",  emoji: "💪", label: "Muscles still working",   correct: true,  explanation: "Exactly! Even after you stop running, your muscles keep 'drinking' glucose to refill their energy stores. It can take up to 12 hours!" },

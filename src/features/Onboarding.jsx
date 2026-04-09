@@ -34,9 +34,10 @@ export default function Onboarding({ onComplete }) {
       question: "How does your child receive insulin?",
       emoji: "💉",
       options: [
+        { value: "honeymoon",  label: "Honeymoon phase", sub: "Still producing some insulin — not yet fully insulin dependent" },
         { value: "injections", label: "Injections (MDI)", sub: "Multiple daily injections with pen or syringe" },
         { value: "pump",       label: "Insulin pump",     sub: "Continuous infusion via pump" },
-        { value: "loop",       label: "Closed-loop / hybrid", sub: "Automated insulin delivery system" },
+        { value: "loop",       label: "Hybrid closed loop", sub: "Automated insulin delivery system" },
         { value: "unsure",     label: "Not sure yet",     sub: "We're still learning" },
       ],
     },

@@ -247,9 +247,9 @@ function buildDrivers(patternId, ctx, magnitude) {
   }
 
   if (patternId === "exercise-spike") {
-    add("High-intensity activity", "Sprinting, competitive sport, and high-intensity intervals release adrenaline — which signals the liver to dump glucose for emergency fuel.", 92);
-    add("Adrenaline / stress hormones", "Competition stress amplifies the adrenaline effect, even beyond the physical activity itself.", 75);
-    if (ctx.activityLevel === "intense") add("Anaerobic effort", "Short explosive efforts are more likely to raise glucose than sustained aerobic exercise.", 85);
+    add("High-intensity activity", "Sprinting, competitive sport, and high-intensity intervals release hormones — which signal the liver to release stored glucose for emergency fuel.", 92);
+    add("Exercise stress hormones", "Competition stress amplifies the exercise hormone effect, even beyond the physical activity itself.", 75);
+    if (ctx.activityLevel === "intense") add("Anaerobic effort", "Short explosive efforts are more likely to raise glucose than sustained exercise.", 85);
   }
 
   if (patternId === "exercise-drop") {
@@ -260,7 +260,7 @@ function buildDrivers(patternId, ctx, magnitude) {
 
   if (patternId === "dawn-phenomenon") {
     add("Growth hormone (dawn phenomenon)", "The body releases growth hormone during deep sleep — especially in children. This temporarily reduces insulin effectiveness, causing glucose to rise.", 88);
-    add("Cortisol rise before waking", "Cortisol increases in the early morning to prepare the body for waking. It raises insulin resistance, contributing to morning glucose rises.", 75);
+    add("Morning hormone rise", "Hormones increase in the early morning hours to prepare the body for waking. It raises insulin resistance, contributing to morning glucose rises.", 75);
     if (ctx.activityLevel === "intense") add("Previous day's exercise may rule out Somogyi effect", "Note: intense activity earlier can cause overnight lows and a rebound rise. CGM data helps distinguish this from the dawn phenomenon.", 60);
   }
 
@@ -268,7 +268,7 @@ function buildDrivers(patternId, ctx, magnitude) {
     if (ctx.sick)                  add("Illness", "Illness triggers significant stress hormones that raise both glucose production and insulin resistance. The same insulin dose works less effectively when unwell.", 95);
     if (ctx.pumpSiteChanged === false) add("Pump infusion site", "A site that hasn't been changed recently, or is blocked/kinked, can prevent insulin from entering the body effectively.", 88);
     add("Insulin resistance", "Persistent highs that don't respond to correction often indicate elevated insulin resistance — from illness, hormones, or stress.", 72);
-    if (magnitude > 18) add("Ketone check advised", "Glucose above 18 mmol/L that is not responding warrants an immediate ketone check. Contact your diabetes team if ketones are present.", 90);
+    if (magnitude > 18) add("Ketone check advised", "Glucose above 18 mmol/L that is not responding warrants an immediate ketone check. Contact your diabetes care team if ketones are present.", 90);
   }
 
   if (patternId === "rollercoaster") {
@@ -584,7 +584,7 @@ function ExplanationPanel({ explanation, source, onFeedback, patternIds }) {
               </div>
             ))}
           </div>
-          <div className="exp-similar-note">You are not alone — these patterns are seen by families all around the world living with T1D.</div>
+          <div className="exp-similar-note">You are not alone — these patterns are seen by families all around the world living with type 1 diabetes.</div>
         </div>
       </div>
 
@@ -679,11 +679,11 @@ export default function ExplainMyGlucose() {
   const [uploadError, setUploadError] = useState(null);
 
   const DEMOS = [
-    { id: "pizza",          label: "Pizza dinner spike",         emoji: "🍕", ctx: { mealTime: "60", mealType: "highfat", insulinTiming: "at", activityLevel: "none" } },
-    { id: "exercise-spike", label: "Exercise raises glucose",    emoji: "⚽", ctx: { activityTime: "120", activityLevel: "intense", mealTime: "30", mealType: "mixed", insulinTiming: "before" } },
-    { id: "dawn",           label: "Overnight rise",             emoji: "🌙", ctx: { activityLevel: "none" } },
-    { id: "overnight-low",  label: "Post-sport night low",       emoji: "📉", ctx: { activityTime: "120", activityLevel: "intense", snackAfterActivity: false } },
-    { id: "rollercoaster",  label: "Rollercoaster day",          emoji: "🎢", ctx: { mealTime: "60", mealType: "fast", insulinTiming: "after", activityLevel: "light" } },
+    { id: "pizza",          label: "Spike hours after dinner",          emoji: "🍕", sub: "High-fat meal — delayed rise", ctx: { mealTime: "60", mealType: "highfat", insulinTiming: "at", activityLevel: "none" } },
+    { id: "exercise-spike", label: "Glucose went up after sport",       emoji: "⚡", sub: "Intense exercise — stress response", ctx: { activityTime: "120", activityLevel: "intense", mealTime: "30", mealType: "mixed", insulinTiming: "before" } },
+    { id: "dawn",           label: "Glucose rose overnight",            emoji: "🌙", sub: "Dawn phenomenon — hormones during sleep", ctx: { activityLevel: "none" } },
+    { id: "overnight-low",  label: "Low glucose after a sport day",     emoji: "📉", sub: "Delayed exercise effect overnight", ctx: { activityTime: "120", activityLevel: "intense", snackAfterActivity: false } },
+    { id: "rollercoaster",  label: "Up and down all day",               emoji: "🎢", sub: "Fast carbs and variable insulin timing", ctx: { mealTime: "60", mealType: "fast", insulinTiming: "after", activityLevel: "light" } },
   ];
 
   const saveFeedbackEntry = (vote, reason) => {
@@ -920,89 +920,15 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
     <div>
       <div className="section-header">
         <h2>🔎 Why did this happen?</h2>
-        <p>Sometimes glucose patterns can be confusing. This tool helps explain possible reasons behind what you're seeing.</p>
+        <p>Select a scenario or upload your own graph — and get a plain-language explanation of what likely caused the pattern.</p>
       </div>
 
-      {/* ── CONTEXT EXPLAINER ── */}
-      <div className="tool-context-block">
-        <p className="tool-context-intro">
-          A spike hours after dinner, a rise overnight, or a drop after sport can leave families wondering what caused it.
-          Upload a CGM screenshot and the app will help explain possible reasons behind the pattern.
-        </p>
-        <div className="tool-context-patterns-label">It looks for common situations such as:</div>
-        <div className="tool-context-patterns">
-          {[
-            { emoji: "🍕", text: "Delayed spikes after high-fat meals" },
-            { emoji: "⚽", text: "Glucose rises after intense exercise" },
-            { emoji: "🌙", text: "Overnight hormone effects" },
-            { emoji: "📉", text: "Delayed lows hours after activity" },
-            { emoji: "🤒", text: "Illness raising glucose unexpectedly" },
-            { emoji: "🌅", text: "Dawn phenomenon — early morning rises" },
-          ].map((p, i) => (
-            <div key={i} className="tool-context-pattern">
-              <span>{p.emoji}</span><span>{p.text}</span>
-            </div>
-          ))}
-        </div>
-        <div className="tool-context-goal">
-          The goal is to help families understand patterns and build confidence over time.
-        </div>
+      <div className="finger-prick-note">
+        <span>💉</span>
+        <span>No CGM? No problem. The demo scenarios work just as well for finger prick families.</span>
       </div>
 
-      {/* ── WHEN TO USE ── */}
-      <div className="tool-when-box">
-        <div className="tool-when-title">💬 When might this help?</div>
-        <p className="tool-when-intro">Use this tool when you're wondering things like:</p>
-        <div className="tool-when-questions">
-          {[
-            "Why did glucose spike hours after dinner?",
-            "Why did sport raise glucose instead of lowering it?",
-            "Why did glucose rise overnight while my child was sleeping?",
-            "Why did insulin seem slow to work today?",
-            "Why is glucose high this morning when it was fine at bedtime?",
-          ].map((q, i) => (
-            <div key={i} className="tool-when-q">
-              <span className="tool-when-bullet">→</span><span>{q}</span>
-            </div>
-          ))}
-        </div>
-        <p className="tool-when-note">These are very common questions for families navigating Type 1 Diabetes.</p>
-      </div>
-
-      {/* ── PATTERN LIBRARY OVERVIEW ── */}
-      <div className="tool-pattern-library">
-        <div className="tool-pattern-library-title">8 patterns families ask about most</div>
-        <p className="tool-pattern-library-sub">Every one of these has a clear explanation. Tap any example below — or upload your own graph.</p>
-        <img
-          src="/pattern-library.png"
-          alt="8 common CGM glucose patterns including pizza spike, exercise low, overnight rise and more"
-          className="tool-pattern-library-img"
-        />
-      </div>
-
-      {/* ── REAL EXAMPLE CHARTS ── */}
-      <div className="tool-examples-wrap">
-        <div className="tool-examples-label">Real examples — tap to see what an explanation looks like</div>
-        <div className="tool-examples-grid">
-          {[
-            { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect", demo: 0 },
-            { src: "/soccer-effect-example.png", alt: "Soccer training glucose rise", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike", demo: 1 },
-            { src: "/overnight-effect-example.png", alt: "Overnight glucose rise CGM graph", caption: "🌙 Steady rise during sleep — dawn phenomenon", tag: "Overnight rise", demo: 2 },
-            { src: "/soccer-drop-example.png", alt: "Glucose drop during soccer training", caption: "📉 Glucose falling during sport — hypo risk", tag: "Exercise drop", demo: 3 },
-          ].map((ex, i) => (
-            <div key={i} className="tool-example-card" onClick={() => loadDemo(DEMOS[ex.demo])}>
-              <img src={ex.src} alt={ex.alt} className="tool-example-img" />
-              <div className="tool-example-footer">
-                <span className="tool-example-tag">{ex.tag}</span>
-                <span className="tool-example-caption">{ex.caption}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="tool-examples-note">Tap an example to explore the pattern — or upload your own graph above.</p>
-      </div>
-
-      {/* ── UPLOAD OPTION — primary ── */}
+      {/* ── UPLOAD OPTION — action first ── */}
       <div className="upload-panel">
         <div className="upload-panel-header">
           <span style={{ fontSize: "1.8rem" }}>📸</span>
@@ -1044,7 +970,6 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
         )}
         {uploadError && !uploadImage && <div className="upload-error">{uploadError}</div>}
 
-        {/* Privacy + safety note directly under upload */}
         <div className="upload-trust-notes">
           <div className="upload-trust-row">
             <span>🔒</span><span>Your CGM image is analysed only to explain patterns and is not stored or shared.</span>
@@ -1057,7 +982,7 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
 
       {/* ── DIVIDER ── */}
       <div className="upload-divider">
-        <span>or try a demo scenario</span>
+        <span>recognise one of these?</span>
       </div>
 
       {/* ── DEMO SCENARIOS — secondary ── */}
@@ -1067,13 +992,74 @@ Return 2-3 likely_reasons. If you cannot see a clear glucose pattern, set is_cgm
             <span style={{ fontSize: "1.5rem" }}>{d.emoji}</span>
             <div>
               <div style={{ fontWeight: 800, color: COLORS.deep, fontSize: "0.9rem" }}>{d.label}</div>
-              <div style={{ fontSize: "0.78rem", color: COLORS.muted, marginTop: 2 }}>Demo · tap to load sample data</div>
+              <div style={{ fontSize: "0.78rem", color: COLORS.muted, marginTop: 2 }}>{d.sub}</div>
             </div>
             <span style={{ color: COLORS.ocean, fontSize: "1.1rem", marginLeft: "auto" }}>→</span>
           </button>
         ))}
       </div>
+
+      {/* ── EDUCATION LAST — pattern library and context ── */}
+      <div className="upload-divider" style={{ marginTop: 24 }}>
+        <span>want to understand the patterns first?</span>
+      </div>
+
+      {/* ── PATTERN LIBRARY OVERVIEW ── */}
+      <div className="tool-pattern-library">
+        <div className="tool-pattern-library-title">8 patterns families ask about most</div>
+        <p className="tool-pattern-library-sub">Every one of these has a clear explanation. Tap a demo above to explore any of them.</p>
+        <img
+          src="/pattern-library.png"
+          alt="8 common CGM glucose patterns including pizza spike, exercise low, overnight rise and more"
+          className="tool-pattern-library-img"
+        />
+      </div>
+
+      {/* ── REAL EXAMPLE CHARTS ── */}
+      <div className="tool-examples-wrap">
+        <div className="tool-examples-label">Real examples — tap to load the explanation</div>
+        <div className="tool-examples-grid">
+          {[
+            { src: "/pizza-effect-example.png", alt: "Pizza effect CGM graph", caption: "🍕 Delayed spike after pizza dinner", tag: "Pizza effect", demo: 0 },
+            { src: "/soccer-effect-example.png", alt: "Soccer training glucose rise", caption: "⚽ Glucose rise after soccer training", tag: "Exercise spike", demo: 1 },
+            { src: "/overnight-effect-example.png", alt: "Overnight glucose rise CGM graph", caption: "🌙 Steady rise during sleep — dawn phenomenon", tag: "Overnight rise", demo: 2 },
+            { src: "/soccer-drop-example.png", alt: "Glucose drop during soccer training", caption: "📉 Glucose falling during sport — hypo risk", tag: "Exercise drop", demo: 3 },
+          ].map((ex, i) => (
+            <div key={i} className="tool-example-card" onClick={() => loadDemo(DEMOS[ex.demo])}>
+              <img src={ex.src} alt={ex.alt} className="tool-example-img" />
+              <div className="tool-example-footer">
+                <span className="tool-example-tag">{ex.tag}</span>
+                <span className="tool-example-caption">{ex.caption}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="tool-examples-note">Tap any example to explore the pattern.</p>
+      </div>
+
+      {/* ── CONTEXT EXPLAINER — moved to bottom ── */}
+      <div className="tool-context-block">
+        <div className="tool-context-patterns-label">This tool helps explain</div>
+        <div className="tool-context-patterns">
+          {[
+            { emoji: "🍕", text: "Delayed spikes after high-fat meals" },
+            { emoji: "⚽", text: "Blood glucose rises after intense exercise" },
+            { emoji: "🌙", text: "Overnight hormone effects" },
+            { emoji: "📉", text: "Delayed lows hours after activity" },
+            { emoji: "🤒", text: "Illness raising blood glucose unexpectedly" },
+            { emoji: "🌅", text: "Dawn phenomenon — early morning rises" },
+          ].map((p, i) => (
+            <div key={i} className="tool-context-pattern">
+              <span>{p.emoji}</span><span>{p.text}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tool-context-goal">
+          The goal is to help families understand patterns and build confidence over time.
+        </div>
+      </div>
     </div>
+  );
   );
 
   // ── Step: Screenshot Result ────────────────────────────────────────────────
